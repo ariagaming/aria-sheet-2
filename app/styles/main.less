@@ -1,0 +1,54 @@
+
+@column1: 210px;
+
+@import 'base/colors';
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/mixins';
+
+// components
+@import './../client/modules/**/*.less';
+
+
+body {
+    background: @background;
+}
+
+
+.row {
+    margin: 0 -8px;
+    padding: 0 8px;
+    cursor: pointer;
+    
+    & > * {
+        margin-right: 3px;
+        
+        &.race {
+            color: @accent;
+        }
+        &.profession {
+            color: @effect;
+        }
+        &.xp {
+            color: @shine;
+        }
+        
+    }
+    .stat {
+        display: inline-block;
+        width: 27px; 
+        text-align: center;
+        margin-right: 0;
+    }
+    .total {
+        display: inline-block;
+        width: 21px; 
+        text-align: center;
+        margin-right: 0;
+        font-size: 11px;
+    }
+    
+    &:hover {
+        background: lightgray;
+    }
+}

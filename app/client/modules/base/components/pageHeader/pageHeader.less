@@ -1,0 +1,33 @@
+
+
+.no-border() {
+    border: none;
+}
+.input-hover() {
+    &:hover, &:focus {
+        outline: 3px solid lightblue;
+    }
+}
+
+.page-one__page-header {
+    background: url(/images/character-info.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    height: 175px;
+    width: 100%;
+    
+    position: relative;
+    
+    &__name {
+        position: absolute;
+        left: 16px;
+        top: 97px;
+        font-size: 25px;
+        width: 203px;
+        text-align: center;
+        
+        .no-border();
+        .input-hover();
+    }
+}

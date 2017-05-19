@@ -1,0 +1,46 @@
+
+
+
+.container {
+    
+    background-image: url("/images/content-border-top.png"), url("/images/content-border-bottom.png"), url("/images/content-border-middle.png"); 
+    background-repeat: no-repeat, no-repeat, repeat-y;
+    background-position: top, bottom;
+    background-size: 100% auto;
+
+    position: relative;
+    
+    width: 165px;
+    padding: 8px 15px 25px 15px;
+    font-size: 10px;
+    
+    
+    title {
+        text-transform: uppercase;
+        font-weight: bold;
+        display: inline-block;
+        position: absolute;
+        bottom: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    &__edit {
+        position: absolute;
+        bottom: 8px;
+        right: 18px;
+        display: none;
+        font-size: 24px;
+        color: @effect;
+        
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    
+    &:hover {
+        .container__edit {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,51 @@
+
+
+.statistic-info {
+    background: url(/images/content-border.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    width: 90px;
+    height: 82px;
+    
+    .title {
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 9px;
+        
+        width: 100%;
+        
+        position: absolute;
+        bottom: 10px;
+    }
+    .value {
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 30px;
+        
+    }
+    
+    position: absolute;
+    @width: 96px;
+    @left: 190px;
+    &.hp {
+        left: @left;
+    }
+    &.ap {
+        left: @left + @width;
+    }
+    &.expertise {
+        left: @left + @width * 2;
+    }
+    &.movement {
+        left: @left + @width * 3;
+    }
+    &.initiative {
+        left: @left + @width * 4;
+    }
+    &.armor {
+        left: @left + @width * 5;
+    }
+}

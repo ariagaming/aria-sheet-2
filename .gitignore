@@ -1,0 +1,25 @@
+
+# basix excludes
+.vscode
+node_modules
+elm-stuff
+
+# Exclude the build folder
+build
+./build/**/*
+
+# exclude releases folder
+releases
+
+
+# Exclude the styleguide
+styleguide
+./styleguide/**/*
+
+
+**/__snapshots__
+
+
+# exclude the log files
+*.log
+**/*.log

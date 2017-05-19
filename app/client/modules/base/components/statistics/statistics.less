@@ -1,0 +1,52 @@
+
+.center-X() {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+@margin-top: 117px;
+
+.character-statistics {
+    background: url(/images/statistics-container.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    position: absolute;
+    top: 250px;
+    left: 56px;
+    
+    width: 109px;
+    height: 459px;
+    
+    
+    &__str {
+        position: absolute;
+        top: 22px;
+    }
+    &__agi {
+        position: absolute;
+        top: 22px + @margin-top;
+    }
+    &__inu {
+        position: absolute;
+        top: 22px + @margin-top * 2;
+    }
+    &__per {
+        position: absolute;
+        top: 22px + @margin-top * 3;
+    }
+    
+    .statistic {
+        width: 100%;
+        .bonus {
+            .center-X();
+            font-size: 33px;
+        }     
+        .total {
+            .center-X();
+            top: 52px;
+        }   
+    }
+    
+}

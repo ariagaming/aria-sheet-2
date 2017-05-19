@@ -1,0 +1,304 @@
+[
+    {
+        "name": "Club",
+        "cost": "1 sp",
+        "damage": "1d4",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Dagger",
+        "cost": "2 gp",
+        "damage": "1d4",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "1 lb."
+    },
+    {
+        "name": "Greatclub",
+        "cost": "2 sp",
+        "damage": "1d8",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "10 lb."
+    },
+    {
+        "name": "Handaxe",
+        "cost": "5 gp",
+        "damage": "1d6",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Javelin",
+        "cost": "5 sp",
+        "damage": "1d6",
+        "type": "piercing",
+        "ranged": true,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Light Hammer",
+        "cost": "2 gp",
+        "damage": "1d4",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Mace",
+        "cost": "5 gp",
+        "damage": "1d6",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "4 lb."
+    },
+    {
+        "name": "Quarterstaff",
+        "cost": "2 sp",
+        "damage": "1d6",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "4 lb."
+    },
+    {
+        "name": "Sickle",
+        "cost": "1 gp",
+        "damage": "1d4",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Spear",
+        "cost": "1 gp",
+        "damage": "1d6",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "3 lb."
+    },
+    {
+        "name": "Crossbow, light\n",
+        "cost": "25 gp",
+        "damage": "1d8",
+        "type": "piercing",
+        "ranged": true,
+        "weight": "5 lb."
+    },
+    {
+        "name": "Dart",
+        "cost": "5 cp",
+        "damage": "1d4",
+        "type": "piercing",
+        "ranged": true,
+        "weight": "1/4 lb."
+    },
+    {
+        "name": "Shortbow",
+        "cost": "25 gp",
+        "damage": "1d6",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Sling",
+        "cost": "1 sp",
+        "damage": "1d4",
+        "type": "bludgeoning",
+        "ranged": true,
+        "weight": "—"
+    },
+    {
+        "name": "Battleaxe",
+        "cost": "10 gp",
+        "damage": "1d8",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "4 lb."
+    },
+    {
+        "name": "Flail",
+        "cost": "10 gp",
+        "damage": "1d8",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Glaive",
+        "cost": "20 gp",
+        "damage": "1d10",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "6 lb."
+    },
+    {
+        "name": "Greataxe",
+        "cost": "30 gp",
+        "damage": "1d12",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "7 lb."
+    },
+    {
+        "name": "Greatsword",
+        "cost": "50 gp",
+        "damage": "2d6",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "6 lb."
+    },
+    {
+        "name": "Halberd",
+        "cost": "20 gp",
+        "damage": "1d10",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "6 lb."
+    },
+    {
+        "name": "Lance",
+        "cost": "10 gp",
+        "damage": "1d12",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "6 lb."
+    },
+    {
+        "name": "Longsword",
+        "cost": "15 gp",
+        "damage": "1d8",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "3 lb."
+    },
+    {
+        "name": "Maul",
+        "cost": "10 gp",
+        "damage": "2d6",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "10 lb."
+    },
+    {
+        "name": "Morningstar",
+        "cost": "15 gp",
+        "damage": "1d8",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "4 lb."
+    },
+    {
+        "name": "Pike",
+        "cost": "5 gp",
+        "damage": "1d10",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "18 lb."
+    },
+    {
+        "name": "Rapier",
+        "cost": "25 gp",
+        "damage": "1d8",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Scimitar",
+        "cost": "25 gp",
+        "damage": "1d6",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "3 lb."
+    },
+    {
+        "name": "Shortsword",
+        "cost": "10 gp",
+        "damage": "1d6",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Trident",
+        "cost": "5 gp",
+        "damage": "1d6",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "4 lb."
+    },
+    {
+        "name": "War Pick",
+        "cost": "5 gp",
+        "damage": "1d8",
+        "type": "piercing",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Warhammer",
+        "cost": "15 gp",
+        "damage": "1d8",
+        "type": "bludgeoning",
+        "ranged": false,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Whip",
+        "cost": "2 gp",
+        "damage": "1d4",
+        "type": "slashing",
+        "ranged": false,
+        "weight": "3 lb."
+    },
+    {
+        "name": "Blowgun",
+        "cost": "10 gp",
+        "damage": "1",
+        "type": "piercing",
+        "ranged": true,
+        "weight": "1 lb."
+    },
+    {
+        "name": "Crossbow, hand",
+        "cost": "75 gp",
+        "damage": "1d6",
+        "type": "piercing",
+        "ranged": true,
+        "weight": "3 lb."
+    },
+    {
+        "name": "Crossbow, heavy",
+        "cost": "50 gp",
+        "damage": "1d10",
+        "type": "piercing",
+        "ranged": true,
+        "weight": "18 lb."
+    },
+    {
+        "name": "Longbow",
+        "cost": "50 gp",
+        "damage": "1d8",
+        "type": "piercing",
+        "ranged": true,
+        "weight": "2 lb."
+    },
+    {
+        "name": "Net",
+        "cost": "1 gp",
+        "damage": "—",
+        "ranged": false,
+        "weight": "3 lb."
+    },
+    {
+        "name": "Source",
+        "cost": "25 gp",
+        "type": "magical",
+        "ranged": true,
+        "weight": "4 lb."
+    }
+]

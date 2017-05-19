@@ -1,0 +1,164 @@
+{
+    "data": {
+        "generalSpells": [
+            {
+                "name": "Detect Magic",
+                "rank": 0,
+                "ranks": [
+                    {
+                        "level": 0,
+                        "description": "50 INI for 3AP, You can see the flows of magic. Your magic skill against the skill of the caster trying to hide his/her magic."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Hide Magic",
+                "rank": 0,
+                "ranks": [
+                    {
+                        "level": 0,
+                        "description": "3AP, you hide a magical item from detect magic for 1 hour.."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Banish Demon",
+                "rank": -1,
+                "ranks": [
+                    {
+                        "level": 2,
+                        "description": "You can try and send a Demon back to the real it came from using your mental acuity."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Polymorph",
+                "rank": -1,
+                "ranks": [
+                    {
+                        "level": [
+                            2,
+                            4,
+                            6,
+                            8,
+                            10,
+                            12,
+                            14,
+                            16,
+                            18,
+                            20
+                        ],
+                        "description": "You can polymorph a target (including yourself) into an animal for <%= rank * 5 %> minutes."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Resistance",
+                "rank": 0,
+                "ranks": [
+                    {
+                        "level": [
+                            0,
+                            2,
+                            4,
+                            6,
+                            8,
+                            10,
+                            12,
+                            14,
+                            16,
+                            18
+                        ],
+                        "description": "You gain a <%= rank + 1 %> bonus to every resistance roll."
+                    }
+                ],
+                "type": "defensive"
+            },
+            {
+                "name": "Teleport",
+                "rank": -1,
+                "ranks": [
+                    {
+                        "level": [
+                            5,
+                            10,
+                            15,
+                            20,
+                            25,
+                            30
+                        ],
+                        "description": "You can teleport <%= rank %> people."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Gate",
+                "rank": -1,
+                "ranks": [
+                    {
+                        "level": [
+                            4,
+                            8,
+                            12,
+                            16,
+                            20,
+                            24
+                        ],
+                        "description": "You can create a <%= 2 + rank %>m diameter stable wormhole between two places you have studied and know really well or which you can see. While keeping the gate open you can't do anything else. The gate automatically ends when you walk through it. Creating the gate and keeping it open costs 3 AP every <%= 8 + rank * 2 %> seconds. 1 person can walk through every 8 seconds."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Minor heal",
+                "rank": -1,
+                "ranks": [
+                    {
+                        "level": 0,
+                        "description": "You can regenerate wounds at 1 HP per 30 INI on touch. Costs 1 AP per HP."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Focus",
+                "rank": -1,
+                "ranks": [
+                    {
+                        "level": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9,
+                            10
+                        ],
+                        "description": "You can buff a target with a +<%= rank %> to all skills. (+<%= rank %> to Expertise)."
+                    }
+                ],
+                "type": "custom"
+            },
+            {
+                "name": "Minor Illusion",
+                "rank": -1,
+                "ranks": [
+                    {
+                        "level": 1,
+                        "description": "You can create a minor static illusion or simple sound. These illusions must be mundane stati illusions like a door or a rock."
+                    }
+                ],
+                "type": "custom"
+            }
+        ]
+    }
+}
