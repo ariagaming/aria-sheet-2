@@ -8,13 +8,20 @@ import { createStore } from 'redux';
 import characterReducer from './modules/character/reducer';
 
 import __character from './modules/character/mocks/__character';
+import __races from './modules/character/mocks/__races';
 
-const initialState = {
+let initialState = {
     character: __character,
+    data: {
+        races: __races
+    },
     dialog: {
-        shown: false
+        shown: false,
+        raceDialogShown: false,
+        index: 0
     }
 };
+
 const store = createStore(characterReducer, initialState);
 
 render(

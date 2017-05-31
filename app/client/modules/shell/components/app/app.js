@@ -4,6 +4,7 @@ import Page from './../../../base/components/page/page';
 import PageOne from './../../../base/components/pageOne/pageOne';
 import PageContainer from './../../../base/components/pageContainer/pageContainer';
 import Dialog from './../../../base/components/dialog/dialog';
+import RaceDialog from './../../../base/components/dialog/raceDialog';
 import { connect } from 'react-redux';
 
 /**
@@ -11,9 +12,9 @@ import { connect } from 'react-redux';
  */
 class App extends React.Component {
     render() {
-        const { shown } = this.props.dialog;
+        const shown = this.props.dialog.shown || this.props.dialog.raceDialogShown;
         return (
-            <div>
+            <div className={shown ? "root noscroll" : "root"}>
 
                 <PageContainer>
                     <PageOne />
@@ -22,6 +23,7 @@ class App extends React.Component {
                 </PageContainer>
 
                 <Dialog pages={[]} show={shown} />
+                <RaceDialog />
 
             </div>
         );

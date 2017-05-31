@@ -15,7 +15,7 @@ class Skills extends Component {
         const Fill = source => <i className={"fa fa-circle " + source}></i>;
         const Empty = <i className="fa fa-circle-o"></i>;
         const pages = [
-            { title: 'edit buyable', content: <EditBuyable prop="skills" type="xp" /> }
+            { title: 'edit buyable', content: <EditBuyable prop="skills" source="xp" /> }
         ]
 
         return (

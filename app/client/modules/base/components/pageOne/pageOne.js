@@ -26,7 +26,7 @@ class PageOne extends Component {
         return (
             <Page character={character}>
                 {/* Character Information */}
-                <PageHeader character={character} />
+                <PageHeader />
 
                 {/* Statistics and extra information */}
                 <Statistics character={character} />

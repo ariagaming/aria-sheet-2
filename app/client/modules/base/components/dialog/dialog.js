@@ -9,44 +9,50 @@ import { connect } from 'react-redux';
  */
 class Dialog extends Component {
 
-    componentWillMount() {
-        this.setState({ index: 0 });
-    }
-
     render() {
+        const { dialog, show, hideDialog, updateCharacter, turnPage } = this.props;
+        const pages = (() => {
+            if (this.props.children && this.props.children.length > 0) return null;
+            else {
+                return dialog ? (dialog.pages ? dialog.pages : null) : null;
+            }
+        })();
+        const index = dialog ? dialog.index : 0;
 
-        const { dialog, show, hideDialog, updateCharacter, title } = this.props;
-        const pages = dialog ? (dialog.pages ? dialog.pages : []) : [];
-
+        const onInforPageClick = (index) => {
+            return () => turnPage(index);
+        }
         const getContent = () => {
             // return nothing if there are no pages
             if (!pages || pages.length === 0) return <div>No Content</div>;
             // return the first page
-            const page = React.cloneElement(pages[this.state.index].content, {
-                character: this.props.character,
-                newCharacter: JSON.parse(JSON.stringify(this.props.character))
-            });
-            return page;
+            return React.cloneElement(pages[index].content, {});
         }
+        const getTitle = () => {
+            // return nothing if there are no pages
+            if (!pages || pages.length === 0) return "Dialog";
+            else return pages[index].title;
+        }
+
 
         return (
             <div className={"dialog-container " + (show ? "show" : "")}>
                 <div className="dialog">
                     <div className="dialog__header">
-                        <span>{title || "Dialog"}</span>
+                        <span>{getTitle() || "Dialog"}</span>
                     </div>
                     <div className="dialog__content">
                         {
-                            getContent()
+                            this.props.children ? this.props.children : getContent()
                         }
                     </div>
                     <div className="dialog__footer">
 
                         <div className="dialog__footer__pages">
                             {
-                                pages.map((p, i) => {
+                                (pages || this.props.children || []).map((p, i) => {
                                     return (
-                                        <div key={i} className="info-page" onClick={() => this.setState({ ...this.state, index: i })}>
+                                        <div key={i} className={"info-page " + (index === i ? "selected" : "")} onClick={onInforPageClick(i)}>
                                             <span>{i + 1}</span>
                                         </div>
                                     )
@@ -75,7 +81,7 @@ Dialog.propTypes = {
     title: string,
     pages: arrayOf(shape({
         title: string.isRequired
-    })).isRequired
+    }))
 }
 
 Dialog.defaultProps = {
@@ -96,6 +102,12 @@ const mapDispatcherToProps = (dispatcher, ownProps) => {
         updateCharacter: () => {
             dispatcher({
                 type: 'UPDATE_CHARACTER'
+            });
+        },
+        turnPage: (index) => {
+            dispatcher({
+                type: 'TURN_PAGE',
+                payload: index
             });
         }
     }

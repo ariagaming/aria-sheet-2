@@ -3,9 +3,13 @@
 .no-border() {
     border: none;
 }
-.input-hover() {
+.input-hover(@pointer) {
     &:hover, &:focus {
         outline: 3px solid lightblue;
+    }
+    
+    & when (@pointer = true) {
+        cursor: pointer;
     }
 }
 
@@ -28,6 +32,14 @@
         text-align: center;
         
         .no-border();
-        .input-hover();
+        .input-hover(false);
+    }
+     
+    &__race {
+        position: absolute;
+        left: 246px;
+        top: 116px;
+        
+        .input-hover(true);
     }
 }

@@ -1,6 +1,10 @@
 
 import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
+import { connect } from 'react-redux';
+
+import EditBuyable from './../other/editBuyable';
+
 
 /**
  * This is the basic description of the PageHeader component. This will be shown in the
@@ -8,14 +12,17 @@ import { string, shape } from 'prop-types';
  */
 class PageHeader extends Component {
     render() {
-        const { name } = this.props.character;
+        const { character, showEditRaceDialog, newCharacter } = this.props;
+        const { name, race } = character;
+        const { title, skillPoints } = race;
+
         return (
             <div className="page-one__page-header">
                 <input className="page-one__page-header__name" defaultValue={name} />
-            </div>
+                <span className="page-one__page-header__race" onClick={showEditRaceDialog}>{race.title}</span>
+            </div >
         );
     }
-
 }
 
 PageHeader.propTypes = {
@@ -35,6 +42,21 @@ PageHeader.defaultProps = {
     name: "component-pageHeader"
 }
 
+const mapStateToProps = (state) => {
+    return state;
+};
+const mapDispatcherToProps = (dispatcher) => {
+    return {
+        showEditRaceDialog: () => {
+            dispatcher({
+                type: "SHOW_RACE_DIALOG"
+            });
+        }
+    }
+}
 
-export default PageHeader;
+const __PageHeader = connect(mapStateToProps, mapDispatcherToProps)(PageHeader);
+
+
+export default __PageHeader;
 

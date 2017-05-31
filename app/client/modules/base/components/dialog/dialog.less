@@ -56,6 +56,7 @@
             left: 0;
             right: 0;
             padding: 1em;
+            overflow-y: auto;
         }
         
         &__footer {
@@ -87,6 +88,11 @@
                     transform: translate(-50%, -50%);
                 }
                 
+                &.selected {
+                    background: @effect;
+                    border-color: @effect;
+                }
+                
                 &:active {
                     background: darken(@accent, 10%);
                 }
@@ -108,4 +114,20 @@
             
         }
     }   
+}
+
+.dialog-page {
+    
+    visibility: hidden;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1em;
+    
+    &.show {
+        visibility: visible; 
+    }
 }

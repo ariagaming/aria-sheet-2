@@ -28,6 +28,9 @@ const character = {
     "expertise": {
         "total": 0
     },
+    "race": {
+        "title": "Unknown"
+    },
     "playerName": "unknown",
     "weapons": [],
     "equipment": [

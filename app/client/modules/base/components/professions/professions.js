@@ -16,7 +16,7 @@ class Professions extends Component {
 
         const pages = [
             {
-                title: 'page 01', content: <EditBuyable prop="professions" type="xp" />
+                title: 'page 01', content: <EditBuyable prop="professions" source="xp" />
             }
         ];
 

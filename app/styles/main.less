@@ -9,11 +9,28 @@
 // components
 @import './../client/modules/**/*.less';
 
-
+html {
+    height: 100%;
+    overflow: hidden;
+}
 body {
     background: @background;
+    overflow: hidden;
+    height: 100%;
+}
+#jsx-app {
+    overflow: hidden;
+    height: 100%;
 }
 
+.root {
+    overflow: auto;
+    min-height: 100%;
+    position: relative;
+    &.noscroll {
+        overflow: hidden;
+    }
+}
 
 .row {
     margin: 0 -8px;
@@ -51,4 +68,8 @@ body {
     &:hover {
         background: lightgray;
     }
+}
+
+.noscroll {
+    overflow: hidden;
 }

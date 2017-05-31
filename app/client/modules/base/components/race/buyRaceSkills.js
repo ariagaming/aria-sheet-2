@@ -8,11 +8,13 @@ import { string, number } from 'prop-types';
 /**
  * Edit Professions
  */
-class EditBuyable extends Component {
+class BuyRaceSkills extends Component {
     render() {
+        const { newCharacter, source, buy } = this.props;
+        if (!newCharacter) return null;
 
-        const { newCharacter, buy, source, prop, max } = this.props;
-        const list = newCharacter[prop];
+        const max = newCharacter.race.skillPoints + (newCharacter.race.skills || []).length;
+        const list = newCharacter.skills;
         const remaining = list.reduce((acc, l) => {
             let total = 0;
             if (l.bought === source) {
@@ -31,7 +33,7 @@ class EditBuyable extends Component {
                 If you do not give a prop 'max' you can keep buying.
                  */
                 if (!max || remaining > 0 || buyable.bought === source || buyable.expertise === source) {
-                    buy(prop, buyable, source);
+                    buy(prop, buyable, source, max);
                 }
             }
         }
@@ -43,7 +45,7 @@ class EditBuyable extends Component {
                     list.map((buyable, i) => {
                         const { bought, expertise, title } = buyable;
                         return (
-                            <div key={i} className="row" onClick={buyItem(prop, buyable, source, max)}>
+                            <div key={i} className="row" onClick={buyItem("skills", buyable, source, max)}>
                                 {skillDot(bought)}
                                 {skillDot(expertise)}
                                 <span className="title"> {title}</span>
@@ -54,12 +56,6 @@ class EditBuyable extends Component {
             </div >
         );
     }
-}
-
-EditBuyable.propTypes = {
-    prop: string.isRequired,
-    max: number,
-    source: string.isRequired
 }
 
 
@@ -81,6 +77,6 @@ const mapDispatcherToProps = (dispatcher, ownProps) => {
         }
     }
 }
-const __EditBuyable = connect(mapStateToProps, mapDispatcherToProps)(EditBuyable);
+const __BuyRaceSkills = connect(mapStateToProps, mapDispatcherToProps)(BuyRaceSkills);
 
-export default __EditBuyable;
+export default __BuyRaceSkills;
