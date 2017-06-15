@@ -19,7 +19,7 @@ class Skills extends Component {
         ]
 
         return (
-            <Container className="skills" title="Skills" pages={pages}>
+            <Container className="bordered skills" title="Skills" pages={pages}>
                 {
                     skills.map((skill, i) => {
                         const { bought, expertise, title, stat, total } = skill;

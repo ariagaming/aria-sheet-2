@@ -32,9 +32,35 @@ body {
     }
 }
 
+title {
+    display: block;
+}
+
+.actions {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99999;
+    
+    color: transparent;
+    padding: 1em;
+    font-size: 2em;
+    
+    &:hover {
+        color: gray;
+    }
+    
+    .action {
+        display: inline-block;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
 .row {
-    margin: 0 -8px;
-    padding: 0 8px;
+    margin: 0 -8px 0 -8px;
+    padding: 0 8px 0 8px;
     cursor: pointer;
     
     & > * {
@@ -68,8 +94,142 @@ body {
     &:hover {
         background: lightgray;
     }
+    
+    &.selected {
+        background: @accent;
+        color: white;
+    }
+}
+
+.tile {
+    border: 1px solid @accent;
+    position: relative;
+    background: @accent;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    color: white;
+    cursor: pointer;
+    margin: 0 10px 10px 0;
+    
+    &:hover {
+        background: @effect;
+        border-color: @effect;
+    }
+    
+    &.selected {
+        @d: darken(@effect, 10%);
+        background: @d;
+        border-color: @d;
+    }
+    
+    span {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .noscroll {
     overflow: hidden;
+}
+
+.grid {
+    display: flex;
+    overflow-x: hidden;
+    * {
+        flex: 1;
+    }
+}
+
+.field {
+    margin-bottom: 0.5em;
+    display: flex;
+    
+    label {
+        flex: 1;
+        
+        &:after {
+            content: ':';
+        }
+    }
+    
+    input, textarea {
+        flex: 4;
+        border: 1px solid lightgray;
+        outline: none;
+        
+        &:focus {
+            outline: 2px solid lightblue;
+        }
+    }
+    
+    input[type="number"] {
+        width: 50px;
+        text-align: center;
+        
+    }
+    
+    textarea {
+        height: 8em;
+    }
+    
+    
+    &.stacked {
+        label {
+            flex: none;
+            width: 45px;
+        }
+        input, textarea {
+            flex: none;
+            margin-left: 1em;
+        }
+    }
+    
+    &.spread {
+        * {
+            &:first-child {
+                flex: 4;
+            }
+            flex: 1;
+        }
+        
+        &--evenly {
+            
+            * {
+                flex-grow: 0;
+                flex-shrink: 1;
+            }
+            
+            input { width: 40px; }
+            span { 
+                display: inline-block; 
+                margin: 0 5px;
+                
+                &:first-child {
+                    width: 200px;
+                }
+            }
+        }
+    }
+    
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid lightblue;
+    i {
+        display: inline-block;
+        margin-right: 5px;
+    }
+    &:hover {
+        background: @effect;
+        color: white;
+        cursor: pointer;
+    }
+    margin-bottom: 1em;
+    margin-left: 2px;
 }

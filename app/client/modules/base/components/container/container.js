@@ -20,9 +20,13 @@ class Container extends Component {
                 {this.props.children}
                 <title>{title}</title>
 
-                <div className="container__edit">
-                    <i className="fa fa-pencil" onClick={click}></i>
-                </div>
+                {
+                    pages ?
+                        <div className="container__edit">
+                            <i className="fa fa-pencil" onClick={click}></i>
+                        </div> :
+                        null
+                }
             </div>
         );
     }

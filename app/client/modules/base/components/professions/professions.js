@@ -15,14 +15,12 @@ class Professions extends Component {
         const { professions } = this.props.character;
 
         const pages = [
-            {
-                title: 'page 01', content: <EditBuyable prop="professions" source="xp" />
-            }
+            { title: 'page 01', content: <EditBuyable prop="professions" source="xp" /> }
         ];
 
 
         return (
-            <Container className="professions" title="Professions" pages={pages}>
+            <Container className="bordered professions" title="Professions" pages={pages}>
                 {
                     professions.map((profession, i) => {
                         const { bought, expertise, title, stat, total } = profession;

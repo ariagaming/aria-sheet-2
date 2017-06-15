@@ -9,11 +9,17 @@ import characterReducer from './modules/character/reducer';
 
 import __character from './modules/character/mocks/__character';
 import __races from './modules/character/mocks/__races';
+import __professions from './modules/character/mocks/__classes';
+import __weapons from './modules/character/mocks/__weapons';
+
+const character = JSON.parse(localStorage.getItem("character"));
 
 let initialState = {
-    character: __character,
+    character: (character || __character),
     data: {
-        races: __races
+        races: __races,
+        professions: __professions,
+        weapons: __weapons
     },
     dialog: {
         shown: false,

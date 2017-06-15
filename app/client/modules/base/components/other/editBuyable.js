@@ -38,19 +38,21 @@ class EditBuyable extends Component {
 
         return (
             <div>
-                <h2>Remaining: {remaining}</h2>
-                {
-                    list.map((buyable, i) => {
-                        const { bought, expertise, title } = buyable;
-                        return (
-                            <div key={i} className="row" onClick={buyItem(prop, buyable, source, max)}>
-                                {skillDot(bought)}
-                                {skillDot(expertise)}
-                                <span className="title"> {title}</span>
-                            </div>
-                        )
-                    })
-                }
+                {remaining < 900 ? <h2>Remaining: {remaining}</h2> : null}
+                <div className="list">
+                    {
+                        list.map((buyable, i) => {
+                            const { bought, expertise, title } = buyable;
+                            return (
+                                <div key={i} className="row" onClick={buyItem(prop, buyable, source, max)}>
+                                    {skillDot(bought)}
+                                    {skillDot(expertise)}
+                                    <span className="title"> {title}</span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div >
         );
     }

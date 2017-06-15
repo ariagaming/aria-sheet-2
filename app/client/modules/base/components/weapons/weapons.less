@@ -1,5 +1,4 @@
 
-
 .weapons {
     
     .bordered();
@@ -7,11 +6,38 @@
     font-size: 9px;
     
     width: 370px;
-    height: 211px;
+    height: 150px;
     padding: 1em;
     
     position: absolute;
     left: 389px;
-    top: 695px;
+    top: 756px;
     
+}
+
+
+.weapon-container {
+    display: flex;
+    height: 100%;
+    
+    &__list {
+        flex: 1;
+    }
+    
+    &__details {
+        flex: 3;
+        overflow-y: auto;
+        
+        title {
+            display: block;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }   
+        
+        .fa {
+            cursor: pointer;
+        }
+    }
 }

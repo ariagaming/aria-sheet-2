@@ -19,7 +19,7 @@ class Resistances extends Component {
         ]
 
         return (
-            <Container className="resistances" title="Resistances" pages={pages}>
+            <Container className="bordered resistances" title="Resistances" pages={pages}>
                 {
                     resistances.map((skill, i) => {
                         const { bought, expertise, title, stat, total } = skill;
@@ -27,8 +27,6 @@ class Resistances extends Component {
                             <div key={i} className="row">
                                 {bought ? Fill(bought) : Empty}
                                 {expertise ? Fill(expertise) : Empty}
-                                <span className="total">{total || 0}</span>
-                                {/*<span className="stat">{stat}</span>*/}
                                 <span className="title">{title}</span>
                             </div>
                         )
@@ -37,19 +35,6 @@ class Resistances extends Component {
             </Container>
         );
     }
-}
-
-
-Resistances.propTypes = {
-    /**
-     * Every component should at least have a name.
-     */
-    name: PropTypes.string,
-    character: characterDefinition.isRequired
-}
-
-Resistances.defaultProps = {
-    name: "component-Resistances"
 }
 
 export default Resistances;

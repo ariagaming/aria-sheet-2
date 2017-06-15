@@ -8,12 +8,12 @@ import { string, number } from 'prop-types';
 /**
  * Edit Professions
  */
-class BuyRaceSkills extends Component {
+class BuyProfessionSkills extends Component {
     render() {
         const { newCharacter, source, buy } = this.props;
-        if (!newCharacter) return null;
+        if (!newCharacter || !newCharacter.classes.length === 0) return null;
 
-        const max = newCharacter.race.skillPoints + (newCharacter.race.skills || []).length;
+        const max = newCharacter.classes[0].skillPoints + (newCharacter.classes[0].skills || []).length;
         const list = newCharacter.skills;
         const remaining = list.reduce((acc, l) => {
             let total = 0;
@@ -79,6 +79,6 @@ const mapDispatcherToProps = (dispatcher, ownProps) => {
         }
     }
 }
-const __BuyRaceSkills = connect(mapStateToProps, mapDispatcherToProps)(BuyRaceSkills);
+const __BuyProfessionSkills = connect(mapStateToProps, mapDispatcherToProps)(BuyProfessionSkills);
 
-export default __BuyRaceSkills;
+export default __BuyProfessionSkills;

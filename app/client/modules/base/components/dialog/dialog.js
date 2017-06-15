@@ -26,7 +26,7 @@ class Dialog extends Component {
             // return nothing if there are no pages
             if (!pages || pages.length === 0) return <div>No Content</div>;
             // return the first page
-            return React.cloneElement(pages[index].content, {});
+            return React.cloneElement(pages[index].content, { newCharacter: this.props.newCharacter });
         }
         const getTitle = () => {
             // return nothing if there are no pages
@@ -50,7 +50,7 @@ class Dialog extends Component {
 
                         <div className="dialog__footer__pages">
                             {
-                                (pages || this.props.children || []).map((p, i) => {
+                                (pages || (this.props.children ? (this.props.children.map ? this.props.children : [this.props.children]) : []) || []).map((p, i) => {
                                     return (
                                         <div key={i} className={"info-page " + (index === i ? "selected" : "")} onClick={onInforPageClick(i)}>
                                             <span>{i + 1}</span>

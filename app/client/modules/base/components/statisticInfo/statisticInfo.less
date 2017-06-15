@@ -5,31 +5,41 @@
     background-size: contain;
     background-repeat: no-repeat;
     
-    width: 90px;
+    margin-top: 10px;
+    
+    width: 75px;
     height: 82px;
     
     .title {
         text-transform: uppercase;
         text-align: center;
-        font-size: 9px;
+        font-size: 8px;
         
         width: 100%;
         
         position: absolute;
-        bottom: 10px;
+        bottom: 16px;
     }
     .value {
         position: absolute;
         top: 7px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 30px;
-        
+        font-size: 27px;
+        .prefix {
+            font-size: 13px;   
+        }
+    }
+    .postfix {
+        font-size: 9px;
+        position: absolute;
+        top: 29px;
+        right: 15px;
     }
     
     position: absolute;
-    @width: 96px;
-    @left: 190px;
+    @width: 85px;
+    @left: 178px;
     &.hp {
         left: @left;
     }
@@ -47,5 +57,12 @@
     }
     &.armor {
         left: @left + @width * 5;
+    }
+    &.magic-armor {
+        left: @left + @width * 6;
+    }
+    
+    &.has-click {
+        cursor: pointer;
     }
 }

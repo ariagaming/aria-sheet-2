@@ -10,26 +10,40 @@ import { connect } from 'react-redux';
 class Specialization extends Component {
     render() {
         const { newCharacter, selectSpecialization } = this.props;
-        if (!newCharacter) return null;
-
-        const selectedSpecialization = newCharacter.race.title;
-        const { races } = this.props.data;
-        const __selectRace = (race) => {
+        const __selectSpecialization = (classTitle, specialization) => {
             return () => {
-                selectRace(race);
+                selectSpecialization(classTitle, specialization);
             }
-        };
+        }
+        if (!newCharacter) return null;
 
         return (
             <div>
                 {
-                    races.map((r, i) => {
+
+                    newCharacter.classes.map((c, i) => {
                         return (
-                            <div key={i} className={"tile" + (selectedRace === r.title ? " selected" : "")} onClick={__selectRace(r)}>
-                                <span>{r.title}</span>
+                            <div key={i}>
+                                <title>{c.title}</title>
+                                {
+                                    c.specializations ?
+
+                                        c.specializations.map((s, j) => {
+                                            return (
+                                                <div className={"tile" + (s.selected ? " selected" : "")}
+                                                    key={j}
+                                                    onClick={__selectSpecialization(c.title, s.title)}>
+                                                    <span>{s.title}</span>
+                                                </div>
+                                            )
+                                        }) :
+
+                                        <span>No Specialization</span>
+                                }
                             </div>
-                        )
+                        );
                     })
+
                 }
             </div>
         );
@@ -40,10 +54,10 @@ class Specialization extends Component {
 const mapStateToProps = state => state;
 const mapDispatchToProps = (dispatcher) => {
     return {
-        selectSpecialization: (specialization) => {
+        selectSpecialization: (classTitle, specialization) => {
             dispatcher({
-                type: 'RACE_SPECIALIZATION',
-                payload: specialization
+                type: 'PROFESSION_SPECIALIZATION',
+                payload: { classTitle, specialization }
             });
         }
     }

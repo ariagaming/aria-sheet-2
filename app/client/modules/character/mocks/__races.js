@@ -14,21 +14,20 @@ export default [
         },
         "languages": [
             {
-                "name": "Language of choice",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language of choice",
+                "bought": "race",
+                "expertise": "race"
             },
             {
-                "name": "Language Common",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language Common",
+                "bought": "race",
+                "expertise": false
             }
         ],
-        "skills": []
+        "skills": [],
+        "resistances": [],
+        "professions": [],
+        "feats": []
     },
     {
         "title": "Elf",
@@ -44,24 +43,19 @@ export default [
         },
         "languages": [
             {
-                "name": "Language Elvish",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language Elvish",
+                "bought": "race",
+                "expertise": "race"
             },
             {
-                "name": "Language Old",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language Old",
+                "bought": "race",
+                "expertise": "race"
             },
             {
-                "name": "Language Common",
-                "bought": true,
-                "expertise": false,
-                "boughtSource": "race"
+                "title": "Language Common",
+                "bought": "race",
+                "expertise": false
             }
         ],
         "resistances": [
@@ -71,13 +65,12 @@ export default [
             "Ballistic skill"
         ],
         "professions": [
-            {
-                "name": "Medic"
-            }
+            "Medic"
         ],
         "specials": [
             "Night Vision"
-        ]
+        ],
+        "feats": []
     },
     {
         "title": "Dwarf",
@@ -93,37 +86,31 @@ export default [
         },
         "languages": [
             {
-                "name": "Language Dwarvish",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language Dwarvish",
+                "bought": "race",
+                "expertise": "race"
             },
             {
-                "name": "Language Common",
-                "bought": true,
-                "expertise": false,
-                "boughtSource": "race"
+                "title": "Language Common",
+                "bought": "race",
+                "expertise": false
             }
         ],
         "resistances": [
-            {
-                "name": "Strength"
-            }
+            "Strength"
         ],
         "skills": [
             "Weapon skill"
         ],
         "professions": [
-            {
-                "name": "Miner"
-            }
+            "Miner"
         ],
         "specials": [
             {
-                "name": "Dark vision"
+                "title": "Dark vision"
             }
-        ]
+        ],
+        "feats": []
     },
     {
         "title": "Indir",
@@ -139,17 +126,13 @@ export default [
         },
         "languages": [
             {
-                "name": "Language Common",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language Common",
+                "bought": "race",
+                "expertise": "race"
             }
         ],
         "resistances": [
-            {
-                "name": "Strength"
-            }
+            "Strength"
         ],
         "skills": [
             "Weapon skill",
@@ -158,7 +141,8 @@ export default [
         "professions": [],
         "specials": [
             "Packing mule"
-        ]
+        ],
+        "feats": []
     },
     {
         "title": "Etilan",
@@ -174,32 +158,24 @@ export default [
         },
         "languages": [
             {
-                "name": "Language Common",
-                "bought": true,
-                "expertise": false,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language Common",
+                "bought": "race",
+                "expertise": false
             },
             {
-                "name": "Language Etilan",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Language Etilan",
+                "bought": "race",
+                "expertise": "race"
             },
             {
-                "name": "Elvish",
-                "bought": true,
-                "expertise": false,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Elvish",
+                "bought": "race",
+                "expertise": "race"
             },
             {
-                "name": "Old tongue",
-                "bought": true,
-                "expertise": true,
-                "boughtSource": "race",
-                "expertiseSource": "race"
+                "title": "Old tongue",
+                "bought": "race",
+                "expertise": "race"
             }
         ],
         "resistances": [
@@ -213,9 +189,12 @@ export default [
         "professions": [],
         "specials": [
             {
-                "name": "Cast Magic",
+                "title": "Cast Magic",
                 "description": "Can cast magic"
             }
+        ],
+        "feats": [
+            { "title": "Scholar", "value": 2 }
         ]
     }
 ]

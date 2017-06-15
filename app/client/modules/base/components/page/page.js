@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 class Page extends Component {
 
     render() {
-        //const clone = { ...this.props };
+        const { className } = this.props;
         return (
-            <div className="page">
+            <div className={"page" + (className ? ` ${className}` : '')}>
                 {
-                    React.Children.map(this.props.children, child => {
-                        return React.cloneElement(child, this.props);
-                    })
+                    this.props.children
                 }
             </div>
         )

@@ -1,4 +1,4 @@
-[
+export default [
     {
         "title": "Warrior",
         "name": "Warrior",
@@ -13,14 +13,15 @@
             "PER": 0
         },
         "skills": [
-            "Weapon skill",
-            "Ballistic skill"
+            "Weapon Skill",
+            "Ballistic Skill"
         ],
         "resistances": [
             "Strength"
         ],
         "specializations": [
             {
+                "title": "Barbarian",
                 "name": "Barbarian",
                 "spells": [
                     {
@@ -76,6 +77,7 @@
                 ]
             },
             {
+                "title": "Soldier",
                 "name": "Soldier",
                 "spells": [
                     {
@@ -131,6 +133,7 @@
                 ]
             },
             {
+                "title": "Protector",
                 "name": "Protector",
                 "spells": []
             }
@@ -151,8 +154,8 @@
             "PER": 3
         },
         "skills": [
-            "Weapon skill",
-            "Ballistic skill",
+            "Weapon Skill",
+            "Ballistic Skill",
             "Concoct Poison"
         ],
         "languages": [
@@ -220,8 +223,8 @@
             "PER": 4
         },
         "skills": [
-            "Weapon skill",
-            "Ballistic skill"
+            "Weapon Skill",
+            "Ballistic Skill"
         ],
         "languages": [],
         "spells": [

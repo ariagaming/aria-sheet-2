@@ -3,16 +3,17 @@
 
 .container {
     
-    background-image: url("/images/content-border-top.png"), url("/images/content-border-bottom.png"), url("/images/content-border-middle.png"); 
-    background-repeat: no-repeat, no-repeat, repeat-y;
-    background-position: top, bottom;
-    background-size: 100% auto;
-
-    position: relative;
+    &.bordered {
     
-    width: 165px;
-    padding: 8px 15px 25px 15px;
-    font-size: 10px;
+        background-image: url("/images/content-border-top.png"), url("/images/content-border-bottom.png"), url("/images/content-border-middle.png"); 
+        background-repeat: no-repeat, no-repeat, repeat-y;
+        background-position: top, bottom;
+        background-size: 100% auto;
+        
+        //width: 165px;
+        padding: 8px 15px 25px 15px;
+        font-size: 10px;
+    }
     
     
     title {
@@ -23,6 +24,7 @@
         bottom: 7px;
         left: 50%;
         transform: translateX(-50%);
+        white-space: nowrap;
     }
     
     &__edit {

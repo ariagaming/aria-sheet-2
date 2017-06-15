@@ -8,10 +8,12 @@ import { string, number } from 'prop-types';
  */
 class StatisticInfo extends Component {
     render() {
+        const { onClick, type } = this.props;
         return (
-            <div className={"statistic-info " + this.props.type}>
-                <span className="value">{this.props.value}</span>
+            <div className={"statistic-info" + (type ? ` ${type}` : '') + (onClick ? ` has-click` : '')} onClick={onClick || (() => { })}>
+                <span className="value"><span className="prefix">{this.props.prefix || ""}</span>{this.props.value}</span>
                 <span className="title">{this.props.title}</span>
+                <span className="postfix">{this.props.postfix}</span>
             </div>
         );
     }
@@ -25,7 +27,8 @@ StatisticInfo.propTypes = {
     name: string,
     title: string.isRequired,
     value: number.isRequired,
-    type: string.isRequired
+    type: string.isRequired,
+    postfix: string
 }
 
 StatisticInfo.defaultProps = {

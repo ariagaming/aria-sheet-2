@@ -11,7 +11,7 @@ import Container from './../container/container';
 class Specials extends Component {
     render() {
         return (
-            <Container title="Specials" className="specials">
+            <Container title="Specials" className="bordered specials">
                 Specials
             </Container>
         );

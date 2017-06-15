@@ -1,6 +1,6 @@
-[
+export default [
     {
-        "name": "Club",
+        "title": "Club",
         "cost": "1 sp",
         "damage": "1d4",
         "type": "bludgeoning",
@@ -8,7 +8,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Dagger",
+        "title": "Dagger",
         "cost": "2 gp",
         "damage": "1d4",
         "type": "piercing",
@@ -16,7 +16,7 @@
         "weight": "1 lb."
     },
     {
-        "name": "Greatclub",
+        "title": "Greatclub",
         "cost": "2 sp",
         "damage": "1d8",
         "type": "bludgeoning",
@@ -24,7 +24,7 @@
         "weight": "10 lb."
     },
     {
-        "name": "Handaxe",
+        "title": "Handaxe",
         "cost": "5 gp",
         "damage": "1d6",
         "type": "slashing",
@@ -32,7 +32,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Javelin",
+        "title": "Javelin",
         "cost": "5 sp",
         "damage": "1d6",
         "type": "piercing",
@@ -40,7 +40,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Light Hammer",
+        "title": "Light Hammer",
         "cost": "2 gp",
         "damage": "1d4",
         "type": "bludgeoning",
@@ -48,7 +48,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Mace",
+        "title": "Mace",
         "cost": "5 gp",
         "damage": "1d6",
         "type": "bludgeoning",
@@ -56,7 +56,7 @@
         "weight": "4 lb."
     },
     {
-        "name": "Quarterstaff",
+        "title": "Quarterstaff",
         "cost": "2 sp",
         "damage": "1d6",
         "type": "bludgeoning",
@@ -64,7 +64,7 @@
         "weight": "4 lb."
     },
     {
-        "name": "Sickle",
+        "title": "Sickle",
         "cost": "1 gp",
         "damage": "1d4",
         "type": "slashing",
@@ -72,7 +72,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Spear",
+        "title": "Spear",
         "cost": "1 gp",
         "damage": "1d6",
         "type": "piercing",
@@ -80,7 +80,7 @@
         "weight": "3 lb."
     },
     {
-        "name": "Crossbow, light\n",
+        "title": "Crossbow, light\n",
         "cost": "25 gp",
         "damage": "1d8",
         "type": "piercing",
@@ -88,7 +88,7 @@
         "weight": "5 lb."
     },
     {
-        "name": "Dart",
+        "title": "Dart",
         "cost": "5 cp",
         "damage": "1d4",
         "type": "piercing",
@@ -96,7 +96,7 @@
         "weight": "1/4 lb."
     },
     {
-        "name": "Shortbow",
+        "title": "Shortbow",
         "cost": "25 gp",
         "damage": "1d6",
         "type": "piercing",
@@ -104,7 +104,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Sling",
+        "title": "Sling",
         "cost": "1 sp",
         "damage": "1d4",
         "type": "bludgeoning",
@@ -112,7 +112,7 @@
         "weight": "—"
     },
     {
-        "name": "Battleaxe",
+        "title": "Battleaxe",
         "cost": "10 gp",
         "damage": "1d8",
         "type": "slashing",
@@ -120,7 +120,7 @@
         "weight": "4 lb."
     },
     {
-        "name": "Flail",
+        "title": "Flail",
         "cost": "10 gp",
         "damage": "1d8",
         "type": "bludgeoning",
@@ -128,7 +128,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Glaive",
+        "title": "Glaive",
         "cost": "20 gp",
         "damage": "1d10",
         "type": "slashing",
@@ -136,7 +136,7 @@
         "weight": "6 lb."
     },
     {
-        "name": "Greataxe",
+        "title": "Greataxe",
         "cost": "30 gp",
         "damage": "1d12",
         "type": "slashing",
@@ -144,7 +144,7 @@
         "weight": "7 lb."
     },
     {
-        "name": "Greatsword",
+        "title": "Greatsword",
         "cost": "50 gp",
         "damage": "2d6",
         "type": "slashing",
@@ -152,7 +152,7 @@
         "weight": "6 lb."
     },
     {
-        "name": "Halberd",
+        "title": "Halberd",
         "cost": "20 gp",
         "damage": "1d10",
         "type": "slashing",
@@ -160,7 +160,7 @@
         "weight": "6 lb."
     },
     {
-        "name": "Lance",
+        "title": "Lance",
         "cost": "10 gp",
         "damage": "1d12",
         "type": "piercing",
@@ -168,7 +168,7 @@
         "weight": "6 lb."
     },
     {
-        "name": "Longsword",
+        "title": "Longsword",
         "cost": "15 gp",
         "damage": "1d8",
         "type": "slashing",
@@ -176,7 +176,7 @@
         "weight": "3 lb."
     },
     {
-        "name": "Maul",
+        "title": "Maul",
         "cost": "10 gp",
         "damage": "2d6",
         "type": "bludgeoning",
@@ -184,7 +184,7 @@
         "weight": "10 lb."
     },
     {
-        "name": "Morningstar",
+        "title": "Morningstar",
         "cost": "15 gp",
         "damage": "1d8",
         "type": "piercing",
@@ -192,7 +192,7 @@
         "weight": "4 lb."
     },
     {
-        "name": "Pike",
+        "title": "Pike",
         "cost": "5 gp",
         "damage": "1d10",
         "type": "piercing",
@@ -200,7 +200,7 @@
         "weight": "18 lb."
     },
     {
-        "name": "Rapier",
+        "title": "Rapier",
         "cost": "25 gp",
         "damage": "1d8",
         "type": "piercing",
@@ -208,7 +208,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Scimitar",
+        "title": "Scimitar",
         "cost": "25 gp",
         "damage": "1d6",
         "type": "slashing",
@@ -216,7 +216,7 @@
         "weight": "3 lb."
     },
     {
-        "name": "Shortsword",
+        "title": "Shortsword",
         "cost": "10 gp",
         "damage": "1d6",
         "type": "piercing",
@@ -224,7 +224,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Trident",
+        "title": "Trident",
         "cost": "5 gp",
         "damage": "1d6",
         "type": "piercing",
@@ -232,7 +232,7 @@
         "weight": "4 lb."
     },
     {
-        "name": "War Pick",
+        "title": "War Pick",
         "cost": "5 gp",
         "damage": "1d8",
         "type": "piercing",
@@ -240,7 +240,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Warhammer",
+        "title": "Warhammer",
         "cost": "15 gp",
         "damage": "1d8",
         "type": "bludgeoning",
@@ -248,7 +248,7 @@
         "weight": "2 lb."
     },
     {
-        "name": "Whip",
+        "title": "Whip",
         "cost": "2 gp",
         "damage": "1d4",
         "type": "slashing",
@@ -256,7 +256,7 @@
         "weight": "3 lb."
     },
     {
-        "name": "Blowgun",
+        "title": "Blowgun",
         "cost": "10 gp",
         "damage": "1",
         "type": "piercing",
@@ -264,7 +264,7 @@
         "weight": "1 lb."
     },
     {
-        "name": "Crossbow, hand",
+        "title": "Crossbow, hand",
         "cost": "75 gp",
         "damage": "1d6",
         "type": "piercing",
@@ -272,7 +272,7 @@
         "weight": "3 lb."
     },
     {
-        "name": "Crossbow, heavy",
+        "title": "Crossbow, heavy",
         "cost": "50 gp",
         "damage": "1d10",
         "type": "piercing",
@@ -280,7 +280,7 @@
         "weight": "18 lb."
     },
     {
-        "name": "Longbow",
+        "title": "Longbow",
         "cost": "50 gp",
         "damage": "1d8",
         "type": "piercing",
@@ -288,14 +288,14 @@
         "weight": "2 lb."
     },
     {
-        "name": "Net",
+        "title": "Net",
         "cost": "1 gp",
         "damage": "—",
         "ranged": false,
         "weight": "3 lb."
     },
     {
-        "name": "Source",
+        "title": "Source",
         "cost": "25 gp",
         "type": "magical",
         "ranged": true,

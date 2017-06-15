@@ -12,15 +12,20 @@ import EditBuyable from './../other/editBuyable';
  */
 class PageHeader extends Component {
     render() {
-        const { character, showEditRaceDialog, newCharacter } = this.props;
-        const { name, race } = character;
+        const { character, showEditRaceDialog, showEditProfessionDialog, changeName, newCharacter } = this.props;
+        const { name, race, classes } = character;
         const { title, skillPoints } = race;
+        const changeCharacterName = (event) => {
+            changeName(event.target.value);
+        }
 
         return (
             <div className="page-one__page-header">
-                <input className="page-one__page-header__name" defaultValue={name} />
+                <input className="page-one__page-header__name" value={name} onChange={changeCharacterName} />
                 <span className="page-one__page-header__race" onClick={showEditRaceDialog}>{race.title}</span>
-            </div >
+                <span className="page-one__page-header__level">{character.level}</span>
+                <span className="page-one__page-header__profession" onClick={showEditProfessionDialog}>{classes.map(c => c.title).join(", ")}</span>
+            </div>
         );
     }
 }
@@ -51,6 +56,17 @@ const mapDispatcherToProps = (dispatcher) => {
             dispatcher({
                 type: "SHOW_RACE_DIALOG"
             });
+        },
+        showEditProfessionDialog: () => {
+            dispatcher({
+                type: "SHOW_PROFESSION_DIALOG"
+            });
+        },
+        changeName: (name) => {
+            dispatcher({
+                type: "CHANGE_NAME",
+                payload: name
+            })
         }
     }
 }

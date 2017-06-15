@@ -3,12 +3,13 @@
 .equipment {
     
     width: 368px;
+    padding-bottom: 30px;
     
     position: absolute;
     top: 346px;
     left: 390px;
     
-    font-size: 12px;    
+    font-size: 10px;    
  
     .equipment-item {
         padding-bottom: 7px;
@@ -34,4 +35,30 @@
         }
         
     }   
+}
+
+.eq-container {
+    display: flex;
+    height: 100%;
+    
+    &__list {
+        flex: 1;
+    }
+    
+    &__details {
+        flex: 3;
+        overflow-y: auto;
+        
+        title {
+            display: block;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }   
+        
+        .fa {
+            cursor: pointer;
+        }
+    }
 }

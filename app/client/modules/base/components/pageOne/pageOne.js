@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
  */
 class PageOne extends Component {
     render() {
-        const { character } = this.props;
+        const { character, showArmorDialog } = this.props;
         return (
             <Page character={character}>
                 {/* Character Information */}
@@ -33,10 +33,11 @@ class PageOne extends Component {
 
                 <StatisticInfo type="hp" value={character.hp.total} title="hp" />
                 <StatisticInfo type="ap" value={character.ap} title="ap" />
-                <StatisticInfo type="expertise" value={character.expertise.total} title="expertise" />
-                <StatisticInfo type="movement" value={character.movement.total} title="movement" />
+                <StatisticInfo type="expertise" value={character.expertise.total} title="expertise" prefix="+" />
+                <StatisticInfo type="movement" value={character.movement.total} title="movement" postfix="ft" />
                 <StatisticInfo type="initiative" value={character.initiative.total} title="initiative" />
-                <StatisticInfo type="armor" value={character.armor.total} title="armor" />
+                <StatisticInfo type="armor" value={character.armor.total} title="armor" postfix="%" onClick={showArmorDialog} />
+                <StatisticInfo type="magic-armor" value={character.magicArmor.total} title="Magic Armor" postfix="%" onClick={showArmorDialog} />
 
 
                 {/* Skills */}
@@ -51,23 +52,19 @@ class PageOne extends Component {
             </Page>
         );
     }
-
-    static propTypes = {
-        /**
-         * Every component should at least have a name.
-         */
-        name: string
-    }
-
-    static defaultProps = {
-        name: "component-pageOne"
-    }
 }
 
 const mapStateToProps = (state, ownProps) => {
     return state;
 }
-const __PageOne = connect(mapStateToProps)(PageOne);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        showArmorDialog: () => {
+            dispatch({ type: 'SHOW_ARMOR_DIALOG' });
+        }
+    }
+}
+const __PageOne = connect(mapStateToProps, mapDispatchToProps)(PageOne);
 
 export default __PageOne;
 
