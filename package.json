@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.15.2",
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",

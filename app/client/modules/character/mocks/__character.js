@@ -648,7 +648,8 @@ const character = {
             "factor": 3,
             "sign": "+"
         }
-    ]
+    ],
+    "spells": []
 }
 
 

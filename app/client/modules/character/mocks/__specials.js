@@ -1,4 +1,4 @@
-[
+export default [
     {
         "name": "Bullwark",
         "description": "Increase your armor by 2",
@@ -12,11 +12,11 @@
     },
     {
         "name": "Regenerate",
-        "description": "Regenerate 1 HP per recuperation",
+        "description": "Regenerate 2 HP per recuperation",
         "feats": [
             {
                 "name": "Regenerate",
-                "value": 1
+                "value": 2
             }
         ],
         "resistances": []
@@ -29,7 +29,7 @@
     },
     {
         "name": "Sixth Sense",
-        "description": "Can't be surprised both in and out of combat, costs 3 AP, can only trigger once every 10 INI.",
+        "description": "Can't be surprised both in and out of combat; when triggered costs 3 AP, can only trigger once every 10 INI.",
         "feats": [],
         "resistances": []
     },

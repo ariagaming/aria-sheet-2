@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import Page from './../../../base/components/page/page';
 import PageOne from './../../../base/components/pageOne/pageOne';
+import PageTwo from './../../../base/components/pageTwo/pageTwo';
 import PageThree from './../../../base/components/pageThree/pageThree';
 import PageContainer from './../../../base/components/pageContainer/pageContainer';
 import Dialog from './../../../base/components/dialog/dialog';
@@ -27,7 +28,7 @@ class App extends React.Component {
 
                 <PageContainer>
                     <PageOne />
-                    <Page />
+                    <PageTwo />
                     <PageThree />
                 </PageContainer>
 

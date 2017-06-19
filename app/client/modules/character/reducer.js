@@ -67,6 +67,23 @@ const characterReducer = (state = {}, action) => {
                 }
             }
 
+        case 'SET_ACTIVE_WEAPON':
+            return {
+                ...state,
+                newCharacter: {
+                    ...state.character,
+                    weapons: state.character.weapons.map(w => {
+                        if (w.title === action.payload.title) {
+                            w.isActive = true;
+                        }
+                        else {
+                            w.isActive = false;
+                        }
+                        return w;
+                    })
+                }
+            };
+
         case 'CHANGE_ARMOR':
             const locations = ["head", "shoulders", "body", "torso", "arms", "legs", "feet"];
             newCharacter = {
@@ -204,6 +221,7 @@ const characterReducer = (state = {}, action) => {
                 return feat;
             });
 
+            const raceSpells = [...state.newCharacter.spells].concat(action.payload.spells || []);
 
             newCharacter = {
                 ...state.newCharacter,
@@ -213,6 +231,7 @@ const characterReducer = (state = {}, action) => {
                 resistances: updateList("resistances"),
                 professions: updateList("professions"),
                 feats: newFeats,
+                spells: raceSpells,
                 languages: action.payload.languages || []
             };
 
@@ -244,12 +263,15 @@ const characterReducer = (state = {}, action) => {
                 factor: (action.payload.HPFactor || 1)
             }
 
+            const profSpells = [...state.newCharacter.spells].concat(action.payload.spells || []);
+
 
             newCharacter = {
                 ...state.newCharacter,
                 hp: hp,
                 classes: newClasses,
-                skills: newSkills
+                skills: newSkills,
+                spells: profSpells
             };
 
             return { ...state, newCharacter };
@@ -285,7 +307,6 @@ const characterReducer = (state = {}, action) => {
         case 'UPDATE_CHARACTER':
 
             const c = JSON.parse(JSON.stringify(state.newCharacter));
-
 
             /* STATISTICS */
             c.statistics.STR.race = c.race.stats ? c.race.stats.STR : 0;
@@ -421,6 +442,7 @@ const characterReducer = (state = {}, action) => {
                 professionsDialogShown: false,
                 pages: []
             };
+            console.log(c.spells);
             return { ...state, dialog, character: c, newCharacter: null };
 
         default:
