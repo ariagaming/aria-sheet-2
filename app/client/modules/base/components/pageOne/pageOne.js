@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { string, object } from 'prop-types';
 import PageHeader from './../pageHeader/pageHeader';
 import Skills from './../skills/skills';
+import XPInfo from './../xpInfo/xpInfo';
 import Professions from './../professions/professions';
 import Resistances from './../resistances/resistances';
 import Equipment from './../equipment/equipment';
@@ -23,8 +24,9 @@ import { connect } from 'react-redux';
 class PageOne extends Component {
     render() {
         const { character, showArmorDialog } = this.props;
+
         return (
-            <Page character={character}>
+            <Page>
                 {/* Character Information */}
                 <PageHeader />
 
@@ -39,6 +41,7 @@ class PageOne extends Component {
                 <StatisticInfo type="armor" value={character.armor.total} title="armor" postfix="%" onClick={showArmorDialog} />
                 <StatisticInfo type="magic-armor" value={character.magicArmor.total} title="Magic Armor" postfix="%" onClick={showArmorDialog} />
 
+                <XPInfo />
 
                 {/* Skills */}
                 <Skills character={character} />

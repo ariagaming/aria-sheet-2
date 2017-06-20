@@ -40,20 +40,31 @@ title {
     position: fixed;
     top: 0;
     right: 0;
+    left: 0;
+    //height: 40px;
+    
     z-index: 99999;
     
-    color: transparent;
-    padding: 1em;
-    font-size: 2em;
-    
-    &:hover {
-        color: gray;
-    }
+    background: white;
+    color: darkgrey;
+    border-bottom: 1px solid gray;
     
     .action {
         display: inline-block;
+        font-size: 1.5em;
+        margin: 3px 1em;
         &:hover {
             cursor: pointer;
+            color: black;
+        }
+        line-height: 10px;
+        i {
+            display: block;
+            text-align: center;
+        }
+        label {
+            margin-top: -1em;
+            font-size: 9px;
         }
     }
 }

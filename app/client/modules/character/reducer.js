@@ -1,15 +1,24 @@
 
+import firebase from 'firebase';
+
 /**
  * The default character reducer
  * @param {*} state 
  * @param {*} action 
  */
 const characterReducer = (state = {}, action) => {
-    //debugger;
-    //console.log(state.character.race);
+    const database = firebase.database();
     console.log('ACTION: %c ' + action.type, 'color:blue');
     let newCharacter;
     switch (action.type) {
+
+        case "SET_USER":
+            return { ...state, user: action.payload };
+
+        case 'GET_USER_CHARACTERS':
+
+            return { ...state };
+
         case "CHANGE_NAME":
             return { ...state, character: { ...state.character, name: action.payload } };
 
@@ -25,6 +34,25 @@ const characterReducer = (state = {}, action) => {
         case 'SHOW_PROFESSION_DIALOG':
             newCharacter = JSON.parse(JSON.stringify(state.character));
             return { ...state, dialog: { ...state.dialog, professionsDialogShown: true, index: 0 }, newCharacter };
+
+        case 'SHOW_SELECT_CHARACTER_DIALOG':
+            return {
+                ...state,
+                dialog: {
+                    ...state.dialog,
+                    selectCharacterDialogShown: true
+                }
+            }
+        case 'SELECT_CHARACTER':
+            return {
+                ...state,
+                newCharacter: { ...action.payload }
+            }
+        case 'SET_CHARACTERS':
+            return {
+                ...state,
+                characters: [...(action.payload || [])]
+            }
 
         case 'SHOW_ARMOR_DIALOG':
             newCharacter = JSON.parse(JSON.stringify(state.character));
@@ -42,6 +70,7 @@ const characterReducer = (state = {}, action) => {
                     armorDialogShown: false,
                     raceDialogShown: false,
                     professionsDialogShown: false,
+                    selectCharacterDialogShown: false,
                     pages: []
                 }
             };
@@ -86,6 +115,7 @@ const characterReducer = (state = {}, action) => {
 
         case 'CHANGE_ARMOR':
             const locations = ["head", "shoulders", "body", "torso", "arms", "legs", "feet"];
+            console.log(action.payload);
             newCharacter = {
                 ...state.newCharacter,
                 armor: {
@@ -95,7 +125,7 @@ const characterReducer = (state = {}, action) => {
                 },
                 movement: {
                     ...state.newCharacter.movement,
-                    armor: (action.payload.movement || 2)
+                    armor: (action.payload.movement || 0)
                 },
                 equipment: state.newCharacter.equipment.map(eq => {
                     if (locations.indexOf(eq.location) > -1) {
@@ -106,9 +136,49 @@ const characterReducer = (state = {}, action) => {
             }
             return { ...state, newCharacter };
 
+        case "CLOSE_DEFAULT_DIALOG":
+            return {
+                ...state,
+                dialog: {
+                    title: "",
+                    showDialog: false,
+                    description: ""
+                }
+            }
+
         case 'SAVE_CHARACTER':
-            localStorage.setItem('character', JSON.stringify(state.character));
-            return state;
+            const { name } = state.character;
+            if (name && name.length > 2 && name.toLowerCase() !== "new character") {
+
+                const characterKey = state.character.id || database.ref().child('characters').push().key;
+                const character = {
+                    ...state.character,
+                    email: (state.character.email || state.user.email),
+                    id: characterKey
+                };
+                const item = { id: character.id, user: character.email, name: character.name };
+                let updates = {};
+                updates['/characters/' + characterKey] = item;
+                updates['/user-characters/' + character.email.replace('.', '&dot&') + '/' + characterKey] = character;
+
+                setTimeout(() => {
+                    firebase.database().ref().update(updates);
+                });
+
+                return {
+                    ...state,
+                    character
+                };
+            } else {
+                return {
+                    ...state,
+                    dialog: {
+                        title: "No character name",
+                        showDialog: true,
+                        description: "Your character should have a name"
+                    }
+                };
+            }
 
         case 'BUY':
             newCharacter = state.newCharacter;
@@ -324,7 +394,8 @@ const characterReducer = (state = {}, action) => {
                 c.statistics.AGI.race + c.statistics.AGI.base + c.statistics.AGI.equipment +
                 c.statistics.AGI.weapon + c.statistics.AGI.profession;
             c.statistics.AGI.bonus = Math.floor(c.statistics.AGI.total / 10);
-            c.armor.stats = c.statistics.AGI.bonus;
+            // 3 AGI bonus ranks you get 1 armor rank.
+            c.armor.stats = Math.floor(c.statistics.AGI.bonus / 3);
 
             c.statistics.INU.race = c.race.stats ? c.race.stats.INU : 0;
             c.statistics.INU.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.INU || 0), 0);
@@ -434,15 +505,32 @@ const characterReducer = (state = {}, action) => {
                 total: (c.hp.rank + c.level + (c.statistics.STR.bonus * c.hp.factor)) * (c.hp.base + c.hp.feats)
             }
 
+
+            let __xp = [3, 7, 12, 18, 25, 33, 42, 52, 63, 75, 88];
+            let $xp =
+                c.skills.reduce((acc, skill) => {
+                    return acc + (skill.bought === "xp" ? 3 : 0) + (skill.expertise === "xp" ? 4 : 0);
+                }, 0) +
+                c.feats.reduce((acc, feat) => {
+                    if (feat.bought === 0) return acc;
+                    return acc + __xp[feat.bought + -1];
+                }, 0);
+
+            c.XP = {
+                ...c.XP,
+                filled: $xp
+            };
+
             let dialog = {
                 ...state.dialog,
                 shown: false,
                 armorDialogShown: false,
                 raceDialogShown: false,
                 professionsDialogShown: false,
+                selectCharacterDialogShown: false,
                 pages: []
             };
-            console.log(c.spells);
+
             return { ...state, dialog, character: c, newCharacter: null };
 
         default:
