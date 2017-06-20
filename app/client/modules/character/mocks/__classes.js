@@ -531,15 +531,18 @@ export default [
                 "ranks": [
                     {
                         "rank": 0,
-                        "level": [
-                            0,
-                            1,
-                            3,
-                            5,
-                            7,
-                            10
-                        ],
-                        "description": "Generates a shield granting <%= rank + 1%> armor"
+                        "level": 0,
+                        "description": "Generates a shield granting 5% armor"
+                    },
+                    {
+                        "rank": 1,
+                        "level": 5,
+                        "description": "Generates a shield granting 10% armor"
+                    },
+                    {
+                        "rank": 2,
+                        "level": 12,
+                        "description": "Generates a shield granting 15% armor"
                     }
                 ]
             },

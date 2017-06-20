@@ -1,0 +1,42 @@
+
+@page {
+    size: A4;
+    margin: 0cm;
+    padding: 0cm;
+}
+
+
+@media print {
+    *, *:before, *:after {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+    }
+    html, body, body, body > *, body > * > * {
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+    }
+    
+    body {
+        overflow: visible;
+    }
+    
+    // .page-container {
+    //     display:flex;
+    //     flex-direction: column;
+                
+    //     margin: 0;
+    //     padding: 0;
+    //     visibility: hidden;
+    // }
+    .page {
+        visibility: visible;
+        padding: 0;
+        margin: 0;
+        border: none;
+        width: 21cm;
+        height: 29.7cm;
+        page-break-after: always;
+    }
+    
+}

@@ -44,6 +44,7 @@ const characterReducer = (state = {}, action) => {
                 }
             }
         case 'SELECT_CHARACTER':
+            localStorage.setItem('character', JSON.stringify(action.payload));
             return {
                 ...state,
                 newCharacter: { ...action.payload }
@@ -180,6 +181,59 @@ const characterReducer = (state = {}, action) => {
                 };
             }
 
+        case 'ADD_LANGUAGE':
+            newCharacter = state.newCharacter;
+            const LanguageExists = state.newCharacter.languages.filter(l => l.title === action.payload).length > 0;
+            if (!LanguageExists) {
+                return {
+                    ...state,
+                    newCharacter: {
+                        ...state.newCharacter,
+                        languages: [...state.newCharacter.languages, { title: action.payload, bought: false, expertise: false, total: 0 }]
+                    }
+                }
+            }
+            else {
+                return { ...state };
+            }
+
+        case 'REMOVE_LANGUAGE':
+            /*
+            Remove a language by title. action.payload should only be the title
+            */
+            return {
+                ...state,
+                newCharacter: {
+                    ...state.newCharacter,
+                    languages: state.newCharacter.languages.filter(l => l.title !== action.payload)
+                }
+            };
+        case 'BUY_LANGUAGE':
+            const newLanguages = state.newCharacter.languages.map(l => {
+                if (l.title === action.payload.title) {
+                    if (l.expertise === "xp" && l.bought === "xp") {
+                        return { ...l, bought: false, expertise: false };
+                    }
+                    else if (l.expertise === "xp" && l.bought) {
+                        return { ...l, expertise: false };
+                    }
+                    else if (!l.expertise && l.bought) {
+                        return { ...l, expertise: "xp" };
+                    }
+                    else if (!l.bought) {
+                        return { ...l, bought: "xp" };
+                    }
+                }
+                return l;
+            });
+            return {
+                ...state,
+                newCharacter: {
+                    ...state.newCharacter,
+                    languages: newLanguages
+                }
+            }
+
         case 'BUY':
             newCharacter = state.newCharacter;
             let remaining = 1000;
@@ -198,31 +252,17 @@ const characterReducer = (state = {}, action) => {
             }
             const n = newCharacter[prop].map(b => {
                 if (b.title === buyable.title) {
-                    if (remaining > 0) {
-                        if (b.expertise) {
-                            b.bought = (b.bought === source ? false : b.bought);
-                            b.expertise = (b.expertise === source ? false : b.expertise);
-
-                            if (!b.bought && b.expertise) {
-                                b.bought = b.expertise;
-                                b.expertise = false;
-                            }
-                        }
-                        else if (b.bought) {
-                            b.expertise = source;
-                        }
-                        else {
-                            b.bought = source;
-                        }
+                    if (b.expertise === source && b.bought === source) {
+                        return { ...b, bought: false, expertise: false };
                     }
-                    else {
-                        b.bought = (b.bought === source ? false : b.bought);
-                        b.expertise = (b.expertise === source ? false : b.expertise);
-
-                        if (!b.bought && b.expertise) {
-                            b.bought = b.expertise;
-                            b.expertise = false;
-                        }
+                    else if (b.expertise === source && b.bought) {
+                        return { ...b, expertise: false };
+                    }
+                    else if (!b.expertise && b.bought) {
+                        return { ...b, expertise: source };
+                    }
+                    else if (!b.bought) {
+                        return { ...b, bought: source };
                     }
                 }
                 return b;
