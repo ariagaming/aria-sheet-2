@@ -7,6 +7,7 @@ import Page from './page';
 import SelectProfession from './../professions/selectProfession';
 import SelectSpecialization from './../professions/specialization';
 import BuyProfessionSkills from './../professions/buyProfessionSkills';
+import SpellConfiguration from './../spellConfiguration/spellConfiguration';
 
 /**
  * 
@@ -21,6 +22,7 @@ class ProfessionsDialog extends Component {
                 <Page show={index === 0}><SelectProfession /></Page>
                 <Page show={index === 1}><SelectSpecialization /></Page>
                 <Page show={index === 2}><BuyProfessionSkills newCharacter={newCharacter} source="profession" /></Page>
+                <Page show={index === 3}><SpellConfiguration source="professions" /></Page>
             </Dialog>
         );
     }

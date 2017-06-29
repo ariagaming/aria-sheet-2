@@ -7,8 +7,8 @@ export default [
         "HPFactor": 2,
         "professionPoints": 0,
         "stats": {
-            "STR": 7,
-            "AGI": 7,
+            "STR": 10,
+            "AGI": 4,
             "INU": 0,
             "PER": 0
         },
@@ -19,15 +19,21 @@ export default [
         "resistances": [
             "Strength"
         ],
+        "spells": [
+            { "level": 0, "title": "Something", "description": "This is the something spell" }
+        ],
         "specializations": [
             {
                 "title": "Barbarian",
                 "name": "Barbarian",
+                "feats": [
+                    { "title": "DMG adjstm.", "value": 2 }
+                ],
                 "spells": [
                     {
                         "level": 1,
                         "title": "Rage I",
-                        "description": "Every 5 HP you loose grants +1 DMG per attack (with a maximum of 2 * lvl damage)"
+                        "description": "Every 5 HP you loose grants +1 DMG per attack (with a maximum of <%= 2 * lvl %> damage)"
                     },
                     {
                         "level": 2,
@@ -79,6 +85,11 @@ export default [
             {
                 "title": "Soldier",
                 "name": "Soldier",
+                "feats": [
+                    { "title": "WS Expertise", "value": 1 },
+                    { "title": "BS Expertise", "value": 1 },
+                    { "title": "Roll modifier", "value": 1 }
+                ],
                 "spells": [
                     {
                         "level": 1,
@@ -135,7 +146,62 @@ export default [
             {
                 "title": "Protector",
                 "name": "Protector",
-                "spells": []
+                "feats": [
+                    { "title": "Toughness", "value": 2 },
+                    { "title": "Endurance", "value": 1 }
+                ],
+                "spells": [
+                    {
+                        "level": 1,
+                        "title": "Tactician I",
+                        "description": "Every 5 HP you loose grants +1 skill and +1 AP per recuperation."
+                    },
+                    {
+                        "level": 2,
+                        "title": "Expose weakness I",
+                        "description": "-1 Armor for the target"
+                    },
+                    {
+                        "level": 3,
+                        "title": "Revenge I",
+                        "description": "Grants +2 DMG"
+                    },
+                    {
+                        "level": 4,
+                        "title": "Effortless",
+                        "description": "+25% chance to refund AP for an action, these AP you get refunded may be shared with the party."
+                    },
+                    {
+                        "level": 5,
+                        "title": "Divide and Conquer",
+                        "description": "You get +2 AP per recuperation but you must give these AP to your party."
+                    },
+                    {
+                        "level": 6,
+                        "title": "Overflow",
+                        "description": "Every action point you give to a party member counts as two action points."
+                    },
+                    {
+                        "level": 7,
+                        "title": "Survey the field",
+                        "description": "When you concentrate on the battle and do not take any other actions then a slow walk you get 3AP per 10 Initiative and can devide these amongst the party."
+                    },
+                    {
+                        "level": 8,
+                        "title": "Intervene",
+                        "description": "Force a target to attack another target in your party for 30 INI. This target automatically positions themselves to attack this new target; walking away from their original target."
+                    },
+                    {
+                        "level": 9,
+                        "title": "Indomitable will",
+                        "description": "For the next 30 INI you regenerate 1 AP per Initiative which you can give to any party member or keep for yourself. Can only occur once per day."
+                    },
+                    {
+                        "level": 10,
+                        "title": "Disarray",
+                        "description": "Every target of the party suffers a -6 to skill rolls for 30 INI, their damage is halved and they have a 50% chance their spells fail (World die check higher than 10). They will not intercept party members attacking other targets."
+                    }
+                ]
             }
         ],
         "languages": [],
@@ -148,10 +214,10 @@ export default [
         "skillPoints": 2,
         "professionPoints": 1,
         "stats": {
-            "STR": 3,
-            "AGI": 7,
-            "INU": 3,
-            "PER": 3
+            "STR": 0,
+            "AGI": 10,
+            "INU": 0,
+            "PER": 4
         },
         "skills": [
             "Weapon Skill",
@@ -160,8 +226,8 @@ export default [
         ],
         "languages": [
             {
-                "name": "Language Signal",
-                "bought": true,
+                "title": "Language Signal",
+                "bought": "profession",
                 "expertise": false,
                 "boughtSource": "class"
             }
@@ -173,34 +239,34 @@ export default [
                 "description": "Attack doing no DMG but reducing the physical armor of the target by <%= lvl*5 %>% for all enemies attacking that target. Does not work against magical armor like a mage aura or a stone skin. Does not naturally stack. Costs 3 AP"
             },
             {
-                "level": 2,
+                "level": 1,
                 "title": "Vanish",
-                "description": "Hide by walking into the Shadow Realm and emerge hidden. You step through the Shadow Realm and emerge <%= AGI+lvl %> meters in max <%= lvl %> INI. This means that the higher level you are, the longer you can stay hidden in the Shadow Realm. You emerge hidden. Cost 5 AP, cannot attack or do other things whilst hidden. Cast time is 0 INI but a cooldown of <%= 1000 / lvl %> INI."
+                "description": "Hide by walking into the Shadow Realm and emerge hidden. You step through the Shadow Realm and emerge <%= AGI+lvl %> meters in max <%= lvl %> INI. This means that the higher level you are, the longer you can stay hidden in the Shadow Realm. You emerge hidden. Cost 5 AP, cannot attack or do other things whilst hidden. Cast time is 0 INI but a cooldown of <%= Math.floor(1000 / lvl) %> INI."
             },
             {
-                "level": 3,
+                "level": 1,
                 "title": "Interrupt",
                 "description": "The offensive action the target was about to do gets a +<%= 10+lvl %> INI, cost 3 AP. If the action was a spell the target must make an Magic check with a -10 to see if the spell is interrupted."
             },
             {
-                "level": 4,
+                "level": 1,
                 "title": "Recuperate",
                 "description": "Drain AP from the target and give yourself a fraction of these AP with per 10 IP as a bonus. Each AP you spend leaches 1 AP from the target with a max of <%= 2 * lvl + 2 %>. Needs a successful hit and must be called in advance. Starting level 3, while your recuperate is active every action costs 1AP less."
             },
             {
-                "level": 5,
+                "level": 1,
                 "title": "Ignore Armor",
-                "description": "Ignore Armor lowers the target’s PV with (25+lvl)% on a successful hit. Costs 1AP. (Details: For this 1 extra action point you can ignore a good portion of the target's armor)."
+                "description": "Reduce target's Armor lowers the target’s DMG reduction by <%= 25+(lvl * 10) %>% on a successful hit. Costs 1AP. (Details: For this 1 extra action point you can ignore a good portion of the target's armor)."
             },
             {
-                "level": 6,
+                "level": 1,
                 "title": "Stronger from behind",
-                "description": "When attacking from behind a Rogue gets (lvl + 1) bonus DMG and Skill."
+                "description": "When attacking from behind a Rogue gets +<%= lvl %> bonus to DMG and Skill."
             },
             {
-                "level": 7,
+                "level": 1,
                 "title": "Precision",
-                "description": "A Rogue can ignore $AGI$d4 of the target’s armor on each attack. Imagine having 11 AGI, on each attack you do you can now ignore 1d4 of the target’s armor."
+                "description": "A Rogue can ignore <%= AGI %>d4 of the target’s armor on each attack. Imagine having 11 AGI, on each attack you do you can now ignore 1d4 of the target’s armor."
             }
         ],
         "specials": [
@@ -218,9 +284,9 @@ export default [
         "professionPoints": 0,
         "stats": {
             "STR": 7,
-            "AGI": 4,
-            "INU": 4,
-            "PER": 4
+            "AGI": 0,
+            "INU": 7,
+            "PER": 0
         },
         "skills": [
             "Weapon Skill",
@@ -257,6 +323,7 @@ export default [
                 "level": 1,
                 "choices": [
                     {
+                        "specialization": "Barbarian",
                         "title": "Heal",
                         "description": "Heal for weapon DMG as healing. It does not matter which weapon you choose, but you must attune yourself with that weapon. You can have a maximum of two weapon attunemnet."
                     },
@@ -462,10 +529,10 @@ export default [
         "skillPoints": 2,
         "professionPoints": 0,
         "stats": {
-            "STR": 3,
-            "AGI": 3,
-            "INU": 7,
-            "PER": 3
+            "STR": 0,
+            "AGI": 0,
+            "INU": 10,
+            "PER": 4
         },
         "skills": [
             "Magic",
@@ -477,146 +544,24 @@ export default [
         "languages": [],
         "spells": [
             {
+                "rank": 1,
                 "title": "Heal",
-                "rank": 0,
-                "ranks": [
-                    {
-                        "rank": 0,
-                        "level": 0,
-                        "description": "Heal for weapon DMG as healing. It does not matter which weapon you choose, but you must attune yourself with that weapon. You can have a maximum of two weapon attunement."
-                    },
-                    {
-                        "rank": 1,
-                        "level": 1,
-                        "description": "Range becomes intuition meters"
-                    },
-                    {
-                        "rank": 2,
-                        "level": [
-                            3,
-                            5,
-                            7,
-                            10
-                        ],
-                        "description": "You can split your heal over <%= rank %> targets. Targets must be within range and the heal must split evenly between all the targets."
-                    }
-                ]
+                "description": "Heal for weapon damage. The range of your heal spell is your movement: <%= movement %>ft. For the duration of the combat you gain a +<%= rank %>% bonus to your heals."
             },
             {
-                "title": "Regenerate",
-                "rank": 0,
-                "ranks": [
-                    {
-                        "rank": 0,
-                        "level": [
-                            0,
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6,
-                            7,
-                            8,
-                            9,
-                            10
-                        ],
-                        "description": "Regenerate <%= rank + 1 %> HP per recuperation"
-                    }
-                ]
-            },
-            {
+                "rank": 1,
                 "title": "Shield",
+                "description": "Protect agains magical attacks granting +<%= rank * 5 %>% aura and +<%= rank %> to all resistance checks."
+            },
+            {
                 "rank": 0,
-                "ranks": [
-                    {
-                        "rank": 0,
-                        "level": 0,
-                        "description": "Generates a shield granting 5% armor"
-                    },
-                    {
-                        "rank": 1,
-                        "level": 5,
-                        "description": "Generates a shield granting 10% armor"
-                    },
-                    {
-                        "rank": 2,
-                        "level": 12,
-                        "description": "Generates a shield granting 15% armor"
-                    }
-                ]
-            },
-            {
-                "title": "Haste",
-                "rank": -1,
-                "ranks": [
-                    {
-                        "rank": 0,
-                        "level": [
-                            2,
-                            4,
-                            6,
-                            8,
-                            10,
-                            12
-                        ],
-                        "description": "+<%= rank %> AP per recuperation and weapon speed -<%= rank %>."
-                    }
-                ]
-            },
-            {
-                "title": "Seek truth",
-                "rank": -1,
-                "ranks": [
-                    {
-                        "rank": 0,
-                        "level": [
-                            1,
-                            2,
-                            4,
-                            6,
-                            8,
-                            10,
-                            12
-                        ],
-                        "description": "+<%= rank %>d4 question to which the target mut answer truthfully. Magic resist."
-                    }
-                ]
-            },
-            {
                 "title": "Dominate",
-                "rank": -1,
-                "ranks": [
-                    {
-                        "rank": 0,
-                        "level": [
-                            3,
-                            5,
-                            7,
-                            9,
-                            11,
-                            13
-                        ],
-                        "description": "Control a target for <%= rank + 1 %>d10 INI. Magic resist."
-                    }
-                ]
+                "description": "Control another humanoid. Duration "
             },
             {
-                "title": "Revive",
-                "rank": -1,
-                "ranks": [
-                    {
-                        "rank": 0,
-                        "level": [
-                            5,
-                            10,
-                            15,
-                            20,
-                            25
-                        ],
-                        "description": "Revives a target after death. Cannot be dead for more than rank 1: 5 minutes, rank 2: 1 hour, rank 3: six hours, rank 4: day, rank 5: week."
-                    }
-                ]
+                "rank": 0,
+                "title": "Bane",
+                "description": "Weapons do +<%= rank %> DMG and +<%= rank * 2 %> DMG against deamons and undead. Duration 30 INI. 1 target and 2 targets per extra AP spend."
             }
         ],
         "specials": [
@@ -634,10 +579,10 @@ export default [
         "skillPoints": 2,
         "professionPoints": 0,
         "stats": {
-            "STR": 7,
-            "AGI": 2,
-            "INU": 7,
-            "PER": 2
+            "STR": 4,
+            "AGI": 0,
+            "INU": 10,
+            "PER": 0
         },
         "skills": [
             "Magic"

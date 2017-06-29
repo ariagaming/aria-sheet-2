@@ -9,6 +9,10 @@
 @import './../client/modules/**/*.less';
 
 
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
 html {
     height: 100%;
     overflow: hidden;
@@ -88,6 +92,12 @@ title {
         }
         
     }
+    wrapper {
+        margin: 0;
+        & > span {
+            margin-right: 3px;
+        }
+    }
     .stat {
         display: inline-block;
         width: 27px; 
@@ -101,13 +111,21 @@ title {
         margin-right: 0;
         font-size: 11px;
     }
+    .title {
+        font-weight: bold;
+        margin-right: 3px;
+    }
     
     &:hover {
-        background: lightgray;
+        background: lighten(lightgray, 10%);
     }
     
     &.selected {
         background: @accent;
+        color: white;
+    }
+    &.selected.accent {
+        background: @effect;
         color: white;
     }
 }
@@ -245,6 +263,31 @@ title {
     margin-left: 2px;
 }
 
+
+.choices {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid lightgray;
+    padding: 0.5em 0;
+    
+    .choice {
+        flex: 1;
+        padding: 3px;
+        
+        &:first-child {
+            flex: 0;
+        }
+        
+        &.selected {
+            background: @accent;
+            color: white;
+        }
+        &:hover:not(.selected) {
+            background: @effect;
+            color: white;
+        }
+    }
+}
 
 
 @import './print';

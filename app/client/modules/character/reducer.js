@@ -1,5 +1,6 @@
 
 import firebase from 'firebase';
+import characterTemplate from './mocks/__character';
 
 /**
  * The default character reducer
@@ -62,6 +63,22 @@ const characterReducer = (state = {}, action) => {
         case 'TURN_PAGE':
             return { ...state, dialog: { ...state.dialog, index: action.payload } };
 
+        case 'SET_CHARACTER_XP':
+            const _xp = action.payload;
+            const levelCaps = [0, 21, 33, 46, 60, 75, 91, 108, 126, 145, 165, 186, 208, 211];
+            const level = levelCaps.reduce((acc, cap) => (cap < _xp ? acc + 1 : acc), 0);
+            return {
+                ...state,
+                newCharacter: {
+                    ...state.character,
+                    level,
+                    XP: {
+                        ...state.character.XP,
+                        source: action.payload
+                    }
+                }
+            }
+
         case 'HIDE_DIALOG':
             return {
                 ...state,
@@ -75,6 +92,30 @@ const characterReducer = (state = {}, action) => {
                     pages: []
                 }
             };
+
+        case 'SELECT_SPELL_CHOICE':
+            const { spellIndex, choiceIndex } = action.payload;
+
+
+            return {
+                ...state,
+                newCharacter: {
+                    ...state.newCharacter,
+                    spells: state.newCharacter.spells.map((spell, i) => {
+                        if (i === spellIndex) {
+                            return {
+                                ...spell,
+                                choices: spell.choices.map((c, j) => {
+                                    return { ...c, selected: (j === choiceIndex) }
+                                })
+                            }
+                        }
+                        else {
+                            return { ...spell };
+                        }
+                    })
+                }
+            }
 
         case 'TEMPLATE_WEAPON':
             const weapons = state.newCharacter.weapons.map(w => {
@@ -104,10 +145,7 @@ const characterReducer = (state = {}, action) => {
                     ...state.character,
                     weapons: state.character.weapons.map(w => {
                         if (w.title === action.payload.title) {
-                            w.isActive = true;
-                        }
-                        else {
-                            w.isActive = false;
+                            w.isActive = !w.isActive;
                         }
                         return w;
                     })
@@ -149,6 +187,7 @@ const characterReducer = (state = {}, action) => {
 
         case 'SAVE_CHARACTER':
             const { name } = state.character;
+
             if (name && name.length > 2 && name.toLowerCase() !== "new character") {
 
                 const characterKey = state.character.id || database.ref().child('characters').push().key;
@@ -166,6 +205,8 @@ const characterReducer = (state = {}, action) => {
                     firebase.database().ref().update(updates);
                 });
 
+                localStorage.setItem('character', JSON.stringify(state.character));
+
                 return {
                     ...state,
                     character
@@ -179,6 +220,13 @@ const characterReducer = (state = {}, action) => {
                         description: "Your character should have a name"
                     }
                 };
+            }
+
+        case 'NEW_CHARACTER':
+            localStorage.removeItem('character');
+            return {
+                ...state,
+                character: { ...characterTemplate }
             }
 
         case 'ADD_LANGUAGE':
@@ -208,6 +256,25 @@ const characterReducer = (state = {}, action) => {
                     languages: state.newCharacter.languages.filter(l => l.title !== action.payload)
                 }
             };
+
+        case 'RENAME_LANGUAGE':
+            const result = {
+                ...state,
+                newCharacter: {
+                    ...state.newCharacter,
+                    languages: state.newCharacter.languages.map((l, i) => {
+                        if (i === action.payload.index) {
+                            return { ...l, title: action.payload.title };
+                        }
+                        else {
+                            return { ...l };
+                        }
+                    })
+                }
+            };
+            //debugger;
+            return result;
+
         case 'BUY_LANGUAGE':
             const newLanguages = state.newCharacter.languages.map(l => {
                 if (l.title === action.payload.title) {
@@ -342,7 +409,7 @@ const characterReducer = (state = {}, action) => {
                 professions: updateList("professions"),
                 feats: newFeats,
                 spells: raceSpells,
-                languages: action.payload.languages || []
+                languages: state.newCharacter.languages.concat(action.payload.languages || [])
             };
 
             return { ...state, newCharacter };
@@ -370,10 +437,18 @@ const characterReducer = (state = {}, action) => {
 
             const hp = {
                 ...state.newCharacter.hp,
-                factor: (action.payload.HPFactor || 1)
+                STRFactor: (action.payload.HPFactor || 1)
             }
 
-            const profSpells = [...state.newCharacter.spells].concat(action.payload.spells || []);
+
+            const spells = {
+                ...state.newCharacter.spells,
+                [action.payload.title]: {
+                    title: action.payload.title,
+                    spells: action.payload.spells
+                }
+            }
+            //const __profSpells = (action.payload.spells || []).map(s => ({ ...s, source: "professions" }));
 
 
             newCharacter = {
@@ -381,37 +456,48 @@ const characterReducer = (state = {}, action) => {
                 hp: hp,
                 classes: newClasses,
                 skills: newSkills,
-                spells: profSpells
+                spells: spells,//state.newCharacter.spells.concat(__profSpells),
+                languages: state.newCharacter.languages.concat(action.payload.languages || [])
             };
 
             return { ...state, newCharacter };
 
         case 'PROFESSION_SPECIALIZATION':
             const { classTitle, specialization } = action.payload;
-            newCharacter = {
-                ...state.newCharacter,
-                classes: state.newCharacter.classes.map(c => {
-                    if (c.title === classTitle) {
-                        return {
-                            ...c,
-                            specializations: c.specializations.map(s => {
-                                if (s.title === specialization) {
-                                    return { ...s, selected: true };
-                                }
-                                else {
-                                    return { ...s, selected: false };
-                                }
-                            })
-                        };
-                    } else {
-                        return c;
-                    }
-                })
-            }
+            const __specialization =
+                state
+                    .newCharacter
+                    .classes
+                    .filter(c => c.title === classTitle)[0]
+                    .specializations
+                    .filter(s => s.title === specialization)[0];
+            const __specializationSpells = (__specialization.spells || []).map(s => ({ ...s, source: "profession" }));
+            const __classes = state.newCharacter.classes.map(c => {
+                if (c.title === classTitle) {
+                    return {
+                        ...c,
+                        specializations: c.specializations.map(s => {
+                            if (s.title === specialization) {
+                                return { ...s, selected: true };
+                            }
+                            else {
+                                return { ...s, selected: false };
+                            }
+                        })
+                    };
+                } else {
+                    return c;
+                }
+            });
+            const __spells = state.newCharacter.spells.concat(__specializationSpells);
 
             return {
                 ...state,
-                newCharacter
+                newCharacter: {
+                    ...state.newCharacter,
+                    classes: __classes,
+                    spells: __spells
+                }
             };
 
         case 'UPDATE_CHARACTER':
@@ -489,6 +575,9 @@ const characterReducer = (state = {}, action) => {
                 else if (feat.title === "Stamina") {
                     c.hp.feats = feat.total;
                 }
+                else if (feat.title === 'Endurance') {
+                    c.ap.feats = feat.total;
+                }
 
                 return feat;
             });
@@ -505,29 +594,18 @@ const characterReducer = (state = {}, action) => {
             c.movement.sum = c.movement.base + c.movement.armor + c.movement.feats + c.movement.race + c.movement.profession;
             c.movement.total = c.movement.sum * 3;
 
-            c.weapons = c.weapons.map(weapon => {
-                if (weapon.isRanged) {
-                    weapon.skill = c.expertise.bsExpertise + c.expertise.total;
-                    weapon.dmgStat = c.statistics.AGI.bonus;
-                }
-                else {
-                    weapon.skill = c.expertise.wsExpertise + c.expertise.total;
-                    weapon.dmgStat = c.statistics.STR.bonus;
-                }
-
-                weapon.dmgTotal = weapon.constant + weapon.dmgFeat + (+weapon.dmgStat);
-
-                return weapon;
-            });
-
+            let weaponSkill = 0;
+            let ballisticSkill = 0;
             c.skills = c.skills.map(s => {
                 s.statModifier = c.statistics[s.stat].bonus;
                 if (s.bought && s.expertise) {
                     if (s.title === "Weapon Skill") {
                         s.total = c.expertise.total + s.statModifier + c.expertise.wsExpertise;
+                        weaponSkill = s.total;
                     }
                     else if (s.title === "Ballistic Skill") {
                         s.total = c.expertise.total + s.statModifier + c.expertise.bsExpertise;
+                        ballisticSkill = s.total;
                     }
                     else {
                         s.total = c.expertise.total + s.statModifier;
@@ -539,13 +617,46 @@ const characterReducer = (state = {}, action) => {
                 return s;
             })
 
+            c.weapons = c.weapons.map(weapon => {
+                if (weapon.isRanged) {
+                    weapon.skill = ballisticSkill;
+                    weapon.dmgStat = c.statistics.AGI.bonus;
+                }
+                else {
+                    weapon.skill = weaponSkill;
+                    weapon.dmgStat = c.statistics.STR.bonus;
+                }
 
+                weapon.dmgTotal = weapon.constant + weapon.dmgFeat + (+weapon.dmgStat);
+
+                return weapon;
+            });
+
+            /*
+            Setting the hitpoints of the character.
+            */
             c.hp = {
-                ...c.hp,
-                total: (c.hp.rank + c.level + (c.statistics.STR.bonus * c.hp.factor)) * (c.hp.base + c.hp.feats)
+                ...c.hp
             }
 
+            // Stamina changes the hp factor from the base of 5 to a higher factor
+            // feats are set in the feat calculations
+            c.hp.weapon = c.weapons.filter(w => w.isActive).reduce((acc, w) => acc + (w["Stamina"] || 0), 0);
+            c.hp.equipment = c.equipment.reduce((acc, w) => acc + (w["Stamina"] || 0), 0);
+            c.hp.factor = c.hp.base + c.hp.feats + c.hp.weapon + c.hp.equipment;
 
+            // Str calculations
+            c.hp.str = c.statistics.STR.bonus * c.hp.STRFactor;
+
+            // Sum the total points which are going to be multiplied by the factor, this is your level + strength bonus
+            c.hp.sum = c.level + c.hp.str;
+
+            c.hp.total = c.hp.sum * c.hp.factor;
+
+
+            /*
+            Calculate the XP of the character.
+            */
             let __xp = [3, 7, 12, 18, 25, 33, 42, 52, 63, 75, 88];
             let $xp =
                 c.skills.reduce((acc, skill) => {
@@ -554,12 +665,33 @@ const characterReducer = (state = {}, action) => {
                 c.feats.reduce((acc, feat) => {
                     if (feat.bought === 0) return acc;
                     return acc + __xp[feat.bought + -1];
-                }, 0);
+                }, 0) +
+                c.professions.reduce((acc, prof) => {
+                    return acc + (prof.bought === "xp" ? 3 : 0) + (prof.expertise === "xp" ? 4 : 0);
+                }, 0) +
+                (() => {
+                    const numberOfClasses = (Object.keys(c.classes).length);
+                    if (numberOfClasses == 1) return 0;
+                    if (numberOfClasses == 2) return 10;
+                    if (numberOfClasses == 3) return 25;
+                    if (numberOfClasses == 4) return 50;
+                })()
 
             c.XP = {
                 ...c.XP,
                 filled: $xp
             };
+
+            /*
+            Calculate the AP of the character
+            */
+            const APPerLevel = [12, 15, 20, 24, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43];
+            c.ap.total = APPerLevel[c.level - 1];
+            c.ap.weapons = c.weapons.reduce((acc, w) => acc + (w["Endurance"] || 0), 0);
+            c.ap.equipment = c.equipment.reduce((acc, w) => acc + (w["Endurance"] || 0), 0);
+            c.ap.recovery = 4 + c.ap.feats;
+
+            console.log(c);
 
             let dialog = {
                 ...state.dialog,

@@ -35,29 +35,30 @@ class App extends React.Component {
     componentWillMount() {
         const { setUser, setCharacters } = this.props;
         const auth = firebase.auth();
-        auth.onAuthStateChanged(firebaseUser => {
+        const unsubscribe = auth.onAuthStateChanged(firebaseUser => {
             // set the user
             setUser(firebaseUser);
 
-            // after we're logged in we need to listen to the characters list
-            const charactersRef = firebase
-                .database()
-                .ref('/characters/')
-                .orderByChild("user")
-                .equalTo(firebaseUser.email);
+            if (firebaseUser) {
 
-            charactersRef.on('value', (snapshot) => {
-                const values = snapshot.val();
-                if (values === null) return;
-                setCharacters(Object.keys(values).map(key => values[key]));
-            });
+                // after we're logged in we need to listen to the characters list
+                const charactersRef = firebase
+                    .database()
+                    .ref('/characters/')
+                    .orderByChild("user")
+                    .equalTo(firebaseUser.email);
+
+                charactersRef.on('value', (snapshot) => {
+                    const values = snapshot.val();
+                    if (values === null) return;
+                    setCharacters(Object.keys(values).map(key => values[key]));
+                });
+            }
         });
-
-
     }
 
     render() {
-        const { user, dialog, closeDefaultDialog, showSelectCharacterDialog } = this.props;
+        const { user, dialog, closeDefaultDialog, showSelectCharacterDialog, resetCharacter } = this.props;
         const signOut = () => {
             const auth = firebase.auth();
             auth.signOut();
@@ -73,9 +74,22 @@ class App extends React.Component {
         else {
 
             const shown = this.props.dialog.shown || this.props.dialog.raceDialogShown;
-            const resetCharacter = () => {
-                localStorage.clear();
-                window.location = window.location;
+            const __resetCharacter = () => {
+                const { id, email } = this.props.character;
+                firebase
+                    .database()
+                    .ref('/characters/' + id + '/')
+                    .remove();
+
+                firebase
+                    .database()
+                    .ref('/user-characters/' + (email || '').replace('.', '&dot&') + '/' + id + '/')
+                    .remove();
+
+                resetCharacter();
+            }
+            const newCharacter = () => {
+                resetCharacter();
             }
 
             return (
@@ -100,7 +114,7 @@ class App extends React.Component {
                                 <i className="fa fa-save"></i>
                                 <label>Save</label>
                             </div>
-                            <div className="action" onClick={resetCharacter}>
+                            <div className="action" onClick={__resetCharacter}>
                                 <i className="fa fa-times"></i>
                                 <label>Reset Character</label>
                             </div>
@@ -111,6 +125,10 @@ class App extends React.Component {
                             <div className="action" onClick={showSelectCharacterDialog}>
                                 <i className="fa fa-users"></i>
                                 <label>Characters</label>
+                            </div>
+                            <div className="action" onClick={newCharacter}>
+                                <i className="fa fa-user"></i>
+                                <label>New Character</label>
                             </div>
                         </div>
 
@@ -138,6 +156,9 @@ const mapReducerToProps = (dispatch) => {
     return {
         saveCharacter: () => {
             dispatch({ type: "SAVE_CHARACTER" });
+        },
+        resetCharacter: () => {
+            dispatch({ type: 'NEW_CHARACTER' });
         },
         setUser: (user) => {
             dispatch({ type: 'SET_USER', payload: user });

@@ -27,6 +27,7 @@
         position: absolute;
         width: 412px;
         top: 107px;
+        height: 418px;
     }
     
     .statistics-breakdown {
@@ -34,28 +35,40 @@
         left: 442px;
         width: 316px;
         height: 106px;
-        
-        table {
-            
-            th {
-                text-transform: uppercase;
-                padding: 0 0.5em;
-            }
-            
-            th, td {
-                text-align: center;
-            }
-            
-        }
+    }
+    
+    .feat-breakdown {
+        position: absolute;
+        left: 442px;
+        width: 316px;
+        height: 360px;
+        top: 136px;
+        height: 389px;
     }
     
     
     .row {
         .title {
-            font-weight: bold;
             width: 50px;
         }
     }
-
-
+     
+    table {
+        width: 100%;
+        th {
+            text-transform: uppercase;
+            padding: 0 0.5em;
+        }
+        th, td {
+            text-align: center;
+            &.left {
+                text-align: left;
+                margin-left: 0;
+                padding-left: 0;
+            }
+            &:first-child {
+                width: auto;
+            }
+        }
+    }
 }

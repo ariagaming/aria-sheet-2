@@ -9,10 +9,14 @@ import { connect } from 'react-redux';
  */
 class XpInfo extends Component {
     render() {
-        const { character } = this.props;
+        const { character, changeCharacterXP } = this.props;
+        const __changeXP = event => {
+            changeCharacterXP(+event.target.value);
+        }
+
         return (
             <div className="xp-info">
-                {character.XP.filled} / 20
+                {character.XP.filled} / <input value={character.XP.source} onChange={__changeXP} />
             </div>
         );
     }
@@ -24,7 +28,12 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        changeCharacterXP: (xp) => {
+            dispatch({ type: 'SET_CHARACTER_XP', payload: xp });
+            setTimeout(() => {
+                dispatch({ type: "UPDATE_CHARACTER" });
+            });
+        }
     }
 }
 const __XpInfo = connect(mapStateToProps, mapDispatchToProps)(XpInfo);

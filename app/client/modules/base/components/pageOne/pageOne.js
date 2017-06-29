@@ -23,7 +23,7 @@ import { connect } from 'react-redux';
  */
 class PageOne extends Component {
     render() {
-        const { character, showArmorDialog } = this.props;
+        const { character, showArmorDialog, changeCharacterXP } = this.props;
 
         return (
             <Page>
@@ -34,12 +34,17 @@ class PageOne extends Component {
                 <Statistics character={character} />
 
                 <StatisticInfo type="hp" value={character.hp.total} title="hp" />
-                <StatisticInfo type="ap" value={character.ap} title="ap" />
+                <StatisticInfo type="ap" value={character.ap.total} title="ap" />
                 <StatisticInfo type="expertise" value={character.expertise.total} title="expertise" prefix="+" />
                 <StatisticInfo type="movement" value={character.movement.total} title="movement" postfix="ft" />
                 <StatisticInfo type="initiative" value={character.initiative.total} title="initiative" />
                 <StatisticInfo type="armor" value={character.armor.total} title="armor" postfix="%" onClick={showArmorDialog} />
-                <StatisticInfo type="magic-armor" value={character.magicArmor.total} title="Magic Armor" postfix="%" onClick={showArmorDialog} />
+                <StatisticInfo type="magic-armor" value={character.magicArmor.total} title="Aura" postfix="%" onClick={showArmorDialog} />
+
+                <StatisticInfo type="ap-offense" value={character.ap.offense} prefix="-" title="AP Offense" />
+                <StatisticInfo type="ap-defense" value={character.ap.defense} prefix="-" title="AP Defense" />
+                <StatisticInfo type="ap-recovery" value={character.ap.recovery} prefix="+" title="AP Recovery" />
+                <StatisticInfo type="ap-dmg" value={character.ap.dmg} title="DMG per AP" />
 
                 <XPInfo />
 

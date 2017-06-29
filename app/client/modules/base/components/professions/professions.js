@@ -28,8 +28,8 @@ class Professions extends Component {
                             <div key={i} className="row">
                                 {SkillDot(bought)}
                                 {SkillDot(expertise)}
-                                <span className="total">{total || 0}</span>
-                                <span className="title">{title}</span>
+                                <span className="total">+{total || 0}</span>
+                                <span>{title}</span>
                             </div>
                         )
                     })

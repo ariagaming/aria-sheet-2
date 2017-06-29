@@ -1,0 +1,5 @@
+{
+  "hosting": {
+    "public": "./releases/0.0.0/client"
+  }
+}

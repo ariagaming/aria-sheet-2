@@ -28,7 +28,7 @@ class Feats extends Component {
                             <div key={i} className="row">
                                 <span className="rank">{bought || 0}</span>
                                 <span className="total-desc">{sign || ""}{total || 0}{unit || ""}</span>
-                                <span className="title">{title}</span>
+                                <span className="">{title}</span>
                             </div>
                         )
                     })

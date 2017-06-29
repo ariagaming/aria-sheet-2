@@ -13,6 +13,8 @@ class PageThree extends Component {
     render() {
         const { character } = this.props;
 
+        //console.log(character.hp);
+
         return (
             <Page className="page-three">
                 <div className="container expertise-breakdown">
@@ -40,6 +42,19 @@ class PageThree extends Component {
                 </div>
 
                 <div className="container hp-breakdown">
+                    <div className="row">
+                        <span className="title">STR:</span>
+                        <span>{character.statistics.STR.bonus}</span>
+                        <span>*</span>
+                        <span className="title">STR Factor:</span>
+                        <span>{character.hp.STRFactor}</span>
+                        <span>=</span>
+                        <span className="title">Total</span>
+                        <span>{character.statistics.STR.bonus * character.hp.factor}</span>
+                    </div>
+
+
+
                     <title>HP breakdown</title>
                 </div>
 
@@ -54,6 +69,7 @@ class PageThree extends Component {
                             )
                         })
                     }
+                    <title>Feat description</title>
                 </div>
 
                 <div className="container statistics-breakdown">
@@ -114,10 +130,41 @@ class PageThree extends Component {
                             </tr>
                         </tbody>
                     </table>
-
-
-
                     <title>Statistics</title>
+                </div>
+
+                <div className="container feat-breakdown">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th className="left">feat</th>
+                                <th>base</th>
+                                <th>bought</th>
+                                <th>eq</th>
+                                <th>weap</th>
+                                <th>factor</th>
+                                <th>total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                character.feats.map((feat, i) => {
+                                    return (
+                                        <tr className="row" key={i}>
+                                            <td className="left">{feat.title}</td>
+                                            <td>{feat.base}</td>
+                                            <td>{feat.bought}</td>
+                                            <td>{feat.equipment}</td>
+                                            <td>{feat.weapon}</td>
+                                            <td>{feat.sign}{feat.factor || 1}{feat.unit}</td>
+                                            <td>{feat.total}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                    <title>Feats breakdown</title>
                 </div>
 
             </Page>

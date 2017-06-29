@@ -12,7 +12,7 @@ class LanguagesDialog extends Component {
     }
 
     render() {
-        const { newCharacter, addLanguage, removeLanguage, buyLanguage } = this.props;
+        const { newCharacter, addLanguage, removeLanguage, renameLanguage, buyLanguage } = this.props;
         if (!newCharacter) return null;
 
         const { languages } = newCharacter;
@@ -39,6 +39,11 @@ class LanguagesDialog extends Component {
                 buyLanguage(language);
             }
         }
+        const __renameLanguage = index => {
+            return (event) => {
+                renameLanguage(index, event.target.value);
+            }
+        }
 
         return (
             <div className="languages-dialog">
@@ -51,7 +56,8 @@ class LanguagesDialog extends Component {
                                 {bought ? Fill(bought) : Empty}
                                 {expertise ? Fill(expertise) : Empty}
                                 <span className="total">{expertise ? exp : 0}</span>
-                                <span className="title">{title}</span>
+                                <input value={title} onChange={__renameLanguage(i)} />
+                                {/*<span className="title">{title}</span>*/}
                             </div>
                         )
                     })
@@ -86,6 +92,15 @@ const mapDispatcherToProps = (dispatcher, ownProps) => {
                 type: "BUY_LANGUAGE",
                 payload: language
             })
+        },
+        renameLanguage: (index, newValue) => {
+            dispatcher({
+                type: 'RENAME_LANGUAGE',
+                payload: {
+                    index: index,
+                    title: newValue
+                }
+            });
         }
     }
 }

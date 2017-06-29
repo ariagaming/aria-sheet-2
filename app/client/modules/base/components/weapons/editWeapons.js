@@ -188,6 +188,14 @@ class EditEquipment extends Component {
                                     <input type="checkbox" checked={weapon.isRanged || false} onChange={this.changeValue(weapon, 'isRanged')} />
                                 </div>
                                 <div className="field">
+                                    <span>Is twohanded:</span>
+                                    <input type="checkbox" checked={weapon.isTwohanded || false} onChange={this.changeValue(weapon, 'isTwohanded')} />
+                                </div>
+                                <div className="field">
+                                    <span>Is shield:</span>
+                                    <input type="checkbox" checked={weapon.isShield || false} onChange={this.changeValue(weapon, 'isShield')} />
+                                </div>
+                                <div className="field">
                                     <label>Information</label>
                                     <textarea value={weapon.information || ""} onChange={this.changeValue(weapon, 'information')}></textarea>
                                 </div>

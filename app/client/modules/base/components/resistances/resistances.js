@@ -27,7 +27,7 @@ class Resistances extends Component {
                             <div key={i} className="row">
                                 {bought ? Fill(bought) : Empty}
                                 {expertise ? Fill(expertise) : Empty}
-                                <span className="title">{title}</span>
+                                <span>{title}</span>
                             </div>
                         )
                     })

@@ -30,14 +30,24 @@ class Weapons extends Component {
             <Container className="weapons" title="Weapons" pages={pages}>
                 {
                     weapons.map((weapon, i) => {
+                        const __className = (weapon.isShield ? 'accent' : '');
                         return (
-                            <div className={"row" + (weapon.isActive ? ' selected' : '')} key={i} onClick={__selectWeapon(weapon)}>
+                            <div className={"row" + (weapon.isActive ? ` selected ${__className}` : '')} key={i} onClick={__selectWeapon(weapon)}>
                                 <b>{weapon.title}:</b>
                                 <span>{weapon.isRanged ? '(R)' : ''}</span>
-                                <span>skill</span><span>1d20+{weapon.skill || 0};</span>
-                                <span>dmg</span><span>
-                                    {weapon.numberOfDice || 0}d{weapon.diceSides || 0}+{weapon.dmgTotal || 0}; {weapon.description}
-                                </span>
+
+                                {
+                                    weapon.isShield ?
+                                        <span></span> :
+                                        <wrapper>
+                                            <span>skill</span><span>1d20+{weapon.skill || 0};</span>
+                                            <span>dmg</span>
+                                            <span>
+                                                {weapon.numberOfDice || 0}d{weapon.diceSides || 0}+{weapon.dmgTotal || 0};
+                                            </span>
+                                        </wrapper>
+                                }
+                                <span>{weapon.description}</span>
                             </div>
                         );
                     })

@@ -28,7 +28,7 @@ class Language extends Component {
                                 {bought ? Fill(bought) : Empty}
                                 {expertise ? Fill(expertise) : Empty}
                                 <span className="total">{total || 0}</span>
-                                <span className="title">{title}</span>
+                                <span>{title}</span>
                             </div>
                         )
                     })

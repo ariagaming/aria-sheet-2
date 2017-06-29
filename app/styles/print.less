@@ -1,42 +1,94 @@
 
 @page {
-    size: A4;
-    margin: 0cm;
-    padding: 0cm;
+   size: 7in 9.25in;
+   margin: 27mm 16mm 27mm 16mm;
 }
 
 
 @media print {
-    *, *:before, *:after {
-        box-sizing: border-box;
-        -webkit-print-color-adjust: exact;
-    }
-    html, body, body, body > *, body > * > * {
-        margin: 0;
-        padding: 0;
+    * {
         visibility: hidden;
     }
-    
-    body {
-        overflow: visible;
-    }
-    
-    // .page-container {
-    //     display:flex;
-    //     flex-direction: column;
+    .page-container {
+        overflow: auto;
+        .page {
+            visibility: visible;
+            height: 9.25in;
+            width: 7in;
+            
+            .page-content {
                 
-    //     margin: 0;
-    //     padding: 0;
-    //     visibility: hidden;
-    // }
-    .page {
-        visibility: visible;
-        padding: 0;
-        margin: 0;
-        border: none;
-        width: 21cm;
-        height: 29.7cm;
-        page-break-after: always;
+            }
+        }
     }
-    
 }
+
+
+
+// @media print {
+//     *, *:before, *:after {
+//         box-sizing: border-box;
+//         -webkit-print-color-adjust: exact;
+//         margin: 0;
+//         padding: 0;
+//     }
+    
+    
+    
+//     html, body, #jsx-app, .root {
+//         height: 100%;
+//         width: 100%;
+//         visibility: visible;
+//         overflow: scroll;
+//     }
+    
+//     .page-container {
+//         visibility: hidden;
+//         // overflow: scroll;
+//         // margin: 0;
+//         // padding: 0;
+//         // left: auto;
+//         // transform: none;
+//     }
+    
+//     .dialog-container {
+//         display: none;
+//     }
+//     .actions {
+//         display: none;
+//      }
+    
+//     .page {
+//         visibility: hidden;
+//         margin: 0;
+        
+//         .page-content {
+//             background: white;
+//             visibility: visible;
+//             width: 7in;
+//             height: 9.25in;
+//         }
+        
+//         &:last-child {
+//             margin: 0;
+//         }
+        
+//         page-break-after: always;
+        
+//         // display: block;
+        
+//         // width: 21cm;
+//         // height: 29.7cm;
+
+//         // margin: 0;
+//         // padding: 0;
+        
+//         // border: none;
+//         // visibility: visible;
+//         // overflow: auto;
+        
+//         // outline: 3px solid orange;
+//     }
+    
+    
+// }

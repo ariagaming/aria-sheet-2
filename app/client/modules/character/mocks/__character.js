@@ -2,10 +2,23 @@ const character = {
     "name": "New character",
     "hp": {
         "base": 5,
-        "factor": 1,
-        "rank": 0,
+        "factor": 5,
         "feats": 0,
-        "total": 0
+        "weapon": 0,
+        "equipment": 0,
+        "str": 0,
+        "STRFactor": 1,
+        "total": 5
+    },
+    "ap": {
+        "total": 0,
+        "feats": 0,
+        "equipment": 0,
+        "weapons": 0,
+        "defense": 3,
+        "offense": 3,
+        "recovery": 4,
+        "dmg": 1
     },
     "armor": {
         "type": "None",
@@ -27,7 +40,8 @@ const character = {
     "level": 1,
     "XP": {
         "race": 10,
-        "filled": 10
+        "filled": 10,
+        "source": 0
     },
     "movement": {
         "base": 4,
@@ -56,7 +70,7 @@ const character = {
     }],
     "playerName": "unknown",
     "weapons": [
-        { "title": "Dagger", "numberOfDice": 1, "diceSides": 4, "constant": 0 }
+        { "title": "Dagger", "numberOfDice": 1, "diceSides": 4, "constant": 0, "isActive": true, "isTwohanded": false, "isShield": false }
     ],
     "equipment": [
         {
@@ -394,6 +408,7 @@ const character = {
             "title": "Expertise",
             "description": "Increase all of your skills by +1 per rank.",
             "base": 0,
+            "weapon": 0,
             "rank": 0,
             "equipment": 0,
             "bought": 0,
@@ -404,6 +419,7 @@ const character = {
             "title": "BS Expertise",
             "description": "Increase your Ballistic skill with +2 per rank.",
             "base": 0,
+            "weapon": 0,
             "rank": 0,
             "equipment": 0,
             "bought": 0,
@@ -415,6 +431,7 @@ const character = {
             "title": "WS Expertise",
             "description": "Increase your weapon skill with +2 per rank.",
             "base": 0,
+            "weapon": 0,
             "bought": 0,
             "total": 0,
             "rank": 0,
@@ -426,6 +443,7 @@ const character = {
             "title": "Initiative",
             "description": "Decrease the initiative of your weapon.",
             "base": 0,
+            "weapon": 0,
             "bought": 0,
             "total": 0,
             "rank": 0,
@@ -438,6 +456,7 @@ const character = {
             "title": "Crit",
             "description": "Increase critical strike chance by 2.5% per rank.",
             "base": 0,
+            "weapon": 0,
             "bought": 0,
             "total": 0,
             "rank": 0,
@@ -450,6 +469,7 @@ const character = {
             "title": "Crit DMG",
             "description": "Increase critical strike damage by 1d4 per rank.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -460,6 +480,7 @@ const character = {
             "title": "DMG adjstm.",
             "description": "Increase damage with 1 per rank.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -470,6 +491,7 @@ const character = {
             "title": "Extra Attack",
             "description": "Every rank grands a +20% to attack a second time without costing AP. This second attack is rolled for and can miss or crit.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "factor": 20,
@@ -482,6 +504,7 @@ const character = {
             "title": "Toughness",
             "description": "Increase your armor with 3% per rank.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -493,6 +516,7 @@ const character = {
             "title": "Stamina",
             "description": "Increase HP rank rating by 1.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -502,6 +526,7 @@ const character = {
             "title": "Regenerate",
             "description": "Regenerate 1 Hit Point per recuperation per rank.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -511,6 +536,7 @@ const character = {
             "title": "Spec. offense",
             "description": "10% per rank to refund all AP of that attack.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -523,6 +549,7 @@ const character = {
             "title": "Spec. defense",
             "description": "10% per rank to refund all AP of that defensive action.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -535,6 +562,7 @@ const character = {
             "title": "Endurance",
             "description": "Recuperate +1 AP per recuperation per rank.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -545,6 +573,7 @@ const character = {
             "title": "Directed Strike",
             "description": "You can call hit location at an increasing accuracy. See Directed Strike.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -554,6 +583,7 @@ const character = {
             "title": "Aura",
             "description": "Magic does 5% less DMG; And a +1 to magical resistance skill checks.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -565,6 +595,7 @@ const character = {
             "title": "Splash",
             "description": "You have a 20% chance per rank to automatically hit another target for 50% of your DMG. This attack can be dodges.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -577,6 +608,7 @@ const character = {
             "title": "Roll modifier",
             "description": "Per rank you get 1 point which you can use to modify your world die. These points are restored after you sleep.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -586,6 +618,7 @@ const character = {
             "title": "Break Armor",
             "description": "On each successful hit reduce the target's armor with 1",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -595,6 +628,7 @@ const character = {
             "title": "Unbreakable",
             "description": "20% chance per recuperate to regain all of your lost armor.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -607,6 +641,7 @@ const character = {
             "title": "Movement",
             "description": "Increase movement rate with 4ft per rank.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -619,6 +654,7 @@ const character = {
             "title": "Merchant",
             "description": "+3 per rank on your merchant rolls.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -630,6 +666,7 @@ const character = {
             "title": "Artist",
             "description": "+3 per rank on tou artist rolls.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -641,6 +678,7 @@ const character = {
             "title": "Scholar",
             "description": "+3 per rank on your merchant rolls.",
             "base": 0,
+            "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
@@ -649,7 +687,12 @@ const character = {
             "sign": "+"
         }
     ],
-    "spells": []
+    "spells": {
+        "general": {
+            "title": "General Spells",
+            "spells": []
+        }
+    }
 }
 
 

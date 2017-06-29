@@ -27,8 +27,8 @@ class Skills extends Component {
                             <div key={i} className="row">
                                 {bought ? Fill(bought) : Empty}
                                 {expertise ? Fill(expertise) : Empty}
-                                <span className="total">{total || 0}</span>
-                                <span className="title">{title}</span>
+                                <span className="total">+{total || 0}</span>
+                                <span>{title}</span>
                             </div>
                         )
                     })

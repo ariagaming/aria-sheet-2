@@ -7,9 +7,11 @@ class Page extends Component {
         const { className } = this.props;
         return (
             <div className={"page" + (className ? ` ${className}` : '')}>
-                {
-                    this.props.children
-                }
+                <div className="page-content">
+                    {
+                        this.props.children
+                    }
+                </div>
             </div>
         )
     }

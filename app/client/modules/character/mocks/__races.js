@@ -7,10 +7,10 @@ export default [
         "professionPoints": 1,
         "specials": [],
         "stats": {
-            "STR": 3,
-            "AGI": 3,
-            "INU": 3,
-            "PER": 3
+            "STR": 6,
+            "AGI": 6,
+            "INU": 6,
+            "PER": 6
         },
         "languages": [
             {
@@ -37,9 +37,9 @@ export default [
         "XP": 10,
         "stats": {
             "STR": 0,
-            "AGI": 5,
-            "INU": 3,
-            "PER": 3
+            "AGI": 10,
+            "INU": 8,
+            "PER": 8
         },
         "languages": [
             {
@@ -79,9 +79,9 @@ export default [
         "professionPoints": 1,
         "XP": 10,
         "stats": {
-            "STR": 5,
-            "AGI": 0,
-            "INU": 3,
+            "STR": 10,
+            "AGI": 2,
+            "INU": 8,
             "PER": 3
         },
         "languages": [
@@ -151,10 +151,10 @@ export default [
         "professionPoints": 1,
         "XP": 10,
         "stats": {
-            "STR": 3,
-            "AGI": 12,
+            "STR": 0,
+            "AGI": 6,
             "INU": 10,
-            "PER": 0
+            "PER": 8
         },
         "languages": [
             {
@@ -195,6 +195,13 @@ export default [
         ],
         "feats": [
             { "title": "Scholar", "value": 2 }
+        ],
+        "spells": [
+            {
+                "level": 0,
+                "title": "Detect Magic",
+                "description": "You can cast this spell and see the magical flows around you, you are able to see spells; a magic skill check is needed to see if you can see difficult or hidden spells."
+            }
         ]
     }
 ]

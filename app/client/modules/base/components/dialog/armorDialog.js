@@ -67,8 +67,9 @@ export default __ArmorDialog;
 const armors = [
     { title: "None", armor: 0, movement: 0 },
     { title: "Leather", armor: 2, movement: 0 },
-    { title: "Studded Leather", armor: 4, movement: -1 },
-    { title: "Mail", armor: 6, movement: -1 },
+    { title: "Studded Leather", armor: 3, movement: 0 },
+    { title: "Mail", armor: 5, movement: -1 },
+    { title: "Scales", armor: 6, movement: -1 },
     { title: "Plate", armor: 8, movement: -2 },
     { title: "Full Plate", armor: 10, movement: -2 }
 ]
