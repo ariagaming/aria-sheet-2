@@ -13,6 +13,9 @@ class BuyProfessionSkills extends Component {
         const { newCharacter, source, buy } = this.props;
         if (!newCharacter || !newCharacter.classes.length === 0) return null;
 
+        if (newCharacter.classes.length === 0) return null;
+
+
         const max = newCharacter.classes[0].skillPoints + (newCharacter.classes[0].skills || []).length;
         const list = newCharacter.skills;
         const remaining = list.reduce((acc, l) => {

@@ -29,7 +29,7 @@ class ArmorDialog extends Component {
                                     return (
                                         <div key={i}>
                                             <input type="radio" name="armor" value={a.title} onChange={change(a)} checked={type === a.title ? "checked" : ""} />
-                                            <span>{a.title}</span>
+                                            <span>{a.title} ({a.armor})</span>
                                         </div>
                                     )
                                 })

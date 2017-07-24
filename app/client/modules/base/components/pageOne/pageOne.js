@@ -26,7 +26,7 @@ class PageOne extends Component {
         const { character, showArmorDialog, changeCharacterXP } = this.props;
 
         return (
-            <Page>
+            <Page className="page-one">
                 {/* Character Information */}
                 <PageHeader />
 
@@ -37,7 +37,7 @@ class PageOne extends Component {
                 <StatisticInfo type="ap" value={character.ap.total} title="ap" />
                 <StatisticInfo type="expertise" value={character.expertise.total} title="expertise" prefix="+" />
                 <StatisticInfo type="movement" value={character.movement.total} title="movement" postfix="ft" />
-                <StatisticInfo type="initiative" value={character.initiative.total} title="initiative" />
+                <StatisticInfo type="initiative" value={character.initiative.total} prefix="-" postfix="%" title="initiative" />
                 <StatisticInfo type="armor" value={character.armor.total} title="armor" postfix="%" onClick={showArmorDialog} />
                 <StatisticInfo type="magic-armor" value={character.magicArmor.total} title="Aura" postfix="%" onClick={showArmorDialog} />
 

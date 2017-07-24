@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import characterDefinition from './../../../character/definition';
 import Container from './../container/container';
+import { getSpecials } from './../../../character/helpers';
 
 /**
  * This is the basic description of the Specials component. This will be shown in the
@@ -10,9 +11,20 @@ import Container from './../container/container';
  */
 class Specials extends Component {
     render() {
+        const { character } = this.props;
+        const specials = getSpecials(character);
+
         return (
             <Container title="Specials" className="bordered specials">
-                Specials
+                {
+                    specials.map((special, i) => {
+                        return (
+                            <div key={i} className="row">
+                                <span className="title">{special.title}</span>
+                            </div>
+                        )
+                    })
+                }
             </Container>
         );
     }

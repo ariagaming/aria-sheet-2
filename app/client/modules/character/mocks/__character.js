@@ -2,11 +2,12 @@ const character = {
     "name": "New character",
     "hp": {
         "base": 5,
-        "factor": 5,
+        "factor": 0,
         "feats": 0,
         "weapon": 0,
         "equipment": 0,
         "str": 0,
+        "sum": 5,
         "STRFactor": 1,
         "total": 5
     },
@@ -65,9 +66,7 @@ const character = {
     "race": {
         "title": "Unknown"
     },
-    "classes": [{
-        "title": "Unknown"
-    }],
+    "classes": [],
     "playerName": "unknown",
     "weapons": [
         { "title": "Dagger", "numberOfDice": 1, "diceSides": 4, "constant": 0, "isActive": true, "isTwohanded": false, "isShield": false }
@@ -145,6 +144,7 @@ const character = {
             "race": 0,
             "profession": 0,
             "equipment": 0,
+            "weapon": 0,
             "bonus": 0,
             "total": 0
         },
@@ -153,6 +153,7 @@ const character = {
             "race": 0,
             "profession": 0,
             "equipment": 0,
+            "weapon": 0,
             "bonus": 0,
             "total": 0
         },
@@ -161,6 +162,7 @@ const character = {
             "race": 0,
             "profession": 0,
             "equipment": 0,
+            "weapon": 0,
             "bonus": 0,
             "total": 0
         },
@@ -169,6 +171,7 @@ const character = {
             "race": 0,
             "profession": 0,
             "equipment": 0,
+            "weapon": 0,
             "bonus": 0,
             "total": 0
         }
@@ -514,7 +517,7 @@ const character = {
         },
         {
             "title": "Stamina",
-            "description": "Increase HP rank rating by 1.",
+            "description": "Increase HP multiplication factor by 1.",
             "base": 0,
             "weapon": 0,
             "total": 0,
@@ -647,12 +650,12 @@ const character = {
             "rank": 0,
             "equipment": 0,
             "sign": "",
-            "factor": 4,
+            "factor": 2,
             "unit": " ft"
         },
         {
-            "title": "Merchant",
-            "description": "+3 per rank on your merchant rolls.",
+            "title": "Initiative",
+            "description": "Decrease the speed of your selected weapon with 3% per rank.",
             "base": 0,
             "weapon": 0,
             "total": 0,
@@ -660,7 +663,7 @@ const character = {
             "rank": 0,
             "equipment": 0,
             "factor": 3,
-            "sign": "+"
+            "unit": "%"
         },
         {
             "title": "Artist",
@@ -687,12 +690,9 @@ const character = {
             "sign": "+"
         }
     ],
-    "spells": {
-        "general": {
-            "title": "General Spells",
-            "spells": []
-        }
-    }
+    "spells": [
+        { "title": "General", "spells": [] }
+    ]
 }
 
 

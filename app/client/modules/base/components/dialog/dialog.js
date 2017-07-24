@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 class Dialog extends Component {
 
     render() {
-        const { dialog, show, hideDialog, updateCharacter, turnPage } = this.props;
+        const { dialog, show, hideDialog, updateCharacter, turnPage, newCharacter } = this.props;
         const pages = (() => {
             if (this.props.children && this.props.children.length > 0) return null;
             else {
@@ -34,9 +34,40 @@ class Dialog extends Component {
             else return pages[index].title;
         }
 
+        let $xp = 0;
+        let sourceXP = (newCharacter ? newCharacter.XP.source : 0)
+        let c = newCharacter;
+        if (c) {
+            /*
+            Calculate the XP of the character.
+            */
+            let __xp = [3, 7, 12, 18, 25, 33, 42, 52, 63, 75, 88];
+            const skillXP = c.skills.reduce((acc, skill) => {
+                return acc + (skill.bought === "xp" ? 3 : 0) + (skill.expertise === "xp" ? 4 : 0);
+            }, 0);
+            const featsXP = c.feats.reduce((acc, feat) => {
+                if (feat.bought === 0) return acc;
+                return acc + __xp[feat.bought + -1];
+            }, 0);
+            const professionsXP = c.professions.reduce((acc, prof) => {
+                return acc + (prof.bought === "xp" ? 3 : 0) + (prof.expertise === "xp" ? 4 : 0);
+            }, 0);
+            const classesXP = (() => {
+                const numberOfClasses = c.classes.length;
+                if (numberOfClasses == 0) return 0;
+                if (numberOfClasses == 1) return 0;
+                if (numberOfClasses == 2) return 10;
+                if (numberOfClasses == 3) return 25;
+                if (numberOfClasses == 4) return 50;
+
+                return 100;
+            })();
+            $xp = skillXP + featsXP + professionsXP + classesXP;
+        }
 
         return (
             <div className={"dialog-container " + (show ? "show" : "")}>
+                <div className={"dialog-container__xp" + ($xp > sourceXP ? " too-much" : "")}>{$xp}/{sourceXP} XP</div>
                 <div className="dialog">
                     <div className="dialog__header">
                         <span>{getTitle() || "Dialog"}</span>

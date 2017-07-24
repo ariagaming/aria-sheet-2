@@ -10,13 +10,13 @@ class EditEquipment extends Component {
 
     changeNewCharacter = (weapon) => {
         // initialize the description
-        let desc = "";
+        let desc = [];
 
         // create a description from the statistics
         const statistics = ["STR", "AGI", "INU", "PER"];
         statistics.forEach(stat => {
             if (weapon[stat] && weapon[stat] > 0) {
-                desc += ", " + stat + ":" + weapon[stat];
+                desc.push(stat + ":" + weapon[stat]);
             }
         });
 
@@ -24,15 +24,14 @@ class EditEquipment extends Component {
         this.props.newCharacter.feats.forEach(feat => {
             const value = weapon[feat.title];
             if (value && value > 0) {
-                desc += ", " + feat.title + ":" + value;
+                desc.push(feat.title + ":" + value);
             }
         });
 
         // generate a new list of weapons
         const newWeapons = this.props.newCharacter.weapons.map(e => {
             if (e.id === this.state.weapon.id) {
-                if (desc.length > 1) desc = desc.slice(2);
-                return { ...weapon, description: desc };
+                return { ...weapon, description: desc.join(', ') };
             } else {
                 return e;
             }
@@ -172,6 +171,10 @@ class EditEquipment extends Component {
                                     <input value={weapon.title || ""} onChange={this.changeValue(weapon, 'title')} />
                                 </div>
                                 <div className="field">
+                                    <label>Description</label>
+                                    <span>{weapon.description}</span>
+                                </div>
+                                <div className="field">
                                     <span>Active:</span>
                                     <input type="checkbox" checked={weapon.isActive || false} onChange={this.changeIsActive} />
                                 </div>
@@ -183,6 +186,11 @@ class EditEquipment extends Component {
                                     <span>+</span>
                                     <input type="number" value={weapon.constant || 0} onChange={this.changeValue(weapon, 'constant')} />
                                 </div>
+                                <div className="field">
+                                    <label>Initiative</label>
+                                    <input value={weapon.initiative || 10} onChange={this.changeValue(weapon, 'initiative')} />
+                                </div>
+                                <hr />
                                 <div className="field">
                                     <span>Is ranged:</span>
                                     <input type="checkbox" checked={weapon.isRanged || false} onChange={this.changeValue(weapon, 'isRanged')} />

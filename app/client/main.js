@@ -10,9 +10,13 @@ import characterReducer from './modules/character/reducer';
 
 import __character from './modules/character/mocks/__character';
 import __races from './modules/character/mocks/__races';
-import __professions from './modules/character/mocks/__classes';
+import __classes from './modules/character/mocks/__classes';
 import __weapons from './modules/character/mocks/__weapons';
-
+import __monk from './modules/character/mocks/__monk';
+import __paladin from './modules/character/mocks/__paladin';
+import __priest from './modules/character/mocks/__priest';
+import __rogue from './modules/character/mocks/__rogue';
+import __earth_mage from './modules/character/mocks/__earth_mage';
 
 
 /* Initialize FireBase */
@@ -39,7 +43,7 @@ let initialState = {
     character: (character || __character),
     data: {
         races: __races,
-        professions: __professions,
+        professions: [...__classes, __rogue, __paladin, __priest, __earth_mage, __monk].map(c => ({ ...c, level: 1 })),
         weapons: __weapons
     },
     dialog: {

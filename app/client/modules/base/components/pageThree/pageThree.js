@@ -13,7 +13,8 @@ class PageThree extends Component {
     render() {
         const { character } = this.props;
 
-        //console.log(character.hp);
+        const Fill = source => <i className={"fa fa-circle " + source}></i>;
+        const Empty = <i className="fa fa-circle-o"></i>;
 
         return (
             <Page className="page-three">
@@ -26,15 +27,16 @@ class PageThree extends Component {
                     </div>
                     <div className="row">
                         <span className="title">Weapon Skill:</span>
-                        <span>level:{character.level} +</span>
-                        <span>feat:{character.expertise.feats} +</span>
+                        <span>lvl:{character.level} +</span>
+                        <span>exp:{character.expertise.feats} +</span>
+                        <span>STR:{character.statistics.STR.bonus} +</span>
                         <span>WS: {character.expertise.wsExpertise} =</span>
-                        <span>{(character.expertise.wsExpertise) + character.expertise.total}</span>
+                        <span>{(character.expertise.wsExpertise) + character.statistics.STR.bonus + character.expertise.total}</span>
                     </div>
                     <div className="row">
                         <span className="title">Ball. Skill:</span>
                         <span>level:{character.level} +</span>
-                        <span>feat:{character.expertise.feats} +</span>
+                        <span>exp:{character.expertise.feats} +</span>
                         <span>BS: {character.expertise.bsExpertise} =</span>
                         <span>{(character.expertise.bsExpertise) + character.expertise.total}</span>
                     </div>
@@ -50,7 +52,22 @@ class PageThree extends Component {
                         <span>{character.hp.STRFactor}</span>
                         <span>=</span>
                         <span className="title">Total</span>
-                        <span>{character.statistics.STR.bonus * character.hp.factor}</span>
+                        <span>{character.statistics.STR.bonus * character.hp.STRFactor}</span>
+                    </div>
+
+                    <div className="row">
+                        <span className="title">Base Stamina</span>
+                        <span>{character.hp.base} +</span>
+                        <span className="title">Stamina:</span>
+                        <span>{character.hp.factor} = </span>
+                        <span>{character.hp.base + character.hp.factor}</span>
+                    </div>
+
+                    <div className="row">
+                        <span>(lvl:{character.level} + </span>
+                        <span>STR:{character.statistics.STR.bonus * character.hp.STRFactor}) *</span>
+                        <span>{character.hp.base + character.hp.factor} =</span>
+                        <span>{character.hp.total}</span>
                     </div>
 
 
@@ -144,6 +161,7 @@ class PageThree extends Component {
                                 <th>weap</th>
                                 <th>factor</th>
                                 <th>total</th>
+                                <th>Roll</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -157,7 +175,8 @@ class PageThree extends Component {
                                             <td>{feat.equipment}</td>
                                             <td>{feat.weapon}</td>
                                             <td>{feat.sign}{feat.factor || 1}{feat.unit}</td>
-                                            <td>{feat.total}</td>
+                                            <td>{feat.sign}{feat.total}{feat.unit}</td>
+                                            <td>{feat.unit === "%" ? Math.floor((20 / 100) * (feat.total || 0)) : "-"}</td>
                                         </tr>
                                     )
                                 })
@@ -165,6 +184,34 @@ class PageThree extends Component {
                         </tbody>
                     </table>
                     <title>Feats breakdown</title>
+                </div>
+                <div className="container skill-breakdown">
+                    <p>
+                        Each skill has three "modes". 'Not Proficient', 'Proficient' and 'Expertise'. When you are 'Not Proficient' in a skill you can roll for this skill with a 1d10.
+                        You can not roll a critical. The following examples revolve around the made up skill 'Fishing'. With zero bubbles filled you are 'Not Proficient', with one
+                        bubble filled you are 'Proficient' and can roll for this skill with 1d20. With two bubbles filled you can roll with 1d20 + Expertise.
+                    </p>
+                    <div className="container">
+                        <div className="row">
+                            {Empty}
+                            {Empty}
+                            <span>Fishing</span>
+                        </div>
+                        <div className="row">
+                            {Fill('')}
+                            {Empty}
+                            <span>Fishing</span>
+                        </div><div className="row">
+                            {Fill('')}
+                            {Fill('')}
+                            <span>Fishing</span>
+                        </div>
+                    </div>
+                    <p>
+                        Extertise is calculated in the "Extertise Breakdown" section of this page.
+                    </p>
+
+                    <title>How rolls work</title>
                 </div>
 
             </Page>

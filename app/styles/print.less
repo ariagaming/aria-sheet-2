@@ -1,94 +1,57 @@
 
+
 @page {
-   size: 7in 9.25in;
-   margin: 27mm 16mm 27mm 16mm;
+    size: A4;
 }
 
-
 @media print {
+    *, *:before, *:after {
+        box-sizing: border-box;
+        float: none; 
+    } 
+    
     * {
         visibility: hidden;
     }
+    
     .page-container {
-        overflow: auto;
-        .page {
+        margin: 0;
+        padding: 0;
+        
+        height: 29.7cm;
+        min-height: 29.7cm;
+        max-height: 29.7cm;
+        
+        width: 21cm!important;
+        min-width: 21cm!important;
+        max-width: 21cm!important;
+        
+        overflow: visible!important;
+        visibility: visible;
+    }
+    
+    .page { 
+        visibility: visible;
+        margin: 0!important;;
+        
+        // height: 29.7cm;
+        // min-height: 29.7cm;
+        // max-height: 29.7cm;
+        
+        height: 300px;
+        min-height: 300px;
+        max-height: 300px;
+        
+        width: 21cm;
+        min-width: 21cm;
+        max-width: 21cm;
+        
+        overflow: hidden;
+        
+        border: none;
+        
+        * {
             visibility: visible;
-            height: 9.25in;
-            width: 7in;
-            
-            .page-content {
-                
-            }
         }
     }
 }
-
-
-
-// @media print {
-//     *, *:before, *:after {
-//         box-sizing: border-box;
-//         -webkit-print-color-adjust: exact;
-//         margin: 0;
-//         padding: 0;
-//     }
-    
-    
-    
-//     html, body, #jsx-app, .root {
-//         height: 100%;
-//         width: 100%;
-//         visibility: visible;
-//         overflow: scroll;
-//     }
-    
-//     .page-container {
-//         visibility: hidden;
-//         // overflow: scroll;
-//         // margin: 0;
-//         // padding: 0;
-//         // left: auto;
-//         // transform: none;
-//     }
-    
-//     .dialog-container {
-//         display: none;
-//     }
-//     .actions {
-//         display: none;
-//      }
-    
-//     .page {
-//         visibility: hidden;
-//         margin: 0;
-        
-//         .page-content {
-//             background: white;
-//             visibility: visible;
-//             width: 7in;
-//             height: 9.25in;
-//         }
-        
-//         &:last-child {
-//             margin: 0;
-//         }
-        
-//         page-break-after: always;
-        
-//         // display: block;
-        
-//         // width: 21cm;
-//         // height: 29.7cm;
-
-//         // margin: 0;
-//         // padding: 0;
-        
-//         // border: none;
-//         // visibility: visible;
-//         // overflow: auto;
-        
-//         // outline: 3px solid orange;
-//     }
-    
-    
-// }

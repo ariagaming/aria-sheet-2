@@ -1,22 +1,26 @@
 @start: 390px;
 @next: 98px;
+@top: 669px;
 
-.ap-offense {
-    top: 710px;
-    left: @start;
-}
+.page-one {
+    position: relative;
+    .ap-offense {
+        top: @top;
+        left: @start;
+    }
 
-.ap-defense{
-    top: 710px;
-    left: (@start + @next);
-}
+    .ap-defense{
+        top: @top;
+        left: (@start + @next);
+    }
 
-.ap-recovery {
-    top: 710px;
-    left: (@start + (@next * 2));
-}
+    .ap-recovery {
+        top: @top;
+        left: (@start + (@next * 2));
+    }
 
-.ap-dmg {
-    top: 710px;
-    left: (@start + (@next * 3));
+    .ap-dmg {
+        top: @top;
+        left: (@start + (@next * 3));
+    }
 }

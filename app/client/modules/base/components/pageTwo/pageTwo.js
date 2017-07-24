@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Container from './../container/container';
 import _ from 'lodash';
 import SpellConfiguration from './../spellConfiguration/spellConfiguration';
-
+import { getSpells } from './../../../character/helpers';
 
 
 /**
@@ -27,10 +27,13 @@ class PageTwo extends Component {
         };
         const pages = [
             { title: "Spell Configurations", content: <SpellConfiguration /> }
-        ]
+        ];
+        const spells = getSpells(character);
 
-        const getDescription = (string) => {
-            return _.template(string)(construct);
+        const getDescription = (string, rank) => {
+            console.log(string)
+            const __construct = { ...construct, rank: (rank || 0) };
+            return _.template(string)(__construct);
         }
 
         const RenderChoicedSpell = (props) => {
@@ -48,29 +51,70 @@ class PageTwo extends Component {
                 );
             }
         }
+        const RenderSpell = (props) => {
+            const { spell } = props;
+            return (
+                <div className="row">
+                    <span className="title">{spell.title}:</span>
+                    <span>{getDescription(spell.description, spell.rank)}</span>
+                </div>
+            );
+        }
+
+        const RenderSpellTable = (props) => {
+            const { category, level } = props;
+            return (
+                <table className="table">
+                    <thead>
+                        <tr><th className="spells-category" colSpan="3">{category.title}</th></tr>
+                        <tr>
+                            <th>level/rank</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            category
+                                .spells
+                                .filter(spell => spell.level ? (spell.level <= level) : true)
+                                .filter(spell => spell.rank ? (spell.rank > 0) : true)
+                                .map((spell, i) => {
+
+                                    const s = spell.choices ? spell.choices.filter(c => c.selected)[0] : spell;
+                                    if (!s) {
+                                        return (
+                                            <tr key={i}>
+                                                <td>{spell.level || spell.rank}</td>
+                                                <td colSpan="2">No choice selected</td>
+                                            </tr>
+                                        )
+                                    }
+                                    else {
+                                        return (
+                                            <tr key={i} >
+                                                <td>{spell.level || spell.rank}</td>
+                                                <td>{s.title}</td>
+                                                <td>{getDescription(s.description, spell.rank)}</td>
+                                            </tr>
+                                        )
+                                    }
+                                })
+                        }
+                    </tbody>
+                </table>
+            )
+        }
 
         return (
             <Page className="page-two">
                 <Container className="spells" title="" pages={pages}>
                     {
-                        (Object.keys(character.spells))
-                            .map(s => character.spells[s])
+                        spells
                             .filter(s => s.spells.length > 0)
                             .map((s, i) => {
                                 return (
-                                    <div className="spell-details" key={i}>
-                                        <h2>{s.title} Spells</h2>
-                                        {
-                                            s.spells
-                                                .filter(s => (s.rank ? s.rank > 0 : true) && (s.level ? s.level >= character.level : true))
-                                                .map((spell, j) => (
-                                                    <div key={j} className="row">
-                                                        <span className="title">{spell.title}:</span>
-                                                        <span>{getDescription(spell.description)}</span>
-                                                    </div>
-                                                ))
-                                        }
-                                    </div>
+                                    <RenderSpellTable key={i} category={s} level={character.level} />
                                 )
                             })
                     }
@@ -80,25 +124,6 @@ class PageTwo extends Component {
     }
 }
 
-
-/*
-    character
-        .spells
-        .filter(s => s.level <= character.level)
-        .map((spell, i) => {
-            if (spell.choices) {
-                return <RenderChoicedSpell key={i} spell={spell} />;
-            }
-            else {
-                return (
-                    <div key={i} className="row">
-                        <span className="title">{spell.title}:</span>
-                        <span>{getDescription(spell.description)}</span>
-                    </div>
-                )
-            }
-        })
-*/
 
 
 const mapStateToProps = (state, ownProps) => {

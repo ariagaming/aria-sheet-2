@@ -271,11 +271,24 @@ title {
     padding: 0.5em 0;
     
     .choice {
-        flex: 1;
+        flex: 0 0 33%;
         padding: 3px;
+        
+        .title {
+            font-weight: bold;
+            margin-right: 5px; 
+            &:after {
+                content: ":"
+            }
+        }
         
         &:first-child {
             flex: 0;
+            text-align: center;
+            font-weight: bold;
+            font-family: fantasy;
+            font-size: 2em;
+            vertical-align: middle;
         }
         
         &.selected {

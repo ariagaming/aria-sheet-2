@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
 import { connect } from 'react-redux';
-
+import { getSpecialisations } from './../../../character/helpers';
 import EditBuyable from './../other/editBuyable';
 
 
@@ -18,13 +18,22 @@ class PageHeader extends Component {
         const changeCharacterName = (event) => {
             changeName(event.target.value);
         }
+        const classCaptions = (() => {
+            const specialisations = getSpecialisations(character, true);
+            if (specialisations.length === 1) {
+                return specialisations[0].title;
+            }
+            else {
+                return getSpecialisations(character).map(c => `${c.level} ${c.title}`).join(", ");
+            }
+        })();
 
         return (
             <div className="page-one__page-header">
                 <input className="page-one__page-header__name" value={name} onChange={changeCharacterName} />
                 <span className="page-one__page-header__race" onClick={showEditRaceDialog}>{race.title}</span>
                 <span className="page-one__page-header__level">{character.level}</span>
-                <span className="page-one__page-header__profession" onClick={showEditProfessionDialog}>{classes.map(c => c.title).join(", ")}</span>
+                <span className="page-one__page-header__profession" onClick={showEditProfessionDialog}>{classCaptions}</span>
             </div>
         );
     }

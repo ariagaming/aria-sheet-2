@@ -10,6 +10,22 @@
     bottom: 0;
     top: 0;
     
+    &__xp {
+        position: fixed;
+        left: 50%;
+        bottom: 0px;
+        transform: translateX(-50%);
+        background: white;
+        color: black;
+        font-size: 50px;
+        padding: 0 2em;
+        
+        &.too-much {
+            background: red;
+            color: white;
+        }
+    }
+    
     
     /* Hide the dialog and show when shown */
     display: none;

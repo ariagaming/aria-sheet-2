@@ -59,6 +59,8 @@ class App extends React.Component {
 
     render() {
         const { user, dialog, closeDefaultDialog, showSelectCharacterDialog, resetCharacter } = this.props;
+        const { spells, classes } = this.props.character;
+
         const signOut = () => {
             const auth = firebase.auth();
             auth.signOut();
@@ -72,7 +74,6 @@ class App extends React.Component {
             );
         }
         else {
-
             const shown = this.props.dialog.shown || this.props.dialog.raceDialogShown;
             const __resetCharacter = () => {
                 const { id, email } = this.props.character;
@@ -91,6 +92,9 @@ class App extends React.Component {
             const newCharacter = () => {
                 resetCharacter();
             }
+            // const hasSpells =
+            //     (spells.map(spell => (spell.spells || []).length).reduce((acc, l) => acc + l, 0)) +
+            //     (classes.map(__class => (__class.spells || []).length).reduce((acc, l) => acc + l, 0));
 
             return (
                 <MuiThemeProvider>
@@ -98,6 +102,7 @@ class App extends React.Component {
 
                         <PageContainer>
                             <PageOne />
+                            {/* {hasSpells ? <PageTwo /> : null} */}
                             <PageTwo />
                             <PageThree />
                         </PageContainer>

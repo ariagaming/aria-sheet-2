@@ -11,12 +11,17 @@ import LanguagesDialog from './languagesDialog';
  */
 class Language extends Component {
     render() {
-        const { languages } = this.props.character;
+        const { character } = this.props;
         const Fill = source => <i className={"fa fa-circle " + source}></i>;
         const Empty = <i className="fa fa-circle-o"></i>;
         const pages = [
             { title: "Edit Languages", content: (<LanguagesDialog />) }
         ]
+
+        const languages =
+            character.classes
+                .map(__class => __class.languages || [])
+                .reduce((acc, l) => acc.concat(l), character.languages);
 
         return (
             <Container className="bordered languages" title="languages" pages={pages}>

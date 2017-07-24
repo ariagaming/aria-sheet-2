@@ -45,6 +45,8 @@ class Weapons extends Component {
                                             <span>
                                                 {weapon.numberOfDice || 0}d{weapon.diceSides || 0}+{weapon.dmgTotal || 0};
                                             </span>
+                                            <span>initiative:</span>
+                                            <span>{weapon.initiativeTotal || 10};</span>
                                         </wrapper>
                                 }
                                 <span>{weapon.description}</span>
