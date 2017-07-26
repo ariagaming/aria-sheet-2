@@ -486,7 +486,7 @@ const characterReducer = (state = {}, action) => {
             });
 
             const newResistances = state.newCharacter.resistances.map(s => {
-                if (action.payload.resistances.indexOf(s.title) > -1) {
+                if (action.payload.resistances && action.payload.resistances.indexOf(s.title) > -1) {
                     if (!s.bought) {
                         return { ...s, bought: 'profession' };
                     }
@@ -508,8 +508,8 @@ const characterReducer = (state = {}, action) => {
                 ...state.newCharacter,
                 hp: hp,
                 classes: newClasses,
-                skills: newSkills,
-                resistances: newResistances
+                skills: newSkills//,
+                //resistances: newResistances
             };
 
             return { ...state, newCharacter };
