@@ -17,41 +17,34 @@ export default {
     ],
     "languages": [],
     "specials": [
-        { "title": "Regenerate", "level": 1 },
-        { "title": "Protect", "level": 1, "Toughness": 1 },
-        { "title": "Destroy Evil", "level": 1, "DMG adjstm.": 1 }
+        { "title": "Regenerate", "level": 1, "Regenerate": 1, "description": "Regenerate 1 HP per recuperation." },
+        { "title": "Protect", "level": 1, "Toughness": 2.5, "description": "5% extra armor" },
+        { "title": "Destroy Evil", "level": 1, "DMG adjstm": 1, "description": "+1 DMG against everything." }
     ],
     "spells": [
         {
             "level": 0,
+            "type": "special",
             "title": "Regenerate",
-            "description": "Regenerate 1 hit point per recuperation. This ability is always active on the paladin.",
-            "feats": {
-                "regenerate": 1
-            }
+            "description": "Regenerate 1 hit point per recuperation. This ability is always active on the paladin."
         },
         {
             "level": 0,
+            "type": "special",
             "title": "Protect",
             "description": "+1 armor. (always on)",
-            "feats": {
-                "toughness": 1
-            }
         },
         {
             "level": 0,
+            "type": "special",
             "title": "Destroy Evil",
-            "description": "Do +2 DMG agains undead and demons, +1 DMG to everyone else when attacking. This spell is always on, even if you shake the hand of a demon or undead you will inflict +2 DMG. (Normal armor rules apply)",
-            "feats": {
-                "DMG adjstm.": 1
-            }
+            "description": "Do +2 DMG agains undead and demons, +1 DMG to everyone else when attacking. This spell is always on, even if you shake the hand of a demon or undead you will inflict +2 DMG. (Normal armor rules apply). (The charactersheet automatically incorporates +1 DMG, you should count an extra +1 against undead or deamons yourself)",
         },
         {
-            "type": "choice",
             "level": 1,
+            "type": "choice",
             "choices": [
                 {
-                    "specialization": "Barbarian",
                     "title": "Heal",
                     "description": "Heal for weapon DMG as healing. It does not matter which weapon you choose, but you must attune yourself with that weapon. You can have a maximum of two weapon attunemnet."
                 },
@@ -66,8 +59,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 2,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Recovery",
@@ -78,7 +71,7 @@ export default {
                 },
                 {
                     "title": "Taunt",
-                    "description": "Taunt, causes a target to attack you for 50 INI. Target will not kill itself to get to you and when he/she can't reach you it will attack someone else."
+                    "description": "Taunt, causes a target to attack you for 50 INI. Target will not kill itself to get to you and when he/she can't reach you it will attack someone else. Taunt has a separate cooldown of <%= 8 * ((100 - INI) / 100) %> seconds. You can taunt "
                 },
                 {
                     "title": "Crusader",
@@ -87,8 +80,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 3,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Bless",
@@ -105,8 +98,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 4,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Lay on hands",
@@ -123,8 +116,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 5,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Efficient",
@@ -144,8 +137,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 6,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Bleed for you",
@@ -162,8 +155,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 7,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Recovery II",
@@ -183,8 +176,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 8,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Revive",
@@ -204,8 +197,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 9,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Cure poison and disease",
@@ -222,8 +215,8 @@ export default {
             ]
         },
         {
-            "type": "choice",
             "level": 10,
+            "type": "choice",
             "choices": [
                 {
                     "title": "Summon protector",

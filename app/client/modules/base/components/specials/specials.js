@@ -20,7 +20,9 @@ class Specials extends Component {
                     specials.map((special, i) => {
                         return (
                             <div key={i} className="row">
+                                <span>({special.level})</span>
                                 <span className="title">{special.title}</span>
+                                <span>{special.description}</span>
                             </div>
                         )
                     })

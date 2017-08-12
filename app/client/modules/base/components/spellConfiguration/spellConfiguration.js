@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSpells } from './../../../character/helpers';
+import FlatButton from 'material-ui/FlatButton';
+
 
 /**
  * This is the basic description of the SpellConfiguration component. This will be shown in the
@@ -17,7 +19,7 @@ class SpellConfiguration extends Component {
             }
         }
         return (
-            <div className="choices">
+            <div className="choices" key={index}>
                 <span>{spell.level || spell.rank}</span>
                 {
                     spell.choices.map((choice, i) => {
@@ -33,14 +35,49 @@ class SpellConfiguration extends Component {
         )
     }
 
-    renderNormalSpell(spell, category) {
+    renderNormalSpell(category, index) {
+        const { increaseSpellRank, decreaseSpellRank } = this.props;
+        const __increaseSpellRank = (spell) => {
+            return () => {
+                increaseSpellRank(spell, category);
+            }
+        };
+        const __decreaseSpellRank = (spell) => {
+            return () => {
+                decreaseSpellRank(spell, category);
+            }
+        };
+
+
         return (
-            <div className="row">
-                {spell.rank ? <span className="title">rank:{spell.rank}</span> : null}
-                {spell.level ? <span className="title">lvl:{spell.level}</span> : null}
-                <span className="title">{spell.title}</span>
-                <span>{spell.description}</span>
-            </div>
+            <table className="table" key={index}>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Title</th>
+                        <th>Desciption</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        category.spells.map((spell, i) => {
+                            return (
+                                <tr key={i} className="row">
+                                    <td className="title">{spell.rank}</td>
+                                    <td className="title">{spell.title}</td>
+                                    <td>{spell.description}</td>
+                                    <td>
+                                        <FlatButton onClick={__increaseSpellRank(spell)}><i className="fa fa-plus"></i></FlatButton>
+                                        <FlatButton onClick={__decreaseSpellRank(spell)}><i className="fa fa-minus"></i></FlatButton>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+
+                </tbody>
+            </table>
         );
     }
 
@@ -50,17 +87,7 @@ class SpellConfiguration extends Component {
         const { newCharacter, source, selectChoice } = this.props;
         if (!newCharacter || newCharacter.classes.length < 1 || newCharacter.classes[0].title === "Unknown") return null;
 
-        const spellCategories = getSpells(newCharacter).filter(category => category.spells.length > 0);
-
-        const RenderSpell = (props) => {
-            const { spell, index, category } = props;
-            if (spell.type === "choice") {
-                return this.renderChoice(spell, index, category);
-            }
-            else {
-                return this.renderNormalSpell(spell, category);
-            }
-        }
+        const spellCategories = getSpells(newCharacter).filter(category => category.spells && category.spells.length > 0);
 
         if (!spellCategories || spellCategories.length === 0) {
             return (
@@ -68,22 +95,74 @@ class SpellConfiguration extends Component {
             )
         }
         else {
+            const specials = spellCategories.map(category => {
+                return {
+                    title: category.title,
+                    specials: category.spells.filter(spell => spell.type === "special")
+                };
+            });
+
+            const choices = spellCategories.map(category => {
+                return {
+                    title: category.title,
+                    choices: category.spells.filter(spell => spell.type === "choice")
+                };
+            });
+
+            const other = spellCategories.map(category => {
+                return {
+                    title: category.title,
+                    spells: category.spells.filter(spell => (spell.type !== "choice" && spell.type !== "special"))
+                };
+            });
 
             return (
                 <div className="spell-configuration">
                     {
-                        spellCategories.map((category, i) => {
+                        specials.map((category, i) => {
                             return (
-                                <div key={i}>
-                                    <h2>{category.title} Spells</h2>
-                                    {
-                                        category.spells.map((spell, j) => <RenderSpell spell={spell} category={category.title} index={j} key={j} />)
-                                    }
-                                </div>
+                                category.specials.length > 0 ?
+                                    <div key={i}>
+                                        <h2>{category.title} Specials</h2>
+                                        {
+                                            category.specials.map((special, j) => {
+                                                return (
+                                                    <div className="row" key={j}>
+                                                        <span className="title">{special.title}:</span>
+                                                        <span>{special.description}</span>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div> :
+                                    null
                             )
-
                         })
                     }
+
+                    {
+                        choices.map((category, i) => {
+                            return (
+                                category.choices.length > 0 ?
+                                    <div key={i}>
+                                        <h2>{category.title} Choices</h2>
+                                        {
+                                            category.choices.map((choice, j) => this.renderChoice(choice, j, category))
+                                        }
+                                    </div> :
+                                    null
+                            )
+                        })
+                    }
+
+                    {
+                        other.map((category, i) => {
+                            return this.renderNormalSpell(category, i)
+                        })
+                    }
+
+
+
                 </div>
             );
         }
@@ -104,6 +183,18 @@ const mapDispatcherToProps = (dispatcher, ownProps) => {
                     spellIndex, choiceIndex, category
                 }
             });
+        },
+        increaseSpellRank: (spell, category) => {
+            dispatcher({
+                type: "SPELL_RANK_INCREASE",
+                payload: { spell, category }
+            });
+        },
+        decreaseSpellRank: (spell, category) => {
+            dispatcher({
+                type: "SPELL_RANK_DECREASE",
+                payload: { spell, category }
+            });
         }
     }
 }
@@ -113,37 +204,6 @@ export default __SpellConfiguration;
 
 
 
-/**
-if (category.choices) {
-    return (
-        <div key={i}>
-            <div className="row choices">
-                <div className="choice">{spell.level}</div>
-                {
-                    spell.choices.map((choice, j) => {
-                        return (
-                            <div className={"choice" + (choice.selected ? " selected" : "")}
-                                key={j}
-                                onClick={__selectChoice(i, j)}>
-                                <span>{spell.level || spell.rank}</span>
-                                <span className="title">{choice.title}:</span>
-                                <span>{choice.description}</span>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        </div>
-    )
-}
-else {
-    return (
-        <div className="row" key={i}>
-            {spell.rank ? <span className="title">rank:{spell.rank}</span> : null}
-            {spell.level ? <span className="title">lvl:{spell.level}</span> : null}
-            <span className="title">{spell.title}</span>
-            <span>{spell.description}</span>
-        </div>
-    )
-}
- */
+
+
+

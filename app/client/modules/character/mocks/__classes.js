@@ -28,7 +28,7 @@ export default [
                     {
                         "title": "Revenge I",
                         "level": 2,
-                        "DMG adjstm.": 2
+                        "DMG adjstm": 2
                     },
                     {
                         "title": "Brutal Crits",

@@ -93,6 +93,81 @@ const characterReducer = (state = {}, action) => {
                 }
             };
 
+        case "SPELL_RANK_INCREASE":
+            return (() => {
+                const _spell = action.payload.spell;
+                const _category = action.payload.category;
+                const classes = state.newCharacter.classes.map(__class => {
+                    if (__class.name === _category) {
+                        const classSpells = __class.spells.map(__spell => {
+                            if (__spell.title === _spell.title) {
+                                return {
+                                    ...__spell,
+                                    rank: __spell.rank ? (__spell.rank + 1) : 0
+                                };
+                            }
+                            else {
+                                return __spell;
+                            }
+                        });
+                        return {
+                            ...__class,
+                            spells: classSpells
+                        };
+                    }
+                    else {
+                        return __class;
+                    }
+                });
+
+                return {
+                    ...state,
+                    newCharacter: {
+                        ...state.newCharacter,
+                        classes: classes
+                    }
+                };
+            })();
+        case "SPELL_RANK_DECREASE":
+            return (() => {
+                const _spell = action.payload.spell;
+                const _category = action.payload.category;
+                const classes = state.newCharacter.classes.map(__class => {
+                    if (__class.name === _category) {
+                        const classSpells = __class.spells.map(__spell => {
+                            if (__spell.title === _spell.title) {
+                                let newRank = __spell.rank ? (__spell.rank - 1) : 0;
+                                if (__spell.baseRank && newRank < __spell.baseRank) {
+                                    newRank = __spell.baseRank;
+                                }
+                                return {
+                                    ...__spell,
+                                    rank: newRank
+                                };
+                            }
+                            else {
+                                return __spell;
+                            }
+                        });
+                        return {
+                            ...__class,
+                            spells: classSpells
+                        };
+                    }
+                    else {
+                        return __class;
+                    }
+                });
+
+                return {
+                    ...state,
+                    newCharacter: {
+                        ...state.newCharacter,
+                        classes: classes
+                    }
+                };
+            })();
+
         case 'SELECT_SPELL_CHOICE':
             const { spellIndex, choiceIndex, category } = action.payload;
 
@@ -238,7 +313,6 @@ const characterReducer = (state = {}, action) => {
 
         case 'SAVE_CHARACTER':
             const { name } = state.character;
-
             if (name && name.length > 2 && name.toLowerCase() !== "new character") {
 
                 const characterKey = state.character.id || database.ref().child('characters').push().key;
@@ -323,7 +397,6 @@ const characterReducer = (state = {}, action) => {
                     })
                 }
             };
-            //debugger;
             return result;
 
         case 'BUY_LANGUAGE':
@@ -370,17 +443,33 @@ const characterReducer = (state = {}, action) => {
             }
             const n = newCharacter[prop].map(b => {
                 if (b.title === buyable.title) {
-                    if (b.expertise === source && b.bought === source) {
-                        return { ...b, bought: false, expertise: false };
+                    if (remaining === 0) {
+
+                        let _bought = (b.bought === source ? false : b.bought);
+                        if (_bought === false && b.expertise !== source) {
+                            _bought = b.expertise;
+                            b.expertise = false;
+                        }
+
+                        return {
+                            ...b,
+                            bought: _bought,
+                            expertise: (b.expertise === source ? false : b.expertise)
+                        };
                     }
-                    else if (b.expertise === source && b.bought) {
-                        return { ...b, expertise: false };
-                    }
-                    else if (!b.expertise && b.bought) {
-                        return { ...b, expertise: source };
-                    }
-                    else if (!b.bought) {
-                        return { ...b, bought: source };
+                    else {
+                        if (b.expertise === source && b.bought === source) {
+                            return { ...b, bought: false, expertise: false };
+                        }
+                        else if (b.expertise === source && b.bought) {
+                            return { ...b, expertise: false };
+                        }
+                        else if (!b.expertise && b.bought) {
+                            return { ...b, expertise: source };
+                        }
+                        else if (!b.bought) {
+                            return { ...b, bought: source };
+                        }
                     }
                 }
                 return b;
@@ -515,9 +604,6 @@ const characterReducer = (state = {}, action) => {
             return { ...state, newCharacter };
 
         case 'REMOVE_PRFESSION':
-
-
-
             return { ...state };
 
         case 'PROFESSION_SPECIALIZATION':
@@ -563,7 +649,7 @@ const characterReducer = (state = {}, action) => {
             const c = JSON.parse(JSON.stringify(state.newCharacter));
 
             /* STATISTICS */
-            c.statistics.STR.race = c.race.stats ? c.race.stats.STR : 0;
+            c.statistics.STR.race = (c.race && c.race.stats) ? c.race.stats.STR : 0;
             c.statistics.STR.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.STR || 0), 0);
             c.statistics.STR.equipment = c.equipment.reduce((acc, eq) => acc + (eq.STR || 0), 0);
             c.statistics.STR.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.STR).reduce((acc, s) => acc + s, 0);
@@ -572,7 +658,7 @@ const characterReducer = (state = {}, action) => {
                 c.statistics.STR.weapon + c.statistics.STR.profession;
             c.statistics.STR.bonus = Math.floor(c.statistics.STR.total / 10);
 
-            c.statistics.AGI.race = c.race.stats ? c.race.stats.AGI : 0;
+            c.statistics.AGI.race = (c.race && c.race.stats) ? c.race.stats.AGI : 0;
             c.statistics.AGI.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.AGI || 0), 0);
             c.statistics.AGI.equipment = c.equipment.reduce((acc, eq) => acc + (eq.AGI || 0), 0);
             c.statistics.AGI.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.AGI).reduce((acc, s) => acc + s, 0);
@@ -583,7 +669,7 @@ const characterReducer = (state = {}, action) => {
             // 3 AGI bonus ranks you get 1 armor rank.
             c.armor.stats = Math.floor(c.statistics.AGI.bonus / 3);
 
-            c.statistics.INU.race = c.race.stats ? c.race.stats.INU : 0;
+            c.statistics.INU.race = (c.race && c.race.stats) ? c.race.stats.INU : 0;
             c.statistics.INU.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.INU || 0), 0);
             c.statistics.INU.equipment = c.equipment.reduce((acc, eq) => acc + (eq.INU || 0), 0);
             c.statistics.INU.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.INU).reduce((acc, s) => acc + s, 0);
@@ -593,7 +679,7 @@ const characterReducer = (state = {}, action) => {
             c.statistics.INU.bonus = Math.floor(c.statistics.INU.total / 10);
             c.magicArmor.stats = c.statistics.INU.bonus;
 
-            c.statistics.PER.race = c.race.stats ? c.race.stats.PER : 0;
+            c.statistics.PER.race = (c.race && c.race.stats) ? c.race.stats.PER : 0;
             c.statistics.PER.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.PER || 0), 0);
             c.statistics.PER.equipment = c.equipment.reduce((acc, eq) => acc + (eq.PER || 0), 0);
             c.statistics.PER.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.PER).reduce((acc, s) => acc + s, 0);
@@ -628,7 +714,7 @@ const characterReducer = (state = {}, action) => {
                 else if (feat.title === "WS Expertise") {
                     c.expertise.wsExpertise = feat.total;
                 }
-                else if (feat.title === "DMG adjstm.") {
+                else if (feat.title === "DMG adjstm") {
                     c.weapons.forEach(w => {
                         w.dmgFeat = feat.total;
                     });
@@ -654,7 +740,7 @@ const characterReducer = (state = {}, action) => {
             c.expertise.level = c.level;
             c.expertise.total = c.expertise.feats + c.expertise.level;
             c.armor.sum = c.armor.feats + c.armor.base + c.armor.stats + c.armor.equipment + c.armor.armor;
-            c.armor.total = c.armor.sum * 3;
+            c.armor.total = c.armor.sum * 2;
             c.magicArmor.sum = c.magicArmor.feats + c.magicArmor.base + c.magicArmor.stats + c.magicArmor.equipment + c.magicArmor.armor;
             c.magicArmor.total = c.magicArmor.sum * 5;
 
@@ -725,6 +811,7 @@ const characterReducer = (state = {}, action) => {
             Calculate the XP of the character.
             */
             let __xp = [3, 7, 12, 18, 25, 33, 42, 52, 63, 75, 88];
+            let __xp2 = [0, ...__xp];
             let $xp =
                 c.skills.reduce((acc, skill) => {
                     return acc + (skill.bought === "xp" ? 3 : 0) + (skill.expertise === "xp" ? 4 : 0);
@@ -744,7 +831,17 @@ const characterReducer = (state = {}, action) => {
                     if (numberOfClasses == 3) return 25;
                     if (numberOfClasses == 4) return 50;
                     return 100;
-                })()
+                })() +
+                (() => {
+                    const _xp = c.classes.reduce((acc, _class) => {
+                        return acc + (_class.spells || []).reduce((acc, _spell) => {
+                            if (!_spell.rank) return acc;
+                            const boughtRanks = _spell.rank - (_spell.baseRank || 0);
+                            return acc + __xp2[boughtRanks];
+                        }, 0);
+                    }, 0);
+                    return _xp;
+                })();
 
             c.XP = {
                 ...c.XP,

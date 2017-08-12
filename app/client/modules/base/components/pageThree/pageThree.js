@@ -75,7 +75,7 @@ class PageThree extends Component {
                     <title>HP breakdown</title>
                 </div>
 
-                <div className="container feats-breakdown">
+                <div className="container feat-description">
                     {
                         character.feats.map((feat, i) => {
                             return (
@@ -160,6 +160,7 @@ class PageThree extends Component {
                                 <th>eq</th>
                                 <th>weap</th>
                                 <th>factor</th>
+                                <th>spec</th>
                                 <th>total</th>
                                 <th>Roll</th>
                             </tr>
@@ -175,8 +176,9 @@ class PageThree extends Component {
                                             <td>{feat.equipment}</td>
                                             <td>{feat.weapon}</td>
                                             <td>{feat.sign}{feat.factor || 1}{feat.unit}</td>
+                                            <td>{feat.specials}</td>
                                             <td>{feat.sign}{feat.total}{feat.unit}</td>
-                                            <td>{feat.unit === "%" ? Math.floor((20 / 100) * (feat.total || 0)) : "-"}</td>
+                                            <td>{feat.title === "Crit" ? Math.floor((20 / 100) * (feat.total || 0)) : "-"}</td>
                                         </tr>
                                     )
                                 })

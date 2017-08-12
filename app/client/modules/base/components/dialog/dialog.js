@@ -18,30 +18,30 @@ class Dialog extends Component {
             }
         })();
         const index = dialog ? dialog.index : 0;
-
         const onInforPageClick = (index) => {
             return () => turnPage(index);
-        }
+        };
         const getContent = () => {
             // return nothing if there are no pages
             if (!pages || pages.length === 0) return <div>No Content</div>;
             // return the first page
             return React.cloneElement(pages[index].content, { newCharacter: this.props.newCharacter });
-        }
+        };
         const getTitle = () => {
             // return nothing if there are no pages
             if (!pages || pages.length === 0) return "Dialog";
             else return pages[index].title;
-        }
+        };
 
         let $xp = 0;
-        let sourceXP = (newCharacter ? newCharacter.XP.source : 0)
+        let sourceXP = (newCharacter ? newCharacter.XP.source : 0);
         let c = newCharacter;
         if (c) {
             /*
             Calculate the XP of the character.
             */
             let __xp = [3, 7, 12, 18, 25, 33, 42, 52, 63, 75, 88];
+            let __xp2 = [0, 3, 7, 12, 18, 25, 33, 42, 52, 63, 75, 88];
             const skillXP = c.skills.reduce((acc, skill) => {
                 return acc + (skill.bought === "xp" ? 3 : 0) + (skill.expertise === "xp" ? 4 : 0);
             }, 0);
@@ -53,7 +53,7 @@ class Dialog extends Component {
                 return acc + (prof.bought === "xp" ? 3 : 0) + (prof.expertise === "xp" ? 4 : 0);
             }, 0);
             const classesXP = (() => {
-                const numberOfClasses = c.classes.length;
+                const numberOfClasses = c.classes ? c.classes.length : 0;
                 if (numberOfClasses == 0) return 0;
                 if (numberOfClasses == 1) return 0;
                 if (numberOfClasses == 2) return 10;
@@ -62,7 +62,17 @@ class Dialog extends Component {
 
                 return 100;
             })();
-            $xp = skillXP + featsXP + professionsXP + classesXP;
+            const spellsXP = (() => {
+                const _xp = c.classes.reduce((acc, _class) => {
+                    return acc + (_class.spells || []).reduce((acc, _spell) => {
+                        if (!_spell.rank) return acc;
+                        const boughtRanks = _spell.rank - (_spell.baseRank || 0);
+                        return acc + __xp2[boughtRanks];
+                    }, 0);
+                }, 0);
+                return _xp;
+            })();
+            $xp = skillXP + featsXP + professionsXP + classesXP + spellsXP;
         }
 
         return (

@@ -43,6 +43,7 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
     "less-plugin-glob": "^2.0.0",
+    "purs-loader": "^3.0.0",
     "react-styleguidist": "^5.2.1",
     "react-test-renderer": "^15.5.4",
     "shelljs": "^0.7.7",

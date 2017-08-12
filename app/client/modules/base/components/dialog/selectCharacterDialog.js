@@ -27,11 +27,16 @@ class RaceDialog extends Component {
                     .once('value')
                     .then(snapshot => {
                         const values = snapshot.val();
+                        if (!values) return;
+
                         let c = values[character.id];
 
                         /* Because Firebase removes empty objects and ampty arrays we'll need to supply these */
                         c.languages = c.languages || [];
                         c.spells = c.spells || [];
+                        c.classes = c.classes || [];
+                        c.specials = c.specials || [];
+
 
                         selectCharacter(c);
                     });

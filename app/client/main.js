@@ -12,6 +12,7 @@ import __character from './modules/character/mocks/__character';
 import __races from './modules/character/mocks/__races';
 import __classes from './modules/character/mocks/__classes';
 import __weapons from './modules/character/mocks/__weapons';
+import __barbarian from './modules/character/mocks/__barbarian';
 import __monk from './modules/character/mocks/__monk';
 import __paladin from './modules/character/mocks/__paladin';
 import __priest from './modules/character/mocks/__priest';
@@ -37,13 +38,14 @@ firebase.initializeApp(config);
 
 
 const App = require('./modules/shell/components/app/app.js').default;
-const character = JSON.parse(localStorage.getItem("character"));
+let character = JSON.parse(localStorage.getItem("character")) || __character;
+if (!character.classes) character.classes = [];
 
 let initialState = {
-    character: (character || __character),
+    character: character,
     data: {
         races: __races,
-        professions: [...__classes, __rogue, __paladin, __priest, __earth_mage, __monk].map(c => ({ ...c, level: 1 })),
+        professions: [...__classes, __barbarian, __rogue, __paladin, __priest, __earth_mage, __monk].map(c => ({ ...c, level: 1 })),
         weapons: __weapons
     },
     dialog: {

@@ -60,10 +60,12 @@ class App extends React.Component {
     render() {
         const { user, dialog, closeDefaultDialog, showSelectCharacterDialog, resetCharacter } = this.props;
         const { spells, classes } = this.props.character;
+        const { email } = user || {};
 
         const signOut = () => {
             const auth = firebase.auth();
             auth.signOut();
+            localStorage.removeItem("character");
         }
 
         if (!user) {
@@ -74,6 +76,7 @@ class App extends React.Component {
             );
         }
         else {
+            const { saveCharacter } = this.props;
             const shown = this.props.dialog.shown || this.props.dialog.raceDialogShown;
             const __resetCharacter = () => {
                 const { id, email } = this.props.character;
@@ -92,9 +95,6 @@ class App extends React.Component {
             const newCharacter = () => {
                 resetCharacter();
             }
-            // const hasSpells =
-            //     (spells.map(spell => (spell.spells || []).length).reduce((acc, l) => acc + l, 0)) +
-            //     (classes.map(__class => (__class.spells || []).length).reduce((acc, l) => acc + l, 0));
 
             return (
                 <MuiThemeProvider>
@@ -115,7 +115,7 @@ class App extends React.Component {
 
 
                         <div className="actions">
-                            <div className="action" onClick={this.props.saveCharacter}>
+                            <div className="action" onClick={saveCharacter}>
                                 <i className="fa fa-save"></i>
                                 <label>Save</label>
                             </div>
@@ -134,6 +134,9 @@ class App extends React.Component {
                             <div className="action" onClick={newCharacter}>
                                 <i className="fa fa-user"></i>
                                 <label>New Character</label>
+                            </div>
+                            <div className="action" style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", fontSize: "13px" }}>
+                                {email}
                             </div>
                         </div>
 

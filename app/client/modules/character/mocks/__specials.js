@@ -50,7 +50,7 @@ export default [
         "description": "Do +2 DMG",
         "feats": [
             {
-                "name": "DMG adjstm.",
+                "name": "DMG adjstm",
                 "value": 2
             }
         ],
@@ -91,7 +91,7 @@ export default [
         "description": "While berserk you get a +5 to resist mental attacks and get a +2 DMG, you keep fighting even against comrades up to -5 HP. You can state one thing which can snap you out of the berserk. Always triggers in combat.",
         "feats": [
             {
-                "name": "DMG adjstm.",
+                "name": "DMG adjstm",
                 "value": 2
             }
         ],

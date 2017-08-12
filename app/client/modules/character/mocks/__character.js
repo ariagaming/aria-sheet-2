@@ -457,11 +457,11 @@ const character = {
         },
         {
             "title": "Crit",
-            "description": "Increase critical strike chance by 2.5% per rank.",
-            "base": 0,
+            "description": "Increase critical strike chance by 2.5% per rank. At level 1 you always have 5% crit chance, rolling 20 is always a crit.",
+            "base": 2,
             "weapon": 0,
             "bought": 0,
-            "total": 0,
+            "total": 5,
             "rank": 0,
             "equipment": 0,
             "factor": 2.5,
@@ -480,7 +480,7 @@ const character = {
             "unit": "d4"
         },
         {
-            "title": "DMG adjstm.",
+            "title": "DMG adjstm",
             "description": "Increase damage with 1 per rank.",
             "base": 0,
             "weapon": 0,
@@ -505,7 +505,7 @@ const character = {
         },
         {
             "title": "Toughness",
-            "description": "Increase your armor with 3% per rank.",
+            "description": "Increase your armor with 2% per rank.",
             "base": 0,
             "weapon": 0,
             "total": 0,

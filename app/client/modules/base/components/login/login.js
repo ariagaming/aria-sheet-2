@@ -15,6 +15,8 @@ const auth = firebase.auth();
 class Login extends Component {
     render() {
 
+
+
         const changeEmail = (event) => {
             this.setState({ ...this.state, email: event.target.value });
         }
@@ -24,6 +26,7 @@ class Login extends Component {
         }
 
         const submit = () => {
+            //debugger;
             const { email, password } = this.state;
             auth.signInWithEmailAndPassword(email, password);
         }
@@ -51,7 +54,7 @@ class Login extends Component {
                     />
 
                     <div className="login-page__form__buttons">
-                        <RaisedButton label="Submit" onClick={submit} />
+                        <RaisedButton type="Submit" label="Submit" onClick={submit} />
                         <RaisedButton label="Create Account" onClick={createAccount} />
                     </div>
                 </div>

@@ -22,6 +22,7 @@ class PageTwo extends Component {
             AGI: character.statistics.AGI.total,
             INU: character.statistics.INU.total,
             PER: character.statistics.PER.total,
+            INI: character.initiative.total,
             movement: character.movement.total,
             rank: 0
         };
@@ -29,9 +30,9 @@ class PageTwo extends Component {
             { title: "Spell Configurations", content: <SpellConfiguration /> }
         ];
         const spells = getSpells(character);
+        if (!spells || spells.length === 0) return null;
 
         const getDescription = (string, rank) => {
-            console.log(string)
             const __construct = { ...construct, rank: (rank || 0) };
             return _.template(string)(__construct);
         }
@@ -111,7 +112,7 @@ class PageTwo extends Component {
                 <Container className="spells" title="" pages={pages}>
                     {
                         spells
-                            .filter(s => s.spells.length > 0)
+                            .filter(s => s.spells && s.spells.length > 0)
                             .map((s, i) => {
                                 return (
                                     <RenderSpellTable key={i} category={s} level={character.level} />

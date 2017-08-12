@@ -22,8 +22,9 @@ class Feats extends Component {
         return (
             <Container className="bordered feats" title="Feats" pages={pages}>
                 {
-                    feats.map((skill, i) => {
-                        const { rank, bought, title, stat, total, sign, unit } = skill;
+                    feats.map((feat, i) => {
+                        const { rank, bought, title, stat, total, sign, unit } = feat;
+
                         return (
                             <div key={i} className="row">
                                 <span className="rank">{bought || 0}</span>
