@@ -430,7 +430,11 @@ const characterReducer = (state = {}, action) => {
             const buyableTitle = buyable.title;
 
             const listOfSkills = [...state.newCharacter.buyables[source]];
-            const numberOfInstancesOfTheSkill = listOfSkills.filter(s => s === buyableTitle).length;
+            const numberOfInstancesOfTheSkill =
+                state.newCharacter.buyables.race.filter(r => r === buyableTitle).length +
+                state.newCharacter.buyables.profession.filter(r => r === buyableTitle).length +
+                state.newCharacter.buyables.xp.filter(r => r === buyableTitle).length;
+
             let newListOfSkills;
             if (numberOfInstancesOfTheSkill < 2) {
                 newListOfSkills = [...listOfSkills, buyableTitle];
@@ -445,12 +449,12 @@ const characterReducer = (state = {}, action) => {
                     [source]: newListOfSkills
                 }
             }
-            const newSkills = helpers.calculateSkills(BUY_newCharacter);
-            const _BUY_newCharacter = {
-                ...BUY_newCharacter,
-                skills: newSkills
+            return {
+                ...state, newCharacter: {
+                    ...BUY_newCharacter,
+                    skills: helpers.calculateSkills(BUY_newCharacter)
+                }
             };
-            return { ...state, newCharacter: _BUY_newCharacter };
 
         case 'BUY_FEAT':
             const { feat, value } = action.payload;
