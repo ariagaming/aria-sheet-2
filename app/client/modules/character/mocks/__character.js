@@ -186,47 +186,50 @@ const character = {
         {
             "bought": false,
             "expertise": false,
-            "title": "Craftsman"
+            "title": "Merchant",
+            "description": "With the merchant profession you can buy and trade goods at a reasonable price. The higher your skill the better the discount."
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Miner"
+            "title": "Sailor",
+            "description": "With the sailor profession you can sear and pilor boats."
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Medic"
+            "title": "Armorer",
+            "description": "Can craft armors"
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Stagehand"
+            "title": "Medic",
+            "description": "Can heal people after the combat is done for 1d4 HP per recuperation."
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Merchant"
+            "title": "Lawyer",
+            "description": "Understands the law in countries."
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Tinkerer"
+            "title": "Agent",
+            "description": "Can do spy stuff, like disguise and infiltrate organisations."
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Farmer"
+            "title": "Stagehand",
+            "description": "Knows how to set up a production."
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Sailor"
-        },
-        {
-            "bought": false,
-            "expertise": false,
-            "title": "Lawyer"
+            "title": "Miner",
+            "description": "knows caves and mines, can find minerals and recognises precious gems."
         }
     ],
     "skills": [
@@ -341,14 +344,8 @@ const character = {
         {
             "bought": false,
             "expertise": false,
-            "stat": "INU",
-            "title": "Pilot"
-        },
-        {
-            "bought": false,
-            "expertise": false,
             "stat": "AGI",
-            "title": "Dodge"
+            "title": "Defense"
         },
         {
             "bought": false,
