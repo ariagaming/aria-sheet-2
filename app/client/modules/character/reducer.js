@@ -426,56 +426,31 @@ const characterReducer = (state = {}, action) => {
             }
 
         case 'BUY':
-            newCharacter = state.newCharacter;
-            let remaining = 1000;
-            const { prop, buyable, source, max } = action.payload;
-            if (max) {
-                remaining = newCharacter[prop].reduce((acc, l) => {
-                    let total = 0;
-                    if (l.bought === source) {
-                        total++;
-                    }
-                    if (l.expertise === source) {
-                        total++;
-                    }
-                    return acc - total;
-                }, max);
+            const { source, prop, buyable } = action.payload;
+            const buyableTitle = buyable.title;
+
+            const listOfSkills = [...state.newCharacter.buyables[source]];
+            const numberOfInstancesOfTheSkill = listOfSkills.filter(s => s === buyableTitle).length;
+            let newListOfSkills;
+            if (numberOfInstancesOfTheSkill < 2) {
+                newListOfSkills = [...listOfSkills, buyableTitle];
             }
-            const n = newCharacter[prop].map(b => {
-                if (b.title === buyable.title) {
-                    if (remaining === 0) {
-
-                        let _bought = (b.bought === source ? false : b.bought);
-                        if (_bought === false && b.expertise !== source) {
-                            _bought = b.expertise;
-                            b.expertise = false;
-                        }
-
-                        return {
-                            ...b,
-                            bought: _bought,
-                            expertise: (b.expertise === source ? false : b.expertise)
-                        };
-                    }
-                    else {
-                        if (b.expertise === source && b.bought === source) {
-                            return { ...b, bought: false, expertise: false };
-                        }
-                        else if (b.expertise === source && b.bought) {
-                            return { ...b, expertise: false };
-                        }
-                        else if (!b.expertise && b.bought) {
-                            return { ...b, expertise: source };
-                        }
-                        else if (!b.bought) {
-                            return { ...b, bought: source };
-                        }
-                    }
+            else {
+                newListOfSkills = listOfSkills.filter(s => s !== buyableTitle);
+            }
+            const BUY_newCharacter = {
+                ...state.newCharacter,
+                buyables: {
+                    ...state.newCharacter.buyables,
+                    [source]: newListOfSkills
                 }
-                return b;
-            });
-            newCharacter = { ...newCharacter, [prop]: n };
-            return { ...state, newCharacter: newCharacter };
+            }
+            const newSkills = helpers.calculateSkills(BUY_newCharacter);
+            const _BUY_newCharacter = {
+                ...BUY_newCharacter,
+                skills: newSkills
+            };
+            return { ...state, newCharacter: _BUY_newCharacter };
 
         case 'BUY_FEAT':
             const { feat, value } = action.payload;
@@ -540,19 +515,28 @@ const characterReducer = (state = {}, action) => {
 
             const raceSpells = [...state.newCharacter.spells].concat(action.payload.spells || []);
 
-            newCharacter = {
+            const SELECT_RACE_newCharacter = {
                 ...state.newCharacter,
                 race: action.payload,
                 statistics: newStatistics,
-                skills: updateList("skills"),
                 resistances: updateList("resistances"),
                 professions: updateList("professions"),
                 feats: newFeats,
                 spells: raceSpells,
-                languages: state.newCharacter.languages.concat(action.payload.languages || [])
+                languages: state.newCharacter.languages.concat(action.payload.languages || []),
+                buyables: {
+                    ...state.newCharacter.buyables,
+                    race: action.payload.skills
+                }
             };
 
-            return { ...state, newCharacter };
+
+            const _SELECT_RACE_newCharacter = {
+                ...SELECT_RACE_newCharacter,
+                skills: helpers.calculateSkills(SELECT_RACE_newCharacter)
+            };
+
+            return { ...state, newCharacter: _SELECT_RACE_newCharacter };
 
         case 'SELECT_PROFESSION':
 
@@ -562,17 +546,6 @@ const characterReducer = (state = {}, action) => {
             // we do not update the statistics of a character when we add a profession, but we'll
             // set this in the update function.
 
-            const newSkills = state.newCharacter.skills.map(s => {
-                if (action.payload.skills.indexOf(s.title) > -1) {
-                    if (!s.bought) {
-                        return { ...s, bought: 'profession' };
-                    }
-                    else if (s.bought && !s.expertise) {
-                        return { ...s, expertise: 'profession' };
-                    }
-                }
-                return { ...s };
-            });
 
             const newResistances = state.newCharacter.resistances.map(s => {
                 if (action.payload.resistances && action.payload.resistances.indexOf(s.title) > -1) {
@@ -597,8 +570,15 @@ const characterReducer = (state = {}, action) => {
                 ...state.newCharacter,
                 hp: hp,
                 classes: newClasses,
-                skills: newSkills//,
-                //resistances: newResistances
+                buyables: {
+                    ...state.newCharacter.buyables,
+                    profession: action.payload.skills
+                }
+            };
+
+            newCharacter = {
+                ...newCharacter,
+                skills: helpers.calculateSkills(newCharacter)
             };
 
             return { ...state, newCharacter };
@@ -688,6 +668,7 @@ const characterReducer = (state = {}, action) => {
                 c.statistics.PER.weapon + c.statistics.PER.profession;
             c.statistics.PER.bonus = Math.floor(c.statistics.PER.total / 10);
 
+            c.skills = helpers.calculateSkills(c);
 
             c.feats = c.feats.map(feat => {
                 feat.weapon = c.weapons.filter(w => w.isActive).filter(w => w[feat.title]).reduce((acc, weapon) => acc + weapon[feat.title], 0);

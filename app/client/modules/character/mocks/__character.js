@@ -55,6 +55,11 @@ const character = {
     "initiative": {
         "total": 0
     },
+    "buyables": {
+        "xp": [],
+        "profession": [],
+        "race": []
+    },
     "specials": [],
     "expertise": {
         "level": 1,

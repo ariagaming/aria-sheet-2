@@ -58,6 +58,37 @@ export const getSpecials = (character) => {
     return specials.filter(special => special && (!special.level ? true : (special.level <= character.level)));
 }
 
+
+export const calculateSkills = (character) => {
+
+    const newSkills = character.skills.map(skill => {
+        skill.bought = false;
+        skill.expertise = false;
+        let numberInRace = character.buyables.race.filter(s => skill.title === s).length;
+        let numberInProf = character.buyables.profession.filter(s => skill.title === s).length;
+        let numberInXP = character.buyables.xp.filter(s => skill.title === s).length;
+
+        //console.log(numberInRace, numberInProf, numberInXP);
+
+        const iterate = (flow, key) => {
+            while (flow > 0) {
+                if (!skill.bought) skill.bought = key;
+                else if (skill.bought && !skill.expertise) skill.expertise = key;
+                flow = flow - 1;
+            }
+        }
+        iterate(numberInRace, "race");
+        iterate(numberInProf, "profession");
+        iterate(numberInXP, "xp");
+
+        return skill;
+    });
+
+    return [...newSkills];
+}
+
+
+
 function flatten(array) {
     return array.reduce((acc, a) => {
         if (Array.isArray(a)) {
