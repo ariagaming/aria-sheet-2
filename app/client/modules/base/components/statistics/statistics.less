@@ -5,7 +5,8 @@
     transform: translateX(-50%);
     text-align: center;
 }
-@margin-top: 117px;
+@margin-top-start: 17px;
+@margin-top: 80px;
 
 .character-statistics {
     background: url(/images/statistics-container.png);
@@ -16,38 +17,39 @@
     
     position: absolute;
     top: 209px;
-    left: 56px;
+    //left: 58px;
+    left: 1cm;
     
-    width: 109px;
-    height: 459px;
-    
+    width: 75px;
+    height: 312px;
+       
     
     &__str {
         position: absolute;
-        top: 22px;
+        top: @margin-top-start;
     }
     &__agi {
         position: absolute;
-        top: 22px + @margin-top;
+        top: @margin-top-start + @margin-top;
     }
     &__inu {
         position: absolute;
-        top: 22px + @margin-top * 2;
+        top: @margin-top-start + @margin-top * 2;
     }
     &__per {
         position: absolute;
-        top: 22px + @margin-top * 3;
+        top: @margin-top-start + @margin-top * 3;
     }
     
     .statistic {
-        width: 100%;
+        width: 99%;
         .bonus {
             .center-X();
-            font-size: 33px;
+            font-size: 24px;
         }     
         .total {
             .center-X();
-            top: 52px;
+            top: 32px;
         }   
     }
     

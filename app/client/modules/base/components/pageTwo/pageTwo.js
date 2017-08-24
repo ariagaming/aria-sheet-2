@@ -18,10 +18,10 @@ class PageTwo extends Component {
         const { character } = this.props;
         const construct = {
             lvl: character.level,
-            STR: character.statistics.STR.total,
-            AGI: character.statistics.AGI.total,
-            INU: character.statistics.INU.total,
-            PER: character.statistics.PER.total,
+            STR: character.statistics.STR.bonus,
+            AGI: character.statistics.AGI.bonus,
+            INU: character.statistics.INU.bonus,
+            PER: character.statistics.PER.bonus,
             INI: character.initiative.total,
             movement: character.movement.total,
             rank: 0

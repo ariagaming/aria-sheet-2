@@ -9,8 +9,8 @@
     
     margin-top: 0px;
     
-    width: 75px;
-    height: 82px;
+    width: 72px;
+    height: 89px;
     
     .title {
         text-transform: uppercase;
@@ -20,7 +20,7 @@
         width: 100%;
         
         position: absolute;
-        bottom: 16px;
+        bottom: 28px;
     }
     .value {
         position: absolute;
@@ -43,8 +43,8 @@
     }
     
     position: absolute;
-    @width: 85px;
-    @left: 178px;
+    @width: 78px;
+    @left: 135px;
     &.hp {
         left: @left;
     }
@@ -66,6 +66,10 @@
     &.magic-armor {
         left: @left + @width * 6;
     }
+    &.passive-armor {
+        left: @left + @width * 7;
+    }
+    
     
     &.has-click {
         cursor: pointer;

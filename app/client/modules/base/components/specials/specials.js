@@ -15,7 +15,7 @@ class Specials extends Component {
         const specials = getSpecials(character);
 
         return (
-            <Container title="Specials" className="bordered specials">
+            <Container title="Specials" className="specials">
                 {
                     specials.map((special, i) => {
                         return (

@@ -19,7 +19,8 @@ const character = {
         "defense": 3,
         "offense": 3,
         "recovery": 4,
-        "dmg": 1
+        "dmg": 1,
+        "title": "AP"
     },
     "armor": {
         "type": "None",
@@ -421,18 +422,6 @@ const character = {
             "sign": "+"
         },
         {
-            "title": "BS Expertise",
-            "description": "Increase your Ballistic skill with +2 per rank.",
-            "base": 0,
-            "weapon": 0,
-            "rank": 0,
-            "equipment": 0,
-            "bought": 0,
-            "total": 0,
-            "sign": "+",
-            "factor": 2
-        },
-        {
             "title": "WS Expertise",
             "description": "Increase your weapon skill with +2 per rank.",
             "base": 0,
@@ -445,17 +434,51 @@ const character = {
             "factor": 2
         },
         {
-            "title": "Initiative",
-            "description": "Decrease the initiative of your weapon.",
+            "title": "BS Expertise",
+            "description": "Increase your Ballistic skill with +2 per rank.",
             "base": 0,
             "weapon": 0,
-            "bought": 0,
-            "total": 0,
             "rank": 0,
             "equipment": 0,
-            "unit": "%",
-            "sign": "-",
-            "factor": 3
+            "bought": 0,
+            "total": 0,
+            "sign": "+",
+            "factor": 2
+        },
+        {
+            "title": "Evasion",
+            "description": "Increase your defense and your Passive AC.",
+            "base": 0,
+            "weapon": 0,
+            "rank": 0,
+            "equipment": 0,
+            "bought": 0,
+            "total": 0,
+            "sign": "+",
+            "factor": 2
+        },
+        {
+            "title": "Magic",
+            "description": "Increase your magic skill with a +2.",
+            "base": 0,
+            "weapon": 0,
+            "rank": 0,
+            "equipment": 0,
+            "bought": 0,
+            "total": 0,
+            "sign": "+",
+            "factor": 2
+        },
+        {
+            "title": "DMG adjstm",
+            "description": "Increase damage with 1 per rank.",
+            "base": 0,
+            "weapon": 0,
+            "total": 0,
+            "bought": 0,
+            "rank": 0,
+            "equipment": 0,
+            "sign": "+"
         },
         {
             "title": "Crit",
@@ -473,7 +496,7 @@ const character = {
         {
             "title": "Crit DMG",
             "description": "Increase critical strike damage by 1d4 per rank.",
-            "base": 0,
+            "base": 1,
             "weapon": 0,
             "total": 0,
             "bought": 0,
@@ -482,15 +505,28 @@ const character = {
             "unit": "d4"
         },
         {
-            "title": "DMG adjstm",
-            "description": "Increase damage with 1 per rank.",
+            "title": "Splash",
+            "description": "You have a 20% chance per rank to automatically hit another target for 50% of your DMG. This attack can be dodges.",
             "base": 0,
             "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
             "equipment": 0,
-            "sign": "+"
+            "sign": "",
+            "factor": 20,
+            "unit": "%"
+        },
+        {
+            "title": "Splash DMG",
+            "description": "Increase your Spash damage by 1d4.",
+            "base": 1,
+            "weapon": 0,
+            "total": 0,
+            "bought": 0,
+            "rank": 0,
+            "equipment": 0,
+            "unit": "d4"
         },
         {
             "title": "Extra Attack",
@@ -518,73 +554,6 @@ const character = {
             "unit": "%"
         },
         {
-            "title": "Stamina",
-            "description": "Increase HP multiplication factor by 1.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0
-        },
-        {
-            "title": "Regenerate",
-            "description": "Regenerate 1 Hit Point per recuperation per rank.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0
-        },
-        {
-            "title": "Spec. offense",
-            "description": "10% per rank to refund all AP of that attack.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0,
-            "sign": "",
-            "factor": 10,
-            "unit": "%"
-        },
-        {
-            "title": "Spec. defense",
-            "description": "10% per rank to refund all AP of that defensive action.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0,
-            "sign": "",
-            "factor": 10,
-            "unit": "%"
-        },
-        {
-            "title": "Endurance",
-            "description": "Recuperate +1 AP per recuperation per rank.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0,
-            "sign": "+"
-        },
-        {
-            "title": "Directed Strike",
-            "description": "You can call hit location at an increasing accuracy. See Directed Strike.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0
-        },
-        {
             "title": "Aura",
             "description": "Magic does 5% less DMG; And a +1 to magical resistance skill checks.",
             "base": 0,
@@ -597,50 +566,47 @@ const character = {
             "unit": "%"
         },
         {
-            "title": "Splash",
-            "description": "You have a 20% chance per rank to automatically hit another target for 50% of your DMG. This attack can be dodges.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0,
-            "sign": "",
-            "factor": 20,
-            "unit": "%"
-        },
-        {
-            "title": "Roll modifier",
-            "description": "Per rank you get 1 point which you can use to modify your world die. These points are restored after you sleep.",
+            "title": "Stamina",
+            "description": "Increase HP multiplication factor by 1.",
             "base": 0,
             "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
             "equipment": 0
+        },
+        {
+            "title": "Recuperate",
+            "description": "Recuperate +1 AP per recuperation per rank.",
+            "base": 0,
+            "weapon": 0,
+            "total": 0,
+            "bought": 0,
+            "rank": 0,
+            "equipment": 0,
+            "sign": "+"
         },
         {
             "title": "Break Armor",
-            "description": "On each successful hit reduce the target's armor with 1",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0
-        },
-        {
-            "title": "Unbreakable",
-            "description": "20% chance per recuperate to regain all of your lost armor.",
+            "description": "On each successful hit reduce the target's armor with 1d4%",
             "base": 0,
             "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
             "equipment": 0,
-            "sign": "",
-            "factor": 20,
-            "unit": "%"
+            "unit": "d4"
+        },
+        {
+            "title": "Unbreakable",
+            "description": "On each recuperate return 1d10 armor.",
+            "base": 0,
+            "weapon": 0,
+            "total": 0,
+            "bought": 0,
+            "rank": 0,
+            "equipment": 0,
+            "unit": "d10"
         },
         {
             "title": "Movement",
@@ -664,32 +630,18 @@ const character = {
             "bought": 0,
             "rank": 0,
             "equipment": 0,
-            "factor": 3,
+            "factor": 5,
             "unit": "%"
         },
         {
-            "title": "Artist",
-            "description": "+3 per rank on tou artist rolls.",
+            "title": "Directed Strike",
+            "description": "You can call hit location at an increasing accuracy. See Directed Strike.",
             "base": 0,
             "weapon": 0,
             "total": 0,
             "bought": 0,
             "rank": 0,
-            "equipment": 0,
-            "factor": 3,
-            "sign": "+"
-        },
-        {
-            "title": "Scholar",
-            "description": "+3 per rank on your merchant rolls.",
-            "base": 0,
-            "weapon": 0,
-            "total": 0,
-            "bought": 0,
-            "rank": 0,
-            "equipment": 0,
-            "factor": 3,
-            "sign": "+"
+            "equipment": 0
         }
     ],
     "spells": [

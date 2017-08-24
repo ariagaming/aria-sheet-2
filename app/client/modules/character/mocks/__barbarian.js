@@ -21,22 +21,19 @@ export default {
     "feats": [],
     "specials": [
         {
-            "title": "Revenge I",
-            "level": 2,
-            "DMG adjstm": 2,
-            "description": "Add a +2 to every dmg roll."
+            "title": "Charger",
+            "level": 1,
+            "description": "When moving faster than 20ft per 10 INI you can take a -10 to skill to gain +10 DMG, must run at least 10 INI."
         },
         {
-            "title": "Brutal Crits",
-            "level": 4,
-            "Crit": 2,
-            "description": "Increase your critical strike chance by 5%."
+            "title": "Rolling Crits",
+            "level": 1,
+            "description": "Every time you do not Crit you gain a +5% change to Crit, this resets when you Crit.."
         },
         {
-            "title": "Revenge II",
-            "level": 7,
-            "DMG adjstm": 2,
-            "description": "Increase your DMG by +4, replaces Revenge I."
+            "title": "Brutality",
+            "level": 6,
+            "description": "Crit and Splash now do 1d6 instead of 1d4."
         },
         {
             "title": "Wirlwind",
@@ -48,23 +45,23 @@ export default {
     "spells": [
         {
             "level": 1,
-            "title": "Rage I",
+            "title": "Rage",
             "description": "Every 5 HP you loose grants +1 DMG per attack (with a maximum of <%= 2 * lvl %> damage)"
         },
         {
             "level": 2,
-            "title": "Revenge I",
-            "description": "+2 damage"
+            "title": "Bleed",
+            "description": "When you Crit your Crit DMG is is also a bleed which does it's DMG again on recuperate."
         },
         {
             "level": 3,
-            "title": "Expose weakness I",
-            "description": "When you crit you reduce 1d4 of the target's armor."
+            "title": "Revenge",
+            "description": "When you get hit you automatically hit for 1d6+<%= STR %> DMG."
         },
         {
             "level": 4,
-            "title": "Brutal Crits",
-            "description": "+5% crit chance"
+            "title": "Whirlwind",
+            "description": "+50% Splash costs 5 AP."
         },
         {
             "level": 5,
