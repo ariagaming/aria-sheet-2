@@ -1,5 +1,6 @@
 const character = {
     "name": "New character",
+    "critDMG": "1d4",
     "hp": {
         "base": 5,
         "factor": 0,
@@ -495,7 +496,7 @@ const character = {
         },
         {
             "title": "Crit DMG",
-            "description": "Increase critical strike damage by 1d4 per rank.",
+            "description": "Increase critical strike damage by <%= critDMG %> per rank.",
             "base": 1,
             "weapon": 0,
             "total": 0,

@@ -28,18 +28,32 @@ export default {
         {
             "title": "Rolling Crits",
             "level": 1,
-            "description": "Every time you do not Crit you gain a +5% change to Crit, this resets when you Crit.."
+            "description": "Every time you do not Crit you gain a +5% change to Crit, this resets when you Crit."
+        },
+        {
+            "title": "Effective Offense",
+            "level": 5,
+            "AP Offense": -1,
+            "description": "You offensive actions cost -1 AP"
         },
         {
             "title": "Brutality",
             "level": 6,
-            "description": "Crit and Splash now do 1d6 instead of 1d4."
+            "description": "Crit and Splash now do 1d6 instead of 1d4.",
+            "critDMG": "1d6",
+            "splashDMG": "1d6"
         },
         {
             "title": "Wirlwind",
             "level": 8,
             "Extra Attack": 1.5,
             "description": "30% extra chance of a second attack."
+        },
+        {
+            "title": "Critical Moment",
+            "level": 10,
+            "Crit": 2,
+            "description": "5% chance to Crit."
         }
     ],
     "spells": [
@@ -66,32 +80,42 @@ export default {
         {
             "level": 5,
             "title": "Brutal Strikes",
-            "description": "You are allowed to push +3 AP to DMG when you hit. (in normal circumstances this means that you can push 5 AP (=6 DMG) on hit.)"
+            "description": "You are allowed to push +3 AP to DMG when you hit. (in normal circumstances this means that you can push <%= lvl + 3 %> AP as DMG."
         },
         {
             "level": 6,
-            "title": "Overpower",
-            "description": "Every point you spend using Brutal Strikes (so this is the extra AP you spend on DMG), lowers the target's weapon skill against you untill the next recuperation by that amount. If you posh 6AP into DMG after you hit the target, this target has -3 to his skill until the next recuperation. This stacks. Can only be used with two handed weapons."
+            "title": "Berserk",
+            "description": "Attack friend of foe within 5 ft. Your attacks roll double dice when you do not crit. You have one physical trigger to get you out of berserk."
         },
         {
             "level": 7,
-            "title": "Revenge II",
-            "description": "Grants +4 DMG, replaces revenge I"
+            "title": "Rampage",
+            "description": "When you crit you can lower the INI of your next attack. Every AP you spend lowers the INI of your next attack by 20%."
         },
         {
             "level": 8,
-            "title": "Whirlwind",
-            "description": "+30% chance to attack a second target. This stacks with the feat bonus."
+            "title": "Bane to Magic",
+            "description": "While raging you gain +30% aura."
         },
         {
             "level": 9,
-            "title": "Indomitable might",
-            "description": "For the next 30 INI: your PHY counts double for DMG, your crit chance is increased by 25% and every 1 for DMG can de rerolled. Can only happen once per day."
+            "title": "Living Blade",
+            "description": "Roll an extra weapon dice on an extra attack."
         },
         {
             "level": 10,
-            "title": "Summon ancestors",
+            "title": "Summon Ancestors",
             "description": "Summon two ancestors with 10 HP to fight alongside you. They hit when you hit for 1d6 + 2 DMG where armor does not count. They have no armor and will attack anyone not in the party."
+        },
+        {
+            "level": 11,
+            "title": "Super Charged",
+            "description": "When you charge you gain 20% Armor for 20 INI. Charging only suffers a -5 to skill instead of the normal -10."
+        },
+        {
+            "level": 12,
+            "title": "Overwhelming Odds",
+            "description": "Every enemy within 5 ft gives +2 skill and +2 DMG."
         }
     ]
 }

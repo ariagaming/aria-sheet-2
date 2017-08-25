@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Page from './../page/page';
 import { connect } from 'react-redux';
 import Container from './../container/container';
+import _ from 'lodash';
 
 /**
  * This is the basic description of the PageThree component. This will be shown in the
@@ -12,6 +13,22 @@ import Container from './../container/container';
 class PageThree extends Component {
     render() {
         const { character } = this.props;
+        const construct = {
+            lvl: character.level,
+            STR: character.statistics.STR.bonus,
+            AGI: character.statistics.AGI.bonus,
+            INU: character.statistics.INU.bonus,
+            PER: character.statistics.PER.bonus,
+            INI: character.initiative.total,
+            movement: character.movement.total,
+            critDMG: character.critDMG,
+            rank: 0
+        };
+        const getDescription = (string, rank) => {
+            const __construct = { ...construct, rank: (rank || 0) };
+            return _.template(string)(__construct);
+        }
+
 
         const Fill = source => <i className={"fa fa-circle " + source}></i>;
         const Empty = <i className="fa fa-circle-o"></i>;
@@ -81,7 +98,7 @@ class PageThree extends Component {
                             return (
                                 <div className="row" key={i}>
                                     <span className="title">{feat.title}</span>
-                                    <span>{feat.description}</span>
+                                    <span>{getDescription(feat.description)}</span>
                                 </div>
                             )
                         })

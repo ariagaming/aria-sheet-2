@@ -673,7 +673,6 @@ const characterReducer = (state = {}, action) => {
             c.statistics.PER.bonus = Math.floor(c.statistics.PER.total / 10);
 
             c.skills = helpers.calculateSkills(c);
-
             c.feats = c.feats.map(feat => {
                 feat.weapon = c.weapons.filter(w => w.isActive).filter(w => w[feat.title]).reduce((acc, weapon) => acc + weapon[feat.title], 0);
                 feat.equipment = c.equipment.filter(w => w[feat.title]).reduce((acc, equipment) => acc + equipment[feat.title], 0);
@@ -717,9 +716,14 @@ const characterReducer = (state = {}, action) => {
                     c.initiative.sum = feat.sum;
                     c.initiative.total = feat.total;
                 }
+                else if (feat.title === "Recuperate") {
+                    c.ap.recovery = 4 + feat.total;
+                }
 
                 return feat;
             });
+
+            //console.log(c.ap.recovery)
 
 
             c.expertise.level = c.level;
@@ -728,7 +732,6 @@ const characterReducer = (state = {}, action) => {
             c.armor.total = c.armor.sum * 2;
             c.magicArmor.sum = c.magicArmor.feats + c.magicArmor.base + c.magicArmor.stats + c.magicArmor.equipment + c.magicArmor.armor;
             c.magicArmor.total = c.magicArmor.sum * 5;
-
 
             c.movement.sum = c.movement.base + c.movement.armor + c.movement.feats + c.movement.race + c.movement.profession;
             c.movement.total = c.movement.sum * 3;
@@ -840,7 +843,20 @@ const characterReducer = (state = {}, action) => {
             c.ap.total = APPerLevel[c.level - 1];
             c.ap.weapons = c.weapons.reduce((acc, w) => acc + (w["Endurance"] || 0), 0);
             c.ap.equipment = c.equipment.reduce((acc, w) => acc + (w["Endurance"] || 0), 0);
-            c.ap.recovery = 4 + c.ap.feats;
+            // c.ap.recovery is already set in the feats reducer
+
+            let startAPOffense = 3;
+            let startAPDefense = 3;
+            const specials = helpers.getSpecials(c) || [];
+            specials.forEach(special => {
+                startAPOffense = startAPOffense + (special["AP Offense"] || 0);
+                startAPDefense = startAPDefense + (special["AP Defense"] || 0);
+
+                c.critDMG = special.critDMG || c.critDMG;
+                c.splashDMG = special.splashDMG || c.splashDMG;
+            });
+            c.ap.offense = startAPOffense;
+            c.ap.defense = startAPDefense;
 
             let dialog = {
                 ...state.dialog,

@@ -119,15 +119,6 @@ export default [
         "weight": "3 lb."
     },
     {
-        "title": "Crossbow, light\n",
-        "cost": "25 gp",
-        "damage": "1d8",
-        "initiative": 12,
-        "type": "piercing",
-        "ranged": true,
-        "weight": "5 lb."
-    },
-    {
         "title": "Dart",
         "cost": "5 cp",
         "damage": "1d4",
@@ -332,6 +323,15 @@ export default [
         "type": "piercing",
         "ranged": true,
         "weight": "3 lb."
+    },
+    {
+        "title": "Crossbow, light",
+        "cost": "25 gp",
+        "damage": "1d8",
+        "initiative": 12,
+        "type": "piercing",
+        "ranged": true,
+        "weight": "5 lb."
     },
     {
         "title": "Crossbow, heavy",
