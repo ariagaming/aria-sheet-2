@@ -18,28 +18,10 @@ export default {
     "languages": [],
     "specials": [
         { "title": "Regenerate", "level": 1, "Regenerate": 1, "description": "Regenerate 1 HP per recuperation." },
-        { "title": "Protect", "level": 1, "Toughness": 2.5, "description": "5% extra armor" },
+        { "title": "Protect", "level": 1, "Toughness": 2, "description": "5% extra armor" },
         { "title": "Destroy Evil", "level": 1, "DMG adjstm": 1, "description": "+1 DMG against everything." }
     ],
     "spells": [
-        {
-            "level": 0,
-            "type": "special",
-            "title": "Regenerate",
-            "description": "Regenerate 1 hit point per recuperation. This ability is always active on the paladin."
-        },
-        {
-            "level": 0,
-            "type": "special",
-            "title": "Protect",
-            "description": "+1 armor. (always on)",
-        },
-        {
-            "level": 0,
-            "type": "special",
-            "title": "Destroy Evil",
-            "description": "Do +2 DMG agains undead and demons, +1 DMG to everyone else when attacking. This spell is always on, even if you shake the hand of a demon or undead you will inflict +2 DMG. (Normal armor rules apply). (The charactersheet automatically incorporates +1 DMG, you should count an extra +1 against undead or deamons yourself)",
-        },
         {
             "level": 1,
             "type": "choice",
@@ -49,12 +31,12 @@ export default {
                     "description": "Heal for weapon DMG as healing. It does not matter which weapon you choose, but you must attune yourself with that weapon. You can have a maximum of two weapon attunemnet."
                 },
                 {
-                    "title": "Bless",
-                    "description": "Bless yourself gaining +2 armor. (This bless replaces the standard +1 armor a Paladin gets.)"
+                    "title": "Taunt",
+                    "description": "You can taunt a target to attack you for 20 INI. Every time your Spash hits hits a target with a Taunt on them this taunt refreshes. Taunt has a CD of 8 INI but is a different CD than the weapons and actions."
                 },
                 {
-                    "title": "Bane of Evil",
-                    "description": "Your crittical strikes against undead or demons allow you to roll an aditional weapon die. (So normally 3 in total)"
+                    "title": "Smite",
+                    "description": "Each extra AP does 1d4 extra Holy DMG. (Max <%= lvl %> AP, so max <%= lvl %>d4."
                 }
             ]
         },
@@ -63,19 +45,16 @@ export default {
             "type": "choice",
             "choices": [
                 {
-                    "title": "Recovery",
-                    "description": "+1 AP per recuperation for every party member.",
-                    "feats": {
-                        "endurance": 1
-                    }
+                    "title": "Efficient Healing",
+                    "description": "Healing costs -1 AP"
                 },
                 {
-                    "title": "Taunt",
-                    "description": "Taunt, causes a target to attack you for 50 INI. Target will not kill itself to get to you and when he/she can't reach you it will attack someone else. Taunt has a separate cooldown of <%= 8 * ((100 - INI) / 100) %> seconds. You can taunt "
+                    "title": "Forgiving",
+                    "description": "Increase armor by 40% for 1 attack of the opponent, 80 INI CD. The INI resets to 0 when you critically attack."
                 },
                 {
-                    "title": "Crusader",
-                    "description": "Gain a +2 Weapon Skill (+1 Weapon Expertise) when fighting undead or demons"
+                    "title": "Vengeance",
+                    "description": "Gain a +2 Weapon Skill (+1 Weapon Expertise) and +5 DMG when fighting undead or demons"
                 }
             ]
         },
@@ -84,16 +63,16 @@ export default {
             "type": "choice",
             "choices": [
                 {
-                    "title": "Bless",
-                    "description": "Bless, Regenerate +(lvl) HP per recuperation, can be cast on others. (Counts as a Defensive Spell)"
+                    "title": "Holy Fire",
+                    "description": "Purge a target causing either 2d10 DMG or healing to either an enimy or a friendly. 80 INI CD, resets on crit."
                 },
                 {
-                    "title": "Bless",
-                    "description": "Gain +4 armor, can be cast on others. (Counts as a Defensive Spell)."
+                    "title": "Devine Protection",
+                    "description": "Take the DMG of another target for the next attack which is going to hit him or her, shares the CD of taunt."
                 },
                 {
-                    "title": "Bless",
-                    "description": "+4 DMG agains undead and demons. +2 DMG agains other opponents. Casting this spell replaces the standard Destroy evil of the Paladin. Can be cast on others and counts as a defensive action."
+                    "title": "Righteous Fury",
+                    "description": "Crit chance increased by 5% for every time you do not crit. Resets on Crit."
                 }
             ]
         },
@@ -102,16 +81,16 @@ export default {
             "type": "choice",
             "choices": [
                 {
-                    "title": "Lay on hands",
-                    "description": "Return a  non dead target to full health. Target must be within 10 meters and not dead. Once per day."
+                    "title": "Divine Field",
+                    "description": "Draw symbols on the floor (takes 1 minute) maximum size 10 square feet. Increase DMG and Healing by 1d8 while standing in the field."
                 },
                 {
-                    "title": "Divine Protection",
-                    "description": "Gain 1d4 HP and 1d4 armor for 20 INI, 30 INI cooldown. Instant cast does not cost any AP."
+                    "title": "Hammer of Justice",
+                    "description": "Reduce movement of target by 15% for 30 INI."
                 },
                 {
-                    "title": "Smite",
-                    "description": "Smite a target for 1d4 DMG per extra AP you spend. You can spend a maximum of your lvl AP"
+                    "title": "Fist of Justice",
+                    "description": "Every crit lowers the target's armor by 10%."
                 }
             ]
         },
@@ -120,19 +99,16 @@ export default {
             "type": "choice",
             "choices": [
                 {
-                    "title": "Efficient",
-                    "description": "Healing costs -1 AP.",
-                    "feats": {
-                        "endurance": 1
-                    }
+                    "title": "Bless",
+                    "description": "Regenerate 10 HP per recuperation, 10 INI cast, lasts 50 INI."
                 },
                 {
-                    "title": "Efficient",
-                    "description": "Defensive actions cost -1 AP."
+                    "title": "Bless",
+                    "description": "+10% Armor & 10% Aura for 50 INI, cast time 10 INI."
                 },
                 {
-                    "title": "Efficient",
-                    "description": "Offensive actions cost -1 AP."
+                    "title": "Bless",
+                    "description": "1d6 extra DMG for 50 INI, cast time 10 INI."
                 }
             ]
         },
@@ -141,16 +117,16 @@ export default {
             "type": "choice",
             "choices": [
                 {
-                    "title": "Bleed for you",
-                    "description": "Take someone else’s incoming DMG, armor does not count, so full DMG. While wounded always increase your regeneration by your level per recuperation. You must remain “praying” for the regeneration to work. You do not need to touch the target(s) to take their wounds. Can take 1 attack per 10 INI"
+                    "title": "Lay on Hnads",
+                    "description": "Instantly heal a target to 100% health. Can only be cast 1ce per day."
                 },
                 {
-                    "title": "Protect the Weak",
-                    "description": "Your resolve allows you to parry for other players and you gain a +5 on every melee defensive roll. You are allowed to parry for party members, even in situations otherwise difficult. You can't parry over large distance and you can't parry extreme situations."
+                    "title": "Stay the Hounds",
+                    "description": "When brought to 0 or lower health, return to 1 health and reduce DMG taken by 100% from both magical or physical attacks for 12 INI. Can only be cast 1ce per day."
                 },
                 {
-                    "title": "Judge and Juror",
-                    "description": "Gain insight into the crimes and actions of your targets sending them into repentance. Repentance cause -5 to all actions against you (-12 for undead and demons). Hits against these targets cause them to gain -1 AP per recuperation for the duration of the repentance."
+                    "title": "Sacrifice",
+                    "description": "Sacrifice yourself, you do all of your remaining HP as DMG to the target. You lose all but 1 HP. Can only be cast 1ce per day."
                 }
             ]
         },
@@ -159,19 +135,18 @@ export default {
             "type": "choice",
             "choices": [
                 {
-                    "title": "Recovery II",
-                    "description": "+4 AP, self only.",
-                    "feats": {
-                        "endurance": 1
-                    }
+                    "title": "Expert Healer",
+                    "description": "Gealing costs -1 AP"
                 },
                 {
-                    "title": "Hardened",
-                    "description": "Reduce 2 DMG per extra AP you use to reduce DMG."
+                    "title": "Expert defender",
+                    "description": "Defensive actions cost -1 AP.",
+                    "AP Defense": -1
                 },
                 {
-                    "title": "Scarred",
-                    "description": "Do +2 DMG per AP."
+                    "title": "Expert Attacker",
+                    "description": "Offensive actions cost -1 AP.",
+                    "AP Offense": -1
                 }
             ]
         },
@@ -180,11 +155,9 @@ export default {
             "type": "choice",
             "choices": [
                 {
-                    "title": "Revive",
-                    "description": "Return a target to life with 1 HP. Works on targets who have died within the last hour.",
-                    "feats": {
-                        "endurance": 1
-                    }
+                    "title": "Flash of Light",
+                    "description": "When using a shield and a 1-H weapon the INI of your weapon is reduced by 20%.",
+                    "Initiative": 4
                 },
                 {
                     "title": "Second Chances",

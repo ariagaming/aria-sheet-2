@@ -98,6 +98,7 @@ const characterReducer = (state = {}, action) => {
                 const _spell = action.payload.spell;
                 const _category = action.payload.category;
                 const classes = state.newCharacter.classes.map(__class => {
+
                     if (__class.name === _category) {
                         const classSpells = __class.spells.map(__spell => {
                             if (__spell.title === _spell.title) {
@@ -170,37 +171,17 @@ const characterReducer = (state = {}, action) => {
 
         case 'SELECT_SPELL_CHOICE':
             const { spellIndex, choiceIndex, category } = action.payload;
-
             if (category === "General") {
-                // the general category is at the root of teh character
+                // the general category is at the root of the character
 
             }
             else {
                 const classes = state.newCharacter.classes.map(__class => {
                     if (__class.title === category) {
-                        return {
-                            ...__class,
-                            spells: __class.spells.map((spell, i) => {
-                                if (i === spellIndex) {
-                                    return {
-                                        ...spell,
-                                        choices: spell.choices.map((choice, j) => {
-                                            if (j === choiceIndex) {
-                                                return { ...choice, selected: true };
-                                            }
-                                            else {
-                                                return { ...choice, selected: false };
-                                            }
-                                        })
-                                    }
-                                }
-                                return spell;
-                            })
-                        }
+                        __class.spells[spellIndex].choices.forEach(choice => choice.selected = false);
+                        __class.spells[spellIndex].choices[choiceIndex].selected = true;
                     }
-                    else {
-                        return __class;
-                    }
+                    return __class;
                 });
                 return {
                     ...state,
@@ -631,6 +612,8 @@ const characterReducer = (state = {}, action) => {
         case 'UPDATE_CHARACTER':
 
             const c = JSON.parse(JSON.stringify(state.newCharacter));
+            const __spells = helpers.getSpells(c) || [];
+            const __specials = helpers.getSpecials(c) || [];
 
             /* STATISTICS */
             c.statistics.STR.race = (c.race && c.race.stats) ? c.race.stats.STR : 0;
@@ -678,8 +661,17 @@ const characterReducer = (state = {}, action) => {
                 feat.equipment = c.equipment.filter(w => w[feat.title]).reduce((acc, equipment) => acc + equipment[feat.title], 0);
                 feat.specials = helpers.getSpecials(c).filter(s => s[feat.title]).reduce((acc, special) => acc + special[feat.title], 0);
 
+                feat.spells =
+                    __spells.reduce((acc, category) => {
+                        return acc + (category.spells || []).reduce((acc, spell) => {
+                            const choiceValue = (spell.choices || []).filter(choice => choice.selected).reduce((acc, cs) => acc + (cs[feat.title] || 0), 0);
+                            const spellValue = spell[feat.title] || 0;
+                            return acc + choiceValue + spellValue;
+                        }, 0);
+                    }, 0);
+
                 feat.race = feat.race || 0;
-                feat.sum = feat.base + feat.bought + feat.weapon + feat.equipment + feat.specials + feat.race;
+                feat.sum = feat.base + feat.bought + feat.weapon + feat.equipment + feat.specials + feat.race + feat.spells;
                 feat.total = feat.sum * (feat.factor || 1);
 
                 // here we'll update specific feats
@@ -723,13 +715,10 @@ const characterReducer = (state = {}, action) => {
                 return feat;
             });
 
-            //console.log(c.ap.recovery)
-
-
             c.expertise.level = c.level;
             c.expertise.total = c.expertise.feats + c.expertise.level;
             c.armor.sum = c.armor.feats + c.armor.base + c.armor.stats + c.armor.equipment + c.armor.armor;
-            c.armor.total = c.armor.sum * 2;
+            c.armor.total = Math.floor(c.armor.sum * c.armor.factor);
             c.magicArmor.sum = c.magicArmor.feats + c.magicArmor.base + c.magicArmor.stats + c.magicArmor.equipment + c.magicArmor.armor;
             c.magicArmor.total = c.magicArmor.sum * 5;
 
@@ -847,14 +836,25 @@ const characterReducer = (state = {}, action) => {
 
             let startAPOffense = 3;
             let startAPDefense = 3;
-            const specials = helpers.getSpecials(c) || [];
-            specials.forEach(special => {
+            __specials.forEach(special => {
                 startAPOffense = startAPOffense + (special["AP Offense"] || 0);
                 startAPDefense = startAPDefense + (special["AP Defense"] || 0);
 
                 c.critDMG = special.critDMG || c.critDMG;
                 c.splashDMG = special.splashDMG || c.splashDMG;
             });
+            __spells.map(category => {
+                category.spells.forEach(spell => {
+                    if (spell.choices) {
+                        spell.choices.forEach(choice => {
+                            if (choice.selected) {
+                                startAPOffense = startAPOffense + (choice["AP Offense"] || 0);
+                                startAPDefense = startAPDefense + (choice["AP Defense"] || 0);
+                            }
+                        });
+                    }
+                })
+            })
             c.ap.offense = startAPOffense;
             c.ap.defense = startAPDefense;
 

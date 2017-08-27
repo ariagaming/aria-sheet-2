@@ -45,7 +45,8 @@ let initialState = {
     character: character,
     data: {
         races: __races,
-        professions: [...__classes, __barbarian, __rogue, __paladin, __priest, __earth_mage, __monk].map(c => ({ ...c, level: 1 })),
+        professions: [__barbarian, __paladin, __priest],
+        //professions: [...__classes, __barbarian, __rogue, __paladin, __priest, __earth_mage, __monk].map(c => ({ ...c, level: 1 })),
         weapons: __weapons
     },
     dialog: {

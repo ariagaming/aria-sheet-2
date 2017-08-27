@@ -80,6 +80,7 @@ class PageTwo extends Component {
                                 .spells
                                 .filter(spell => spell.level ? (spell.level <= level) : true)
                                 .filter(spell => spell.rank ? (spell.rank > 0) : true)
+                                .filter(spell => spell.type !== "powerWord")
                                 .map((spell, i) => {
 
                                     const s = spell.choices ? spell.choices.filter(c => c.selected)[0] : spell;
@@ -107,6 +108,43 @@ class PageTwo extends Component {
             )
         }
 
+        const RenderPowerWordSpellTable = (props) => {
+            const { category, level } = props;
+            return (
+                <div style={{ marginTop: "2em" }}>
+                    <h2>Power Words</h2>
+                    <p>
+                        Power Words have a 20 INI CD and are off the Global Cooldown which means that you can cast them even when your weapon is on Cool Down.
+                    </p>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>level/rank</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                category
+                                    .spells
+                                    .filter(spell => spell.level ? (spell.level <= level) : true)
+                                    .filter(spell => spell.rank ? (spell.rank > 0) : true)
+                                    .filter(spell => spell.type === "powerWord")
+                                    .map((spell, i) => (
+                                        <tr key={i} >
+                                            <td>{spell.level || spell.rank}</td>
+                                            <td>{spell.title}</td>
+                                            <td>{getDescription(spell.description, spell.rank)}</td>
+                                        </tr>
+                                    ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+
         return (
             <Page className="page-two">
                 <Container className="spells" title="" pages={pages}>
@@ -116,6 +154,16 @@ class PageTwo extends Component {
                             .map((s, i) => {
                                 return (
                                     <RenderSpellTable key={i} category={s} level={character.level} />
+                                )
+                            })
+                    }
+
+                    {
+                        spells
+                            .filter(s => s.spells && s.spells.length > 0)
+                            .map((s, i) => {
+                                return (
+                                    <RenderPowerWordSpellTable key={i} category={s} level={character.level} />
                                 )
                             })
                     }

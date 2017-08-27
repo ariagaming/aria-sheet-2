@@ -11,12 +11,12 @@ import EditBuyable from './../other/editBuyable';
  */
 class Skills extends Component {
     render() {
-        const { skills } = this.props.character;
+        const skills = this.props.character.skills;
         const Fill = source => <i className={"fa fa-circle " + source}></i>;
         const Empty = <i className="fa fa-circle-o"></i>;
         const pages = [
             { title: 'edit buyable', content: <EditBuyable prop="skills" source="xp" /> }
-        ]
+        ];
 
         return (
             <Container className="bordered skills" title="Skills" pages={pages}>
@@ -55,3 +55,13 @@ Skills.defaultProps = {
 
 export default Skills;
 
+
+/*
+
+.sort(function (a, b) {
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+        });
+
+*/

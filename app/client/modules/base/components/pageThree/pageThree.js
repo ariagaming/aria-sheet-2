@@ -185,6 +185,9 @@ class PageThree extends Component {
                         <tbody>
                             {
                                 character.feats.map((feat, i) => {
+                                    let unit = feat.unit;
+                                    if (feat.title === "Crit DMG") unit = character.critDMG;
+                                    if (feat.title === "Splash DMG") unit = character.splashDMG;
                                     return (
                                         <tr className="row" key={i}>
                                             <td className="left">{feat.title}</td>
@@ -192,9 +195,9 @@ class PageThree extends Component {
                                             <td>{feat.bought}</td>
                                             <td>{feat.equipment}</td>
                                             <td>{feat.weapon}</td>
-                                            <td>{feat.sign}{feat.factor || 1}{feat.unit}</td>
+                                            <td>{feat.sign}{feat.factor || 1}{unit}</td>
                                             <td>{feat.specials}</td>
-                                            <td>{feat.sign}{feat.total}{feat.unit}</td>
+                                            <td>{feat.sign}{feat.total}{unit}</td>
                                             <td>{feat.title === "Crit" ? Math.floor((20 / 100) * (feat.total || 0)) : "-"}</td>
                                         </tr>
                                     )

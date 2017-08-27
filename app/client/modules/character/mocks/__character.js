@@ -1,6 +1,7 @@
 const character = {
     "name": "New character",
-    "critDMG": "1d4",
+    "critDMG": "d4",
+    "splashDMG": "d4",
     "hp": {
         "base": 5,
         "factor": 0,
@@ -30,6 +31,7 @@ const character = {
         "feats": 0,
         "equipment": 0,
         "armor": 0,
+        "factor": 2.5,
         "total": 0
     },
     "magicArmor": {
@@ -496,7 +498,7 @@ const character = {
         },
         {
             "title": "Crit DMG",
-            "description": "Increase critical strike damage by <%= critDMG %> per rank.",
+            "description": "Increase critical strike damage by 1<%= critDMG %> per rank.",
             "base": 1,
             "weapon": 0,
             "total": 0,
@@ -520,7 +522,7 @@ const character = {
         },
         {
             "title": "Splash DMG",
-            "description": "Increase your Spash damage by 1d4.",
+            "description": "Increase your Spash damage by 1<%= critDMG %> per rank.",
             "base": 1,
             "weapon": 0,
             "total": 0,
@@ -544,7 +546,7 @@ const character = {
         },
         {
             "title": "Toughness",
-            "description": "Increase your armor with 2% per rank.",
+            "description": "Increase your armor with 3% per rank.",
             "base": 0,
             "weapon": 0,
             "total": 0,

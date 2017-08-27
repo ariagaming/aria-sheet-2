@@ -40,12 +40,12 @@ class Weapons extends Component {
                                     weapon.isShield ?
                                         <span></span> :
                                         <wrapper>
-                                            <span>skill</span><span>1d20+{weapon.skill || 0};</span>
-                                            <span>dmg</span>
+                                            <span>Skill</span><span>1d20+{weapon.skill || 0};</span>
+                                            <span>DMG</span>
                                             <span>
                                                 {weapon.numberOfDice || 0}d{weapon.diceSides || 0}+{weapon.dmgTotal || 0};
                                             </span>
-                                            <span>initiative:</span>
+                                            <span>INI:</span>
                                             <span>{weapon.initiativeTotal || 10};</span>
                                         </wrapper>
                                 }
