@@ -26,6 +26,7 @@ class PowerWords extends Component {
             <div>
                 {
                     categories.map((category, j) => {
+                        if (category.spells.length === 0) return null;
                         return (
                             <div key={j} style={{ marginTop: "2em" }}>
                                 <h2>{category.title} Power Words</h2>

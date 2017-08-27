@@ -110,6 +110,7 @@ class PageTwo extends Component {
 
         const RenderPowerWordSpellTable = (props) => {
             const { category, level } = props;
+            if (category.spells.filter(s => s.type === "powerWord").length < 1) return null;
             return (
                 <div style={{ marginTop: "2em" }}>
                     <h2>Power Words</h2>

@@ -170,7 +170,7 @@ const characterReducer = (state = {}, action) => {
             })();
 
         case 'SELECT_SPELL_CHOICE':
-            const { spellIndex, choiceIndex, category } = action.payload;
+            const { spellIndex, choiceIndex, category, spellId } = action.payload;
             if (category === "General") {
                 // the general category is at the root of the character
 
@@ -178,8 +178,12 @@ const characterReducer = (state = {}, action) => {
             else {
                 const classes = state.newCharacter.classes.map(__class => {
                     if (__class.title === category) {
-                        __class.spells[spellIndex].choices.forEach(choice => choice.selected = false);
-                        __class.spells[spellIndex].choices[choiceIndex].selected = true;
+                        __class.spells.forEach(spell => {
+                            if (spell.id === spellId) {
+                                spell.choices.forEach(choice => choice.selected = false);
+                                spell.choices[choiceIndex].selected = true;
+                            }
+                        });
                     }
                     return __class;
                 });
@@ -690,6 +694,12 @@ const characterReducer = (state = {}, action) => {
                 else if (feat.title === "WS Expertise") {
                     c.expertise.wsExpertise = feat.total;
                 }
+                else if (feat.title === "Defense Expertise") {
+                    c.expertise.defenseExpertise = feat.total;
+                }
+                else if (feat.title === "Magic") {
+                    c.expertise.magicExpertise = feat.total;
+                }
                 else if (feat.title === "DMG adjstm") {
                     c.weapons.forEach(w => {
                         w.dmgFeat = feat.total;
@@ -729,22 +739,48 @@ const characterReducer = (state = {}, action) => {
             let ballisticSkill = 0;
             c.skills = c.skills.map(s => {
                 s.statModifier = c.statistics[s.stat].bonus;
-                if (s.bought && s.expertise) {
-                    if (s.title === "Weapon Skill") {
-                        s.total = c.expertise.total + s.statModifier + c.expertise.wsExpertise;
-                        weaponSkill = s.total;
-                    }
-                    else if (s.title === "Ballistic Skill") {
-                        s.total = c.expertise.total + s.statModifier + c.expertise.bsExpertise;
-                        ballisticSkill = s.total;
-                    }
-                    else {
-                        s.total = c.expertise.total + s.statModifier;
-                    }
+
+                s.spells = __spells.reduce((acc, category) => {
+                    return acc + category.spells.reduce((acc, spell) => {
+                        if (spell.type === "choice") {
+                            const choice = spell.choices.filter(choice => choice.selected)[0];
+                            return choice ? acc + (choice[s.title] || 0) : acc;
+                        }
+                        else {
+                            return spell ? acc + (spell[s.title] || 0) : acc;
+                        }
+                    }, 0);
+                }, 0);
+
+                // set feats level for some skills
+                if (s.title === "Weapon Skill") {
+                    s.feats = c.expertise.wsExpertise;
+                }
+                else if (s.title === "Ballistic Skill") {
+                    s.feats = c.expertise.bsExpertise;
+                }
+                else if (s.title === "Defense") {
+                    s.feats = c.expertise.defenseExpertise;
+                }
+                else if (s.title === "Magic") {
+                    s.feats = c.expertise.magicExpertise;
                 }
                 else {
-                    s.total = 0;
+                    s.feats = 0;
                 }
+
+
+                // check expertise
+                if (s.bought && s.expertise) {
+                    s.total = c.expertise.total + s.statModifier + s.feats + s.spells;
+                }
+                else {
+                    s.total = 0 + s.feats + s.spells;
+                }
+
+                // set things
+                if (s.title === "Weapon Skill") weaponSkill = s.total;
+                else if (s.title === "Ballistic Skill") ballisticSkill = s.total;
                 return s;
             })
 

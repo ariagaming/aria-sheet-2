@@ -18,7 +18,7 @@ export default class NormalSpells extends Component {
             <div>
                 {
                     categories.map((category, j) => {
-
+                        if (category.spells.length === 0) return null;
                         return (
                             <div key={j}>
                                 <h2>{category.title}</h2>

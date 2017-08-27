@@ -35,6 +35,15 @@ firebase.initializeApp(config);
 
 /* End initialize Firebase */
 
+const generateSpellIDs = c => {
+    return {
+        ...c,
+        spells: c.spells.map((s, i) => {
+            s.id = i;
+            return s;
+        })
+    };
+}
 
 
 const App = require('./modules/shell/components/app/app.js').default;
@@ -45,8 +54,12 @@ let initialState = {
     character: character,
     data: {
         races: __races,
-        professions: [__barbarian, __paladin, __priest],
-        //professions: [...__classes, __barbarian, __rogue, __paladin, __priest, __earth_mage, __monk].map(c => ({ ...c, level: 1 })),
+        professions: [
+            generateSpellIDs(__barbarian),
+            generateSpellIDs(__paladin),
+            generateSpellIDs(__priest),
+            generateSpellIDs(__monk)
+        ],
         weapons: __weapons
     },
     dialog: {

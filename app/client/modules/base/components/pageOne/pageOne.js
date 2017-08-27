@@ -24,6 +24,10 @@ import { connect } from 'react-redux';
 class PageOne extends Component {
     render() {
         const { character, showArmorDialog, changeCharacterXP } = this.props;
+        let apTitle = character.ap.title || "AP";
+        if (character.classes[0]) {
+            if (character.classes[0].APName) apTitle = character.classes[0].APName;
+        }
 
         return (
             <Page className="page-one">
@@ -34,7 +38,7 @@ class PageOne extends Component {
                 <Statistics character={character} />
 
                 <StatisticInfo type="hp" value={character.hp.total} title="hp" />
-                <StatisticInfo type="ap" value={character.ap.total} title={character.ap.title} />
+                <StatisticInfo type="ap" value={character.ap.total} title={apTitle} />
                 <StatisticInfo type="expertise" value={character.expertise.total} title="expertise" prefix="+" />
                 <StatisticInfo type="movement" value={character.movement.total} title="movement" postfix="ft" />
                 <StatisticInfo type="initiative" value={character.initiative.total} prefix="-" postfix="%" title="initiative" />

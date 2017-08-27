@@ -368,6 +368,12 @@ const character = {
             "expertise": false,
             "stat": "INU",
             "title": "Magic"
+        },
+        {
+            "bought": false,
+            "expertise": false,
+            "stat": "INU",
+            "title": "Religiion"
         }
     ],
     "resistances": [
@@ -449,7 +455,7 @@ const character = {
             "factor": 2
         },
         {
-            "title": "Evasion",
+            "title": "Def Expertise",
             "description": "Increase your defense and your Passive AC.",
             "base": 0,
             "weapon": 0,
@@ -461,7 +467,7 @@ const character = {
             "factor": 2
         },
         {
-            "title": "Magic",
+            "title": "Magic Expertise",
             "description": "Increase your magic skill with a +2.",
             "base": 0,
             "weapon": 0,

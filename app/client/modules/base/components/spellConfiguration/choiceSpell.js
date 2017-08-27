@@ -10,29 +10,31 @@ class ChoiceSpell extends Component {
 
     render() {
         const { categories, selectChoice } = this.props;
-        const __selectChoice = (spellIndex, choiceIndex, category) => {
+        const __selectChoice = (spellIndex, choiceIndex, category, spellId) => {
             return () => {
-                this.props.selectChoice(spellIndex, choiceIndex, category);
+                this.props.selectChoice(spellIndex, choiceIndex, category, spellId);
             }
         }
 
         return (
-            <div>
+            <div style={{ marginTop: "4em" }}>
                 {
                     categories.map((category, j) => {
-
+                        if (category.spells.length === 0) return null;
                         return (
                             <div key={j}>
-                                <h2>{category.title}</h2>
+                                <h2>{category.title} Choices</h2>
 
                                 {
                                     category.spells.map((spell, i) => (
                                         <div className="choices" key={i}>
-                                            <div className="title">{spell.level}</div>
+                                            <div className="title">
+                                                <span style={{ padding: "0em" }}>{spell.level}</span>
+                                            </div>
                                             {
                                                 spell.choices.map((choice, k) => {
                                                     return (
-                                                        <div key={k} className={"choice" + (choice.selected ? " selected" : "")} onClick={__selectChoice(i, k, category.title)}>
+                                                        <div key={k} className={"choice" + (choice.selected ? " selected" : "")} onClick={__selectChoice(i, k, category.title, spell.id)}>
                                                             <span className="title">{choice.title || ""}</span>
                                                             <span>{choice.description}</span>
                                                         </div>
@@ -59,11 +61,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatcherToProps = (dispatcher, ownProps) => {
     return {
-        selectChoice: (spellIndex, choiceIndex, category) => {
+        selectChoice: (spellIndex, choiceIndex, category, spellId) => {
             dispatcher({
                 type: 'SELECT_SPELL_CHOICE',
                 payload: {
-                    spellIndex, choiceIndex, category
+                    spellIndex, choiceIndex, category, spellId
                 }
             });
         }
