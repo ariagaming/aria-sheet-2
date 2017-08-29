@@ -400,22 +400,17 @@ const character = {
         {
             "bought": false,
             "expertise": false,
-            "title": "Magic"
-        },
-        {
-            "bought": false,
-            "expertise": false,
             "title": "Poison & Disease"
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Strength"
+            "title": "Demonic"
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Intelligence"
+            "title": "Necromantic"
         }
     ],
     "feats": [

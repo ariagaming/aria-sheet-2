@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { string, shape, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/RaisedButton';
 
 /**
  * This is the basic description of the Dialog component. This will be shown in the
@@ -102,8 +103,12 @@ class Dialog extends Component {
                         </div>
 
                         <div className="dialog__footer__buttons">
-                            <button onClick={updateCharacter}><i className="fa fa-check"></i>OK</button>
-                            <button onClick={hideDialog}><i className="fa fa-remove"></i>Cancel</button>
+                            <RaisedButton onClick={updateCharacter} style={{ marginRight: "5px" }}>
+                                <i className="fa fa-check"></i>OK
+                            </RaisedButton>
+                            <RaisedButton onClick={hideDialog} style={{ marginRight: "5px" }}>
+                                <i className="fa fa-remove"></i>Cancel
+                            </RaisedButton>
                         </div>
 
                     </div>

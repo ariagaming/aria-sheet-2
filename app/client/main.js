@@ -12,6 +12,7 @@ import __character from './modules/character/mocks/__character';
 import __races from './modules/character/mocks/__races';
 import __classes from './modules/character/mocks/__classes';
 import __weapons from './modules/character/mocks/__weapons';
+import __specials from './modules/character/mocks/__specials';
 import __barbarian from './modules/character/mocks/__barbarian';
 import __monk from './modules/character/mocks/__monk';
 import __paladin from './modules/character/mocks/__paladin';
@@ -60,7 +61,8 @@ let initialState = {
             generateSpellIDs(__priest),
             generateSpellIDs(__monk)
         ],
-        weapons: __weapons
+        weapons: __weapons,
+        specials: __specials
     },
     dialog: {
         shown: false,
