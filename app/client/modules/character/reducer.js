@@ -657,17 +657,27 @@ const characterReducer = (state = {}, action) => {
         case "BUY_SPECIAL":
 
             const exists = state.newCharacter.specials.filter(special => special.title === action.payload.title).length > 0;
-            if (exists) return { ...state };
+            if (exists) {
+                return {
+                    ...state,
+                    newCharacter: {
+                        ...state.newCharacter,
+                        specials: state.newCharacter.specials.filter(special => special.title !== action.payload.title)
+                    }
+                }
+            }
+            else {
 
-            const generalSpells = state.newCharacter.spells[0];
-            generalSpells.spells = generalSpells.spells.concat(action.payload.spells || []);
+                const generalSpells = state.newCharacter.spells[0];
+                generalSpells.spells = generalSpells.spells.concat(action.payload.spells || []);
 
-            return {
-                ...state,
-                newCharacter: {
-                    ...state.newCharacter,
-                    spells: [generalSpells],
-                    specials: [...state.newCharacter.specials, action.payload]
+                return {
+                    ...state,
+                    newCharacter: {
+                        ...state.newCharacter,
+                        spells: [generalSpells],
+                        specials: [...state.newCharacter.specials, action.payload]
+                    }
                 }
             }
 

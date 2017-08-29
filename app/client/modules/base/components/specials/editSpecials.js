@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class EditSpecials extends Component {
     render() {
-        const { selectSpecial } = this.props;
+        const { selectSpecial, newCharacter } = this.props;
         const specials = this.props.data.specials;
         const __selectSpecial = (special) => {
             return () => {
@@ -12,13 +12,19 @@ class EditSpecials extends Component {
                 selectSpecial(__special);
             }
         }
+        const specialsTitles = specials.map(special => special.title);
+        const characterSpecialTitles = newCharacter.specials.map(special => special.title);
+        const isSelected = (special) => {
+            return characterSpecialTitles.indexOf(special.title) > -1 ? " selected" : "";
+        }
+
         return (
             <div>
 
                 {
                     specials.map((special, i) => {
                         return (
-                            <div className="row" key={i} onClick={__selectSpecial(special)}>
+                            <div className={"row" + isSelected(special)} key={i} onClick={__selectSpecial(special)}>
                                 <span className="title">{special.title}</span>
                                 <span>{special.description}</span>
                             </div>
