@@ -16,7 +16,7 @@ class RankedSpell extends Component {
                 increaseSpellRank(spell, category);
             }
         };
-        const __decreaseSpellRank = (spell) => {
+        const __decreaseSpellRank = (spell, category) => {
             return () => {
                 decreaseSpellRank(spell, category);
             }
@@ -49,8 +49,12 @@ class RankedSpell extends Component {
                                                         <td className="title">{spell.title}</td>
                                                         <td>{spell.description}</td>
                                                         <td>
-                                                            <FlatButton onClick={__increaseSpellRank(spell, category.title)}><i className="fa fa-plus"></i></FlatButton>
-                                                            <FlatButton onClick={__decreaseSpellRank(spell, category.title)}><i className="fa fa-minus"></i></FlatButton>
+                                                            <FlatButton onClick={__increaseSpellRank(spell, category.title)}>
+                                                                <i className="fa fa-plus"></i>
+                                                            </FlatButton>
+                                                            <FlatButton onClick={__decreaseSpellRank(spell, category.title)}>
+                                                                <i className="fa fa-minus"></i>
+                                                            </FlatButton>
                                                         </td>
                                                     </tr>
                                                 )

@@ -13,6 +13,9 @@ const characterReducer = (state = {}, action) => {
     let newCharacter;
     switch (action.type) {
 
+        case "HASH_CHANGED":
+            return { ...state };
+
         case "SET_USER":
             return { ...state, user: action.payload };
 
@@ -98,7 +101,6 @@ const characterReducer = (state = {}, action) => {
                 const _spell = action.payload.spell;
                 const _category = action.payload.category;
                 const classes = state.newCharacter.classes.map(__class => {
-
                     if (__class.name === _category) {
                         const classSpells = __class.spells.map(__spell => {
                             if (__spell.title === _spell.title) {
@@ -120,12 +122,32 @@ const characterReducer = (state = {}, action) => {
                         return __class;
                     }
                 });
+                const spells = state.newCharacter.spells.map(__spellList => {
+                    if (__spellList.title === _category) {
+                        return {
+                            ...__spellList,
+                            spells: __spellList.spells.map(__spell => {
+                                if (__spell.title === _spell.title) {
+                                    return {
+                                        ...__spell,
+                                        rank: __spell.rank ? (__spell.rank + 1) : 0
+                                    };
+                                }
+                                else {
+                                    return __spell;
+                                }
+                            })
+                        };
+                    }
+                    return { ...__spellList };
+                });
 
                 return {
                     ...state,
                     newCharacter: {
                         ...state.newCharacter,
-                        classes: classes
+                        classes: classes,
+                        spells: spells
                     }
                 };
             })();
@@ -159,12 +181,33 @@ const characterReducer = (state = {}, action) => {
                         return __class;
                     }
                 });
+                const spells = state.newCharacter.spells.map(__spellList => {
+                    if (__spellList.title === _category) {
+                        return {
+                            ...__spellList,
+                            spells: __spellList.spells.map(__spell => {
+                                if (__spell.title === _spell.title) {
+                                    const value = __spell.rank ? (__spell.rank - 1) : 0;
+                                    return {
+                                        ...__spell,
+                                        rank: value < 0 ? 0 : value
+                                    };
+                                }
+                                else {
+                                    return __spell;
+                                }
+                            })
+                        };
+                    }
+                    return { ...__spellList };
+                });
 
                 return {
                     ...state,
                     newCharacter: {
                         ...state.newCharacter,
-                        classes: classes
+                        classes: classes,
+                        spells: spells
                     }
                 };
             })();
@@ -608,10 +651,25 @@ const characterReducer = (state = {}, action) => {
                 ...state,
                 newCharacter: {
                     ...state.newCharacter,
-                    classes: __classes //,
-                    //spells: __spells
+                    classes: __classes
                 }
             };
+        case "BUY_SPECIAL":
+
+            const exists = state.newCharacter.specials.filter(special => special.title === action.payload.title).length > 0;
+            if (exists) return { ...state };
+
+            const generalSpells = state.newCharacter.spells[0];
+            generalSpells.spells = generalSpells.spells.concat(action.payload.spells || []);
+
+            return {
+                ...state,
+                newCharacter: {
+                    ...state.newCharacter,
+                    spells: [generalSpells],
+                    specials: [...state.newCharacter.specials, action.payload]
+                }
+            }
 
         case 'UPDATE_CHARACTER':
 

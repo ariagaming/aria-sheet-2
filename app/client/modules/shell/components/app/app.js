@@ -11,6 +11,7 @@ import RaceDialog from './../../../base/components/dialog/raceDialog';
 import ProfessionsDialog from './../../../base/components/dialog/professionsDialog';
 import ArmorDialog from './../../../base/components/dialog/armorDialog';
 import SelectCharacterDialog from './../../../base/components/dialog/selectCharacterDialog';
+import DMPage from "./../../../dm/components/dmPage/dmPage";
 
 /* SOME PLUMBING TO GET THE THEMES WORKING */
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -33,7 +34,7 @@ import firebase from 'firebase';
 class App extends React.Component {
 
     componentWillMount() {
-        const { setUser, setCharacters } = this.props;
+        const { setUser, setCharacters, hashChange } = this.props;
         const auth = firebase.auth();
         const unsubscribe = auth.onAuthStateChanged(firebaseUser => {
             // set the user
@@ -68,7 +69,13 @@ class App extends React.Component {
             localStorage.removeItem("character");
         }
 
-        if (!user) {
+
+        if (location.hash === "#/dm") {
+            return (
+                <DMPage />
+            );
+        }
+        else if (!user) {
             return (
                 <MuiThemeProvider>
                     <Login />
@@ -161,6 +168,7 @@ const mapStateToProps = (state, ownProps) => {
     return state;
 }
 const mapReducerToProps = (dispatch) => {
+
     return {
         saveCharacter: () => {
             dispatch({ type: "SAVE_CHARACTER" });
@@ -179,6 +187,9 @@ const mapReducerToProps = (dispatch) => {
         },
         showSelectCharacterDialog: () => {
             dispatch({ type: "SHOW_SELECT_CHARACTER_DIALOG" });
+        },
+        hashChange: () => {
+            dispatch({ type: "HASH_CHANGED" });
         }
     }
 }

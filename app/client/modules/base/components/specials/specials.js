@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import characterDefinition from './../../../character/definition';
 import Container from './../container/container';
 import { getSpecials } from './../../../character/helpers';
+import EditSpecials from './editSpecials';
+
 
 /**
  * This is the basic description of the Specials component. This will be shown in the
@@ -13,9 +15,12 @@ class Specials extends Component {
     render() {
         const { character } = this.props;
         const specials = getSpecials(character);
+        const pages = [
+            { title: 'edit specials', content: <EditSpecials /> }
+        ]
 
         return (
-            <Container title="Specials" className="specials">
+            <Container title="Specials" className="specials" pages={pages}>
                 {
                     specials.map((special, i) => {
                         return (
@@ -32,18 +37,6 @@ class Specials extends Component {
     }
 }
 
-
-Specials.propTypes = {
-    /**
-     * Every component should at least have a name.
-     */
-    name: PropTypes.string,
-    character: characterDefinition.isRequired
-}
-
-Specials.defaultProps = {
-    name: 'component-specials'
-}
 
 export default Specials;
 

@@ -54,6 +54,12 @@ export default {
             "level": 10,
             "Crit": 2,
             "description": "5% chance to Crit."
+        },
+        {
+            "title": "Amazing Offense",
+            "level": 10,
+            "AP Offense": -1,
+            "description": "You offensive actions cost -1 AP"
         }
     ],
     "spells": [

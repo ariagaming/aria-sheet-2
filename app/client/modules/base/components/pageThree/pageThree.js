@@ -13,6 +13,8 @@ import _ from 'lodash';
 class PageThree extends Component {
     render() {
         const { character } = this.props;
+        const levelCaps = [0, 21, 33, 46, 60, 75, 91, 108, 126, 145, 165, 186, 208, 211];
+        const APPerLevel = [12, 15, 20, 24, 27, 29, 30, 31, 32, 33, 34, 35];
         const construct = {
             lvl: character.level,
             STR: character.statistics.STR.bonus,
@@ -234,6 +236,22 @@ class PageThree extends Component {
                     </p>
 
                     <title>How rolls work</title>
+                </div>
+
+                <div className="container xp-level">
+                    <p>The level caps with XP:</p>
+                    {
+                        levelCaps.map((_xp, i) => `lvl ${i} - ${_xp}xp`).join('; ')
+                    }
+                    <title>XP per Level</title>
+                </div>
+
+                <div className="container ap-level">
+                    <p>The level caps with XP:</p>
+                    {
+                        APPerLevel.map((_ap, i) => `lvl ${i + 1} - ${_ap} AP`).join('; ')
+                    }
+                    <title>AP per Level</title>
                 </div>
 
             </Page>

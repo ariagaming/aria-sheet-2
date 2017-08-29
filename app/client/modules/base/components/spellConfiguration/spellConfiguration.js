@@ -3,21 +3,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSpells } from './../../../character/helpers';
-import FlatButton from 'material-ui/FlatButton';
+
 import NormalSpells from "./normalSpell";
 import ChoiceSpells from "./choiceSpell";
 import RankedSpell from "./rankedSpell";
 import PowerWords from "./powerWords";
-/**
- * This is the basic description of the SpellConfiguration component. This will be shown in the
- * documentation of the component in the StyleGuilde.
- */
+
 class SpellConfiguration extends Component {
 
     render() {
         const { newCharacter, source, selectChoice } = this.props;
-        if (!newCharacter || newCharacter.classes.length < 1 || newCharacter.classes[0].title === "Unknown") return null;
-
+        if (!newCharacter) return null;
         const spellCategories = getSpells(newCharacter).filter(category => category.spells && category.spells.length > 0);
 
         if (!spellCategories || spellCategories.length === 0) {

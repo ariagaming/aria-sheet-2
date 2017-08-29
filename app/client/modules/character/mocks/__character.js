@@ -559,7 +559,7 @@ const character = {
             "bought": 0,
             "rank": 0,
             "equipment": 0,
-            "factor": 3,
+            "factor": 2.5,
             "unit": "%"
         },
         {
