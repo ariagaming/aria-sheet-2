@@ -2,7 +2,7 @@ export default {
     "title": "Rogue",
     "name": "Rogue",
     "description": "Rogues are different from every other class. Rogues begin with every spell they will get. These spells will become better when they level up but otherwise you will have a full range of abilities right off the bat!",
-    "skillPoints": 2,
+    "skillPoints": 5,
     "professionPoints": 1,
     "stats": {
         "STR": 0,
@@ -23,6 +23,8 @@ export default {
             "boughtSource": "class"
         }
     ],
+    "resistances": [],
+    "professions": [],
     "spells": [
         {
             "level": 1,
@@ -63,7 +65,10 @@ export default {
     ],
     "specials": [
         {
-            "name": "Hide in plain sight"
+            "title": "Hide in plain sight",
+            "description": "You are allowed to roll for Stealth even in situations where other players are not allowed to.",
+            "level": 1,
+            "Stealth": 5
         }
     ]
 }

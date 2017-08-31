@@ -59,21 +59,24 @@ export const getSpecials = (character) => {
 }
 
 
-export const calculateSkills = (character) => {
+export const calculatePropertyList = (character, prop) => {
 
-    const newSkills = character.skills.map(skill => {
-        skill.bought = false;
-        skill.expertise = false;
-        let numberInRace = character.buyables.race.filter(s => skill.title === s).length;
-        let numberInProf = character.buyables.profession.filter(s => skill.title === s).length;
-        let numberInXP = character.buyables.xp.filter(s => skill.title === s).length;
+    const __buyables = (character.buyables || {})[prop] || {};
+    const __race = __buyables.race || [];
+    const __profession = __buyables.profession || [];
+    const __xp = __buyables.xp || [];
 
-        //console.log(numberInRace, numberInProf, numberInXP);
+    const newBuyables = character[prop].map(buyable => {
+        buyable.bought = false;
+        buyable.expertise = false;
+        let numberInRace = __race.filter(s => buyable.title === s).length;
+        let numberInProf = __profession.filter(s => buyable.title === s).length;
+        let numberInXP = __xp.filter(s => buyable.title === s).length;
 
         const iterate = (flow, key) => {
             while (flow > 0) {
-                if (!skill.bought) skill.bought = key;
-                else if (skill.bought && !skill.expertise) skill.expertise = key;
+                if (!buyable.bought) buyable.bought = key;
+                else if (buyable.bought && !buyable.expertise) buyable.expertise = key;
                 flow = flow - 1;
             }
         }
@@ -81,10 +84,10 @@ export const calculateSkills = (character) => {
         iterate(numberInProf, "profession");
         iterate(numberInXP, "xp");
 
-        return skill;
+        return buyable;
     });
 
-    return [...newSkills];
+    return [...newBuyables];
 }
 
 

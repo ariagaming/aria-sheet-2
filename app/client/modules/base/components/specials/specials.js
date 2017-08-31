@@ -17,7 +17,8 @@ class Specials extends Component {
         const specials = getSpecials(character);
         const pages = [
             { title: 'edit specials', content: <EditSpecials /> }
-        ]
+        ];
+        console.log(specials)
 
         return (
             <Container title="Specials" className="specials" pages={pages}>

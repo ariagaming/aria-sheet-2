@@ -59,7 +59,9 @@ let initialState = {
             generateSpellIDs(__barbarian),
             generateSpellIDs(__paladin),
             generateSpellIDs(__priest),
-            generateSpellIDs(__monk)
+            generateSpellIDs(__monk),
+            generateSpellIDs(__earth_mage),
+            generateSpellIDs(__rogue)
         ],
         weapons: __weapons,
         specials: __specials

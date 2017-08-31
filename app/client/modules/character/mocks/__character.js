@@ -59,11 +59,6 @@ const character = {
     "initiative": {
         "total": 0
     },
-    "buyables": {
-        "xp": [],
-        "profession": [],
-        "race": []
-    },
     "specials": [],
     "expertise": {
         "level": 1,
@@ -78,7 +73,7 @@ const character = {
     "classes": [],
     "playerName": "unknown",
     "weapons": [
-        { "title": "Dagger", "numberOfDice": 1, "diceSides": 4, "constant": 0, "isActive": true, "isTwohanded": false, "isShield": false }
+
     ],
     "equipment": [
         {
@@ -318,12 +313,6 @@ const character = {
         {
             "bought": false,
             "expertise": false,
-            "stat": "INU",
-            "title": "Actor"
-        },
-        {
-            "bought": false,
-            "expertise": false,
             "stat": "PER",
             "title": "Winderness Surv."
         },
@@ -338,12 +327,6 @@ const character = {
             "expertise": false,
             "stat": "STR",
             "title": "Rope use"
-        },
-        {
-            "bought": false,
-            "expertise": false,
-            "stat": "STR",
-            "title": "Armorer"
         },
         {
             "bought": false,
@@ -380,37 +363,51 @@ const character = {
         {
             "bought": false,
             "expertise": false,
-            "title": "Fire & Heat"
+            "title": "Fire & Heat",
+            "base": 0,
+            "specials": 0
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Cold & Ice"
+            "title": "Cold & Ice",
+            "base": 0,
+            "specials": 0
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Holy"
+            "title": "Holy",
+            "base": 0,
+            "specials": 0
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Mental"
+            "title": "Mental",
+            "base": 0,
+            "specials": 0
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Poison & Disease"
+            "title": "Poison & Disease",
+            "base": 0,
+            "specials": 0
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Demonic"
+            "title": "Demonic",
+            "base": 0,
+            "specials": 0
         },
         {
             "bought": false,
             "expertise": false,
-            "title": "Necromantic"
+            "title": "Necromantic",
+            "base": 0,
+            "specials": 0
         }
     ],
     "feats": [
@@ -650,7 +647,12 @@ const character = {
     ],
     "spells": [
         { "title": "General", "spells": [] }
-    ]
+    ],
+    "buyables": {
+        "skills": {},
+        "resistances": {},
+        "professions": {}
+    }
 }
 
 

@@ -11,25 +11,19 @@ import { string, number } from 'prop-types';
 class EditBuyable extends Component {
     render() {
 
-        const { newCharacter, buy, source, prop, max } = this.props;
-        const list = newCharacter[prop];
-        const remaining = list.reduce((acc, l) => {
-            let total = 0;
-            if (l.bought === source) {
-                total++;
-            }
-            if (l.expertise === source) {
-                total++;
-            }
-            return acc - total;
-        }, max);
+        const { newCharacter, buy, source, prop } = this.props;
+        if (!newCharacter) return null;
 
+        const list = newCharacter[prop];
+        const bought = (newCharacter.buyables[prop][source] || []).length;
+        const max = (() => {
+            if (source === "race") return newCharacter.race.skillPoints || -1;
+            else if (source === "profession") return (newCharacter.classes[0] || {}).skillPoints || -1;
+            else return -1;
+        })();
+        const remaining = max - bought;
         const buyItem = (prop, buyable, source) => {
             return () => {
-                /* 
-                You can only buy a skill if you have a remaining maximum number of skills for that skill type (for example, "race").
-                If you do not give a prop 'max' you can keep buying.
-                 */
                 if (!max || remaining > 0 || buyable.bought === source || buyable.expertise === source) {
                     buy(prop, buyable, source);
                 }

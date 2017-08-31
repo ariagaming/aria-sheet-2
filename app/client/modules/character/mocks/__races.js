@@ -37,7 +37,7 @@ export default [
         "XP": 10,
         "stats": {
             "STR": 0,
-            "AGI": 10,
+            "AGI": 12,
             "INU": 8,
             "PER": 8
         },
@@ -59,10 +59,10 @@ export default [
             }
         ],
         "resistances": [
-            "Magic"
+            "Necromantic"
         ],
         "skills": [
-            "Ballistic skill"
+            "Ballistic Skill"
         ],
         "professions": [
             "Medic"
@@ -70,7 +70,25 @@ export default [
         "specials": [
             "Night Vision"
         ],
-        "feats": []
+        "feats": [],
+        "weapons": [
+            {
+                "title": "Longbow",
+                "information": "A new Weapon",
+                "isRanged": true,
+                "initiative": 14,
+                "numberOfDice": "1",
+                "diceSides": "8",
+                "constant": 0,
+                "description": "",
+                "dmgFeat": 0,
+                "skill": 0,
+                "dmgStat": 0,
+                "dmgTotal": 0,
+                "initiativeTotal": 14,
+                "isActive": true
+            }
+        ]
     },
     {
         "title": "Dwarf",
@@ -179,23 +197,21 @@ export default [
             }
         ],
         "resistances": [
-            "Magic",
+            "Demonic",
             "Mental"
         ],
         "skills": [
             "Arcane Lore",
             "Investigate"
         ],
-        "professions": [],
+        "professions": ["Medic", "Lawyer"],
         "specials": [
             {
                 "title": "Cast Magic",
                 "description": "Can cast magic"
             }
         ],
-        "feats": [
-            { "title": "Scholar", "value": 2 }
-        ],
+        "feats": { "Aura": 2 },
         "spells": [
             {
                 "level": 0,

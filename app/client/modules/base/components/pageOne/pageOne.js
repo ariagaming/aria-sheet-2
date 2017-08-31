@@ -44,7 +44,7 @@ class PageOne extends Component {
                 <StatisticInfo type="initiative" value={character.initiative.total} prefix="-" postfix="%" title="initiative" />
                 <StatisticInfo type="armor" value={character.armor.total} title="armor" postfix="%" onClick={showArmorDialog} />
                 <StatisticInfo type="magic-armor" value={character.magicArmor.total} title="Aura" postfix="%" />
-                <StatisticInfo type="passive-armor" value={0} title="AC" />
+                <StatisticInfo type="passive-armor" value={character.armor.ac} title="AC" />
 
                 <StatisticInfo type="ap-offense" value={character.ap.offense} prefix="-" title="AP Offense" />
                 <StatisticInfo type="ap-defense" value={character.ap.defense} prefix="-" title="AP Defense" />

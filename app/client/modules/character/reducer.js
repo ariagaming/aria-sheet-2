@@ -106,7 +106,7 @@ const characterReducer = (state = {}, action) => {
                             if (__spell.title === _spell.title) {
                                 return {
                                     ...__spell,
-                                    rank: __spell.rank ? (__spell.rank + 1) : 0
+                                    rank: (__spell.rank === 0 || __spell.rank) ? (__spell.rank + 1) : 0
                                 };
                             }
                             else {
@@ -130,7 +130,7 @@ const characterReducer = (state = {}, action) => {
                                 if (__spell.title === _spell.title) {
                                     return {
                                         ...__spell,
-                                        rank: __spell.rank ? (__spell.rank + 1) : 0
+                                        rank: (__spell.rank === 0 || __spell.rank) ? (__spell.rank + 1) : 0
                                     };
                                 }
                                 else {
@@ -455,34 +455,21 @@ const characterReducer = (state = {}, action) => {
 
         case 'BUY':
             const { source, prop, buyable } = action.payload;
-            const buyableTitle = buyable.title;
 
-            const listOfSkills = [...state.newCharacter.buyables[source]];
-            const numberOfInstancesOfTheSkill =
-                state.newCharacter.buyables.race.filter(r => r === buyableTitle).length +
-                state.newCharacter.buyables.profession.filter(r => r === buyableTitle).length +
-                state.newCharacter.buyables.xp.filter(r => r === buyableTitle).length;
+            state.newCharacter.buyables = state.newCharacter.buyables || {};
+            state.newCharacter.buyables[prop] = state.newCharacter.buyables[prop] || {};
+            state.newCharacter.buyables[prop][source] =
+                [...(state.newCharacter.buyables[prop][source] || []), buyable.title];
 
-            let newListOfSkills;
-            if (numberOfInstancesOfTheSkill < 2) {
-                newListOfSkills = [...listOfSkills, buyableTitle];
-            }
-            else {
-                newListOfSkills = listOfSkills.filter(s => s !== buyableTitle);
-            }
-            const BUY_newCharacter = {
-                ...state.newCharacter,
-                buyables: {
-                    ...state.newCharacter.buyables,
-                    [source]: newListOfSkills
-                }
-            }
+            state.newCharacter[prop] = helpers.calculatePropertyList(state.newCharacter, prop);
+
             return {
-                ...state, newCharacter: {
-                    ...BUY_newCharacter,
-                    skills: helpers.calculateSkills(BUY_newCharacter)
+                ...state,
+                newCharacter: {
+                    ...state.newCharacter
                 }
-            };
+            }
+
 
         case 'BUY_FEAT':
             const { feat, value } = action.payload;
@@ -503,117 +490,92 @@ const characterReducer = (state = {}, action) => {
 
         case 'SELECT_RACE':
 
-            const newStatistics = {
-                ...state.newCharacter.statistics,
-                STR: { ...state.newCharacter.statistics.STR, race: action.payload.stats.STR },
-                AGI: { ...state.newCharacter.statistics.AGI, race: action.payload.stats.AGI },
-                INU: { ...state.newCharacter.statistics.INU, race: action.payload.stats.INU },
-                PER: { ...state.newCharacter.statistics.PER, race: action.payload.stats.PER }
-            }
-
-            const updateList = (list) => {
-                const uppercaseList = action.payload[list].map(s => s.toUpperCase());
-                const __list = state.newCharacter[list].map(s => {
-                    if (s.expertise === "race") {
-                        s.expertise = false;
-                    }
-                    if (s.bought === "race") {
-                        s.bought = s.expertise;
-                    }
-                    if (uppercaseList.indexOf(s.title.toUpperCase()) > -1) {
-                        if (s.bought && s.expertise) { }
-                        else if (s.bought && !s.expertise) { s.expertise = "race"; }
-                        else if (!s.bought) { s.bought = "race"; }
-                    }
-                    return s;
-                });
-                return __list;
-            }
-
-            /*
-            Let's run through the feats.
-            */
-            const __feats = action.payload.feats;
-            const newFeats = state.newCharacter.feats.map(feat => {
-                const target = __feats.filter(f => f.title === feat.title)[0];
-                if (target) {
-                    feat.race = target.value;
+            return (() => {
+                const newStatistics = {
+                    ...state.newCharacter.statistics,
+                    STR: { ...state.newCharacter.statistics.STR, race: action.payload.stats.STR },
+                    AGI: { ...state.newCharacter.statistics.AGI, race: action.payload.stats.AGI },
+                    INU: { ...state.newCharacter.statistics.INU, race: action.payload.stats.INU },
+                    PER: { ...state.newCharacter.statistics.PER, race: action.payload.stats.PER }
                 }
-                else {
-                    feat.race = 0;
-                }
-                return feat;
-            });
 
-            const raceSpells = [...state.newCharacter.spells].concat(action.payload.spells || []);
+                const newFeats = state.newCharacter.feats.map(feat => ({
+                    ...feat,
+                    race: (action.payload.feats[feat.title] || 0)
+                }));
 
-            const SELECT_RACE_newCharacter = {
-                ...state.newCharacter,
-                race: action.payload,
-                statistics: newStatistics,
-                resistances: updateList("resistances"),
-                professions: updateList("professions"),
-                feats: newFeats,
-                spells: raceSpells,
-                languages: state.newCharacter.languages.concat(action.payload.languages || []),
-                buyables: {
-                    ...state.newCharacter.buyables,
-                    race: action.payload.skills
-                }
-            };
+                const newLanguages = state
+                    .newCharacter
+                    .languages
+                    .filter(l => l.boughtFrom !== "race")
+                    .concat((action.payload.languages || []).map(l => ({ ...l, boughtFrom: "race" })));
 
-
-            const _SELECT_RACE_newCharacter = {
-                ...SELECT_RACE_newCharacter,
-                skills: helpers.calculateSkills(SELECT_RACE_newCharacter)
-            };
-
-            return { ...state, newCharacter: _SELECT_RACE_newCharacter };
+                return {
+                    ...state,
+                    newCharacter: {
+                        ...state.newCharacter,
+                        race: action.payload,
+                        statistics: newStatistics,
+                        feats: newFeats,
+                        languages: newLanguages,
+                        weapons: state.newCharacter.weapons.concat(action.payload.weapons || []),
+                        buyables: {
+                            ...state.newCharacter.buyables,
+                            skills: {
+                                ...state.newCharacter.buyables.skills,
+                                race: (action.payload.skills || [])
+                            },
+                            resistances: {
+                                ...state.newCharacter.buyables.resistances,
+                                race: (action.payload.resistances || [])
+                            },
+                            professions: {
+                                ...state.newCharacter.buyables.professions,
+                                race: (action.payload.professions || [])
+                            }
+                        }
+                    }
+                };
+            })();
 
         case 'SELECT_PROFESSION':
 
-            const filteredClasses = state.newCharacter.classes.filter(c => c.title !== action.payload.title);
-            const newClasses = [...filteredClasses, action.payload].filter(c => c.title !== "Unknown");
+            return (() => {
 
-            // we do not update the statistics of a character when we add a profession, but we'll
-            // set this in the update function.
+                const filteredClasses = state.newCharacter.classes.filter(c => c.title !== action.payload.title);
+                const newClasses = [...filteredClasses, action.payload].filter(c => c.title !== "Unknown");
 
-
-            const newResistances = state.newCharacter.resistances.map(s => {
-                if (action.payload.resistances && action.payload.resistances.indexOf(s.title) > -1) {
-                    if (!s.bought) {
-                        return { ...s, bought: 'profession' };
+                newCharacter = {
+                    ...state.newCharacter,
+                    hp: {
+                        ...state.newCharacter.hp,
+                        STRFactor: (action.payload.HPFactor || 1)
+                    },
+                    classes: newClasses,
+                    buyables: {
+                        ...state.newCharacter.buyables,
+                        skills: {
+                            ...state.newCharacter.buyables.skills,
+                            profession: (action.payload.skills || [])
+                        },
+                        resistances: {
+                            ...state.newCharacter.buyables.resistances,
+                            profession: (action.payload.resistances || [])
+                        },
+                        professions: {
+                            ...state.newCharacter.buyables.professions,
+                            profession: (action.payload.professions || [])
+                        }
                     }
-                    else if (s.bought && !s.expertise) {
-                        return { ...s, expertise: 'profession' };
-                    }
-                }
-                return { ...s };
-            });
+                };
 
-            const hp = {
-                ...state.newCharacter.hp,
-                STRFactor: (action.payload.HPFactor || 1)
-            }
+                newCharacter = {
+                    ...newCharacter,
+                    skills: helpers.calculatePropertyList(newCharacter, "skills")
+                };
 
-            // Spells will be accumulated though the other methods.
-
-            newCharacter = {
-                ...state.newCharacter,
-                hp: hp,
-                classes: newClasses,
-                buyables: {
-                    ...state.newCharacter.buyables,
-                    profession: action.payload.skills
-                }
-            };
-
-            newCharacter = {
-                ...newCharacter,
-                skills: helpers.calculateSkills(newCharacter)
-            };
-
-            return { ...state, newCharacter };
+                return { ...state, newCharacter };
+            })();
 
         case 'REMOVE_PRFESSION':
             return { ...state };
@@ -627,7 +589,7 @@ const characterReducer = (state = {}, action) => {
                     .filter(c => c.title === classTitle)[0]
                     .specializations
                     .filter(s => s.title === specialization)[0];
-            //const __specializationSpells = (__specialization.spells || []).map(s => ({ ...s, source: "profession" }));
+
             const __classes = state.newCharacter.classes.map(c => {
                 if (c.title === classTitle) {
                     return {
@@ -692,18 +654,20 @@ const characterReducer = (state = {}, action) => {
             c.statistics.STR.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.STR || 0), 0);
             c.statistics.STR.equipment = c.equipment.reduce((acc, eq) => acc + (eq.STR || 0), 0);
             c.statistics.STR.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.STR).reduce((acc, s) => acc + s, 0);
+            c.statistics.STR.specials = c.specials.reduce((acc, special) => acc + (special.STR || 0), 0);
             c.statistics.STR.total =
                 c.statistics.STR.race + c.statistics.STR.base + c.statistics.STR.equipment +
-                c.statistics.STR.weapon + c.statistics.STR.profession;
+                c.statistics.STR.weapon + c.statistics.STR.profession + c.statistics.STR.specials;
             c.statistics.STR.bonus = Math.floor(c.statistics.STR.total / 10);
 
             c.statistics.AGI.race = (c.race && c.race.stats) ? c.race.stats.AGI : 0;
             c.statistics.AGI.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.AGI || 0), 0);
             c.statistics.AGI.equipment = c.equipment.reduce((acc, eq) => acc + (eq.AGI || 0), 0);
             c.statistics.AGI.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.AGI).reduce((acc, s) => acc + s, 0);
+            c.statistics.AGI.specials = c.specials.reduce((acc, special) => acc + (special.AGI || 0), 0);
             c.statistics.AGI.total =
                 c.statistics.AGI.race + c.statistics.AGI.base + c.statistics.AGI.equipment +
-                c.statistics.AGI.weapon + c.statistics.AGI.profession;
+                c.statistics.AGI.weapon + c.statistics.AGI.profession + c.statistics.AGI.specials;
             c.statistics.AGI.bonus = Math.floor(c.statistics.AGI.total / 10);
             // 3 AGI bonus ranks you get 1 armor rank.
             c.armor.stats = Math.floor(c.statistics.AGI.bonus / 3);
@@ -712,9 +676,10 @@ const characterReducer = (state = {}, action) => {
             c.statistics.INU.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.INU || 0), 0);
             c.statistics.INU.equipment = c.equipment.reduce((acc, eq) => acc + (eq.INU || 0), 0);
             c.statistics.INU.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.INU).reduce((acc, s) => acc + s, 0);
+            c.statistics.INU.specials = c.specials.reduce((acc, special) => acc + (special.INU || 0), 0);
             c.statistics.INU.total =
                 c.statistics.INU.race + c.statistics.INU.base + c.statistics.INU.equipment +
-                c.statistics.INU.weapon + c.statistics.INU.profession;
+                c.statistics.INU.weapon + c.statistics.INU.profession + c.statistics.INU.specials;
             c.statistics.INU.bonus = Math.floor(c.statistics.INU.total / 10);
             c.magicArmor.stats = c.statistics.INU.bonus;
 
@@ -722,12 +687,14 @@ const characterReducer = (state = {}, action) => {
             c.statistics.PER.weapon = c.weapons.filter(w => w.isActive).reduce((acc, weapon) => acc + (weapon.PER || 0), 0);
             c.statistics.PER.equipment = c.equipment.reduce((acc, eq) => acc + (eq.PER || 0), 0);
             c.statistics.PER.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.PER).reduce((acc, s) => acc + s, 0);
+            c.statistics.PER.specials = c.specials.reduce((acc, special) => acc + (special.PER || 0), 0);
             c.statistics.PER.total =
                 c.statistics.PER.race + c.statistics.PER.base + c.statistics.PER.equipment +
-                c.statistics.PER.weapon + c.statistics.PER.profession;
+                c.statistics.PER.weapon + c.statistics.PER.profession + c.statistics.PER.specials;
             c.statistics.PER.bonus = Math.floor(c.statistics.PER.total / 10);
 
-            c.skills = helpers.calculateSkills(c);
+            c.skills = helpers.calculatePropertyList(c, "skills");
+
             c.feats = c.feats.map(feat => {
                 feat.weapon = c.weapons.filter(w => w.isActive).filter(w => w[feat.title]).reduce((acc, weapon) => acc + weapon[feat.title], 0);
                 feat.equipment = c.equipment.filter(w => w[feat.title]).reduce((acc, equipment) => acc + equipment[feat.title], 0);
@@ -797,6 +764,7 @@ const characterReducer = (state = {}, action) => {
             c.expertise.total = c.expertise.feats + c.expertise.level;
             c.armor.sum = c.armor.feats + c.armor.base + c.armor.stats + c.armor.equipment + c.armor.armor;
             c.armor.total = Math.floor(c.armor.sum * c.armor.factor);
+            c.armor.ac = Math.floor((c.expertise.total / 2) + (c.armor.total / 10));
             c.magicArmor.sum = c.magicArmor.feats + c.magicArmor.base + c.magicArmor.stats + c.magicArmor.equipment + c.magicArmor.armor;
             c.magicArmor.total = c.magicArmor.sum * 5;
 
@@ -820,6 +788,8 @@ const characterReducer = (state = {}, action) => {
                     }, 0);
                 }, 0);
 
+                s.specials = __specials.reduce((acc, special) => acc + (special[s.title] || 0), 0);
+
                 // set feats level for some skills
                 if (s.title === "Weapon Skill") {
                     s.feats = c.expertise.wsExpertise;
@@ -840,10 +810,10 @@ const characterReducer = (state = {}, action) => {
 
                 // check expertise
                 if (s.bought && s.expertise) {
-                    s.total = c.expertise.total + s.statModifier + s.feats + s.spells;
+                    s.total = c.expertise.total + s.statModifier + s.feats + s.spells + s.specials;
                 }
                 else {
-                    s.total = 0 + s.feats + s.spells;
+                    s.total = 0 + s.feats + s.spells + s.specials;
                 }
 
                 // set things
@@ -888,6 +858,9 @@ const characterReducer = (state = {}, action) => {
             c.hp.sum = c.level + c.hp.str;
             c.hp.total = c.hp.sum * (c.hp.base + c.hp.factor);
 
+            c.resistances = helpers.calculatePropertyList(c, "resistances");
+            c.professions = helpers.calculatePropertyList(c, "professions");
+
             /*
             Calculate the XP of the character.
             */
@@ -903,6 +876,9 @@ const characterReducer = (state = {}, action) => {
                 }, 0) +
                 c.professions.reduce((acc, prof) => {
                     return acc + (prof.bought === "xp" ? 3 : 0) + (prof.expertise === "xp" ? 4 : 0);
+                }, 0) +
+                c.resistances.reduce((acc, res) => {
+                    return acc + (res.bought === "xp" ? 3 : 0) + (res.expertise === "xp" ? 4 : 0);
                 }, 0) +
                 (() => {
                     const numberOfClasses = c.classes.length;
@@ -971,6 +947,8 @@ const characterReducer = (state = {}, action) => {
                 selectCharacterDialogShown: false,
                 pages: []
             };
+
+            console.log(c);
 
             return { ...state, dialog, character: c, newCharacter: null };
 
