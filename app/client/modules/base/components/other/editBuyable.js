@@ -17,16 +17,22 @@ class EditBuyable extends Component {
         const list = newCharacter[prop];
         const bought = (newCharacter.buyables[prop][source] || []).length;
         const max = (() => {
-            if (source === "race") return newCharacter.race.skillPoints || -1;
-            else if (source === "profession") return (newCharacter.classes[0] || {}).skillPoints || -1;
-            else return -1;
+            if (source === "race") {
+                if (prop === "skills") return newCharacter.race.skillPoints || 999;
+                else if (prop === "professions") return newCharacter.race.professionPoints || 1;
+                else 999;
+            }
+            else if (source === "profession") {
+                if (prop === "skills") return (newCharacter.classes[0] || {}).skillPoints || 999;
+                else if (prop === "professions") return (newCharacter.classes[0] || {}).professionPoints || 0;
+                else 999;
+            }
+            else return 999;
         })();
         const remaining = max - bought;
         const buyItem = (prop, buyable, source) => {
             return () => {
-                if (!max || remaining > 0 || buyable.bought === source || buyable.expertise === source) {
-                    buy(prop, buyable, source);
-                }
+                buy(prop, buyable, source, max);
             }
         }
 

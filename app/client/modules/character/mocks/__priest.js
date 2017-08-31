@@ -3,7 +3,7 @@ export default {
     "name": "Priest",
     "type": "caster",
     "description": "A priest is a powerful healer and caster. A classic and a powerful ally in every party.",
-    "skillPoints": 2,
+    "skillPoints": 4,
     "professionPoints": 0,
     "stats": {
         "STR": 0,
@@ -19,6 +19,9 @@ export default {
         "Magic",
         "Mental",
         "Holy"
+    ],
+    "professions": [
+        "Medic"
     ],
     "languages": [],
     "spells": [

@@ -64,11 +64,12 @@ export default [
         "skills": [
             "Ballistic Skill"
         ],
-        "professions": [
-            "Medic"
-        ],
+        "professions": [],
         "specials": [
-            "Night Vision"
+            {
+                "title": "Night Vision",
+                "description": "You can see with simple moon light."
+            }
         ],
         "feats": [],
         "weapons": [

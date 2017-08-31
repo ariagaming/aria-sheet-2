@@ -19,10 +19,10 @@ export default class Description extends Component {
         else {
             return (
                 <div>
-                    <div>STR: {newCharacter.race.stats.STR}</div>
-                    <div>AGI: {newCharacter.race.stats.AGI}</div>
-                    <div>INU: {newCharacter.race.stats.INU}</div>
-                    <div>PER: {newCharacter.race.stats.PER}</div>
+                    <div>Strength (STR): {newCharacter.race.stats.STR}</div>
+                    <div>Agility (AGI): {newCharacter.race.stats.AGI}</div>
+                    <div>Intuition (INU): {newCharacter.race.stats.INU}</div>
+                    <div>Perception (PER): {newCharacter.race.stats.PER}</div>
                 </div>
             );
         }

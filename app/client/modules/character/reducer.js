@@ -29,7 +29,16 @@ const characterReducer = (state = {}, action) => {
         case 'SHOW_DIALOG':
             const { pages } = action.value;
             newCharacter = JSON.parse(JSON.stringify(state.character));
-            return { ...state, dialog: { ...state.dialog, shown: true, pages: pages, index: 0 }, newCharacter };
+            return {
+                ...state,
+                dialog: {
+                    ...state.dialog,
+                    shown: true,
+                    pages: pages,
+                    index: 0
+                },
+                newCharacter
+            };
 
         case 'SHOW_RACE_DIALOG':
             newCharacter = JSON.parse(JSON.stringify(state.character));
@@ -454,15 +463,18 @@ const characterReducer = (state = {}, action) => {
             }
 
         case 'BUY':
-            const { source, prop, buyable } = action.payload;
+            const { source, prop, buyable, max = 999 } = action.payload;
 
-            state.newCharacter.buyables = state.newCharacter.buyables || {};
-            state.newCharacter.buyables[prop] = state.newCharacter.buyables[prop] || {};
-            state.newCharacter.buyables[prop][source] =
-                [...(state.newCharacter.buyables[prop][source] || []), buyable.title];
-
+            // if we already have 2 items of the same buyable in the list we'll remove all of them:
+            const titlesInList = (state.newCharacter.buyables[prop][source] || []).filter(s => s === buyable.title).length;
+            const currentNumberOfItems = (state.newCharacter.buyables[prop][source] || []).length;
+            if (titlesInList >= 2 || currentNumberOfItems >= max) {
+                state.newCharacter.buyables[prop][source] = (state.newCharacter.buyables[prop][source] || []).filter(s => s !== buyable.title);
+            }
+            else {
+                state.newCharacter.buyables[prop][source] = [...(state.newCharacter.buyables[prop][source] || []), buyable.title];
+            }
             state.newCharacter[prop] = helpers.calculatePropertyList(state.newCharacter, prop);
-
             return {
                 ...state,
                 newCharacter: {
@@ -510,7 +522,7 @@ const characterReducer = (state = {}, action) => {
                     .filter(l => l.boughtFrom !== "race")
                     .concat((action.payload.languages || []).map(l => ({ ...l, boughtFrom: "race" })));
 
-                return {
+                let newState = {
                     ...state,
                     newCharacter: {
                         ...state.newCharacter,
@@ -536,6 +548,8 @@ const characterReducer = (state = {}, action) => {
                         }
                     }
                 };
+                newState.newCharacter.skills = helpers.calculatePropertyList(newState.newCharacter, "skills");
+                return newState;
             })();
 
         case 'SELECT_PROFESSION':
