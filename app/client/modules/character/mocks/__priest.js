@@ -8,7 +8,7 @@ export default {
     "stats": {
         "STR": 0,
         "AGI": 0,
-        "INU": 10,
+        "INU": 21,
         "PER": 4
     },
     "skills": [

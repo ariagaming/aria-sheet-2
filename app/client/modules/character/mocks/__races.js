@@ -7,10 +7,10 @@ export default [
         "professionPoints": 1,
         "specials": [],
         "stats": {
-            "STR": 6,
-            "AGI": 6,
-            "INU": 6,
-            "PER": 6
+            "STR": 10,
+            "AGI": 10,
+            "INU": 10,
+            "PER": 10
         },
         "languages": [
             {
@@ -36,9 +36,9 @@ export default [
         "professionPoints": 1,
         "XP": 10,
         "stats": {
-            "STR": 0,
-            "AGI": 12,
-            "INU": 8,
+            "STR": 2,
+            "AGI": 15,
+            "INU": 15,
             "PER": 8
         },
         "languages": [
@@ -98,10 +98,10 @@ export default [
         "professionPoints": 1,
         "XP": 10,
         "stats": {
-            "STR": 10,
+            "STR": 15,
             "AGI": 2,
             "INU": 8,
-            "PER": 3
+            "PER": 15
         },
         "languages": [
             {
@@ -138,8 +138,8 @@ export default [
         "professionPoints": 0,
         "XP": 10,
         "stats": {
-            "STR": 15,
-            "AGI": -5,
+            "STR": 20,
+            "AGI": 0,
             "INU": 5,
             "PER": 0
         },
@@ -170,10 +170,10 @@ export default [
         "professionPoints": 1,
         "XP": 10,
         "stats": {
-            "STR": 0,
-            "AGI": 6,
-            "INU": 10,
-            "PER": 8
+            "STR": -4,
+            "AGI": 10,
+            "INU": 20,
+            "PER": 12
         },
         "languages": [
             {

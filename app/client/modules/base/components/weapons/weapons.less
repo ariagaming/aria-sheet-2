@@ -41,3 +41,37 @@
         }
     }
 }
+
+.table-edit-weapons {
+    width: 98%;
+    tbody {
+        tr {
+            td {
+                padding-bottom: 4px;
+            }
+            td:first-child {
+                text-align: left;
+                vertical-align: top;
+                &:after {
+                    content: ":";
+                }
+            }
+            td:last-child {
+                text-align: center;
+                
+                input {
+                    width: 100%;
+                }
+                input[type="number"] {
+                    width: 1cm;
+                }
+                textarea {
+                    width: 100%;
+                }
+                select {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

@@ -669,9 +669,11 @@ const characterReducer = (state = {}, action) => {
             c.statistics.STR.equipment = c.equipment.reduce((acc, eq) => acc + (eq.STR || 0), 0);
             c.statistics.STR.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.STR).reduce((acc, s) => acc + s, 0);
             c.statistics.STR.specials = c.specials.reduce((acc, special) => acc + (special.STR || 0), 0);
+            c.statistics.STR.level = c.level * 2;
             c.statistics.STR.total =
                 c.statistics.STR.race + c.statistics.STR.base + c.statistics.STR.equipment +
-                c.statistics.STR.weapon + c.statistics.STR.profession + c.statistics.STR.specials;
+                c.statistics.STR.weapon + c.statistics.STR.profession + c.statistics.STR.specials +
+                c.statistics.STR.level;
             c.statistics.STR.bonus = Math.floor(c.statistics.STR.total / 10);
 
             c.statistics.AGI.race = (c.race && c.race.stats) ? c.race.stats.AGI : 0;
@@ -679,9 +681,11 @@ const characterReducer = (state = {}, action) => {
             c.statistics.AGI.equipment = c.equipment.reduce((acc, eq) => acc + (eq.AGI || 0), 0);
             c.statistics.AGI.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.AGI).reduce((acc, s) => acc + s, 0);
             c.statistics.AGI.specials = c.specials.reduce((acc, special) => acc + (special.AGI || 0), 0);
+            c.statistics.AGI.level = c.level * 2;
             c.statistics.AGI.total =
                 c.statistics.AGI.race + c.statistics.AGI.base + c.statistics.AGI.equipment +
-                c.statistics.AGI.weapon + c.statistics.AGI.profession + c.statistics.AGI.specials;
+                c.statistics.AGI.weapon + c.statistics.AGI.profession + c.statistics.AGI.specials +
+                c.statistics.AGI.level;
             c.statistics.AGI.bonus = Math.floor(c.statistics.AGI.total / 10);
             // 3 AGI bonus ranks you get 1 armor rank.
             c.armor.stats = Math.floor(c.statistics.AGI.bonus / 3);
@@ -691,9 +695,11 @@ const characterReducer = (state = {}, action) => {
             c.statistics.INU.equipment = c.equipment.reduce((acc, eq) => acc + (eq.INU || 0), 0);
             c.statistics.INU.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.INU).reduce((acc, s) => acc + s, 0);
             c.statistics.INU.specials = c.specials.reduce((acc, special) => acc + (special.INU || 0), 0);
+            c.statistics.INU.level = c.level * 2;
             c.statistics.INU.total =
                 c.statistics.INU.race + c.statistics.INU.base + c.statistics.INU.equipment +
-                c.statistics.INU.weapon + c.statistics.INU.profession + c.statistics.INU.specials;
+                c.statistics.INU.weapon + c.statistics.INU.profession + c.statistics.INU.specials +
+                c.statistics.INU.level;
             c.statistics.INU.bonus = Math.floor(c.statistics.INU.total / 10);
             c.magicArmor.stats = c.statistics.INU.bonus;
 
@@ -702,9 +708,11 @@ const characterReducer = (state = {}, action) => {
             c.statistics.PER.equipment = c.equipment.reduce((acc, eq) => acc + (eq.PER || 0), 0);
             c.statistics.PER.profession = c.classes.filter(c => c.title.toLowerCase() !== "unknown").map(c => c.stats.PER).reduce((acc, s) => acc + s, 0);
             c.statistics.PER.specials = c.specials.reduce((acc, special) => acc + (special.PER || 0), 0);
+            c.statistics.PER.level = c.level * 2;
             c.statistics.PER.total =
                 c.statistics.PER.race + c.statistics.PER.base + c.statistics.PER.equipment +
-                c.statistics.PER.weapon + c.statistics.PER.profession + c.statistics.PER.specials;
+                c.statistics.PER.weapon + c.statistics.PER.profession + c.statistics.PER.specials +
+                c.statistics.PER.level;
             c.statistics.PER.bonus = Math.floor(c.statistics.PER.total / 10);
 
             c.skills = helpers.calculatePropertyList(c, "skills");
@@ -802,6 +810,8 @@ const characterReducer = (state = {}, action) => {
                     }, 0);
                 }, 0);
 
+                s.weapons = c.weapons.reduce((acc, weapon) => acc + (weapon[s.title] || 0), 0);
+                s.equipment = c.equipment.reduce((acc, eq) => acc + +(eq[s.title] || 0), 0);
                 s.specials = __specials.reduce((acc, special) => acc + (special[s.title] || 0), 0);
 
                 // set feats level for some skills
@@ -824,10 +834,10 @@ const characterReducer = (state = {}, action) => {
 
                 // check expertise
                 if (s.bought && s.expertise) {
-                    s.total = c.expertise.total + s.statModifier + s.feats + s.spells + s.specials;
+                    s.total = c.expertise.total + s.statModifier + s.feats + s.spells + s.specials + s.weapons + s.equipment;
                 }
                 else {
-                    s.total = 0 + s.feats + s.spells + s.specials;
+                    s.total = 0 + s.feats + s.spells + s.specials + s.weapons + s.equipment;
                 }
 
                 // set things
@@ -872,7 +882,13 @@ const characterReducer = (state = {}, action) => {
             c.hp.sum = c.level + c.hp.str;
             c.hp.total = c.hp.sum * (c.hp.base + c.hp.factor);
 
-            c.resistances = helpers.calculatePropertyList(c, "resistances");
+            c.resistances = helpers.calculatePropertyList(c, "resistances").map(resistance => {
+                resistance.specials = __specials.reduce((acc, special) => acc + (special[resistance.title] || 0), 0);
+                resistance.total = resistance.specials;
+                resistance.total += resistance.bought ? 5 : 0;
+                resistance.total += resistance.expertise ? 10 : 0;
+                return resistance;
+            });
             c.professions = helpers.calculatePropertyList(c, "professions");
 
             /*

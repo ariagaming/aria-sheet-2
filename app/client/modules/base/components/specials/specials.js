@@ -5,6 +5,7 @@ import characterDefinition from './../../../character/definition';
 import Container from './../container/container';
 import { getSpecials } from './../../../character/helpers';
 import EditSpecials from './editSpecials';
+import _ from 'lodash';
 
 
 /**
@@ -18,6 +19,20 @@ class Specials extends Component {
         const pages = [
             { title: 'edit specials', content: <EditSpecials /> }
         ];
+        const construct = {
+            lvl: character.level,
+            STR: character.statistics.STR.bonus,
+            AGI: character.statistics.AGI.bonus,
+            INU: character.statistics.INU.bonus,
+            PER: character.statistics.PER.bonus,
+            INI: character.initiative.total,
+            movement: character.movement.total,
+            rank: 0
+        };
+        const getDescription = (string, rank) => {
+            const __construct = { ...construct, rank: (rank || 0) };
+            return _.template(string)(__construct);
+        }
 
         return (
             <Container title="Specials" className="specials" pages={pages}>
@@ -27,7 +42,7 @@ class Specials extends Component {
                             <div key={i} className="row">
                                 <span>({special.level})</span>
                                 <span className="title">{special.title}</span>
-                                <span>{special.description}</span>
+                                <span>{getDescription(special.description)}</span>
                             </div>
                         )
                     })

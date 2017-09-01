@@ -81,8 +81,8 @@ export default class EditEquipment extends Component {
     }
 
     render() {
-
-        const { equipment, feats } = this.props.newCharacter;
+        const { newCharacter } = this.props;
+        const { equipment, feats, skills } = newCharacter;
         const { eq } = this.state;
 
         return (
@@ -132,6 +132,22 @@ export default class EditEquipment extends Component {
                                         <div className="field stacked">
                                             <label>PER</label>
                                             <input type="number" value={eq.PER || 0} onChange={this.changeStatistic(eq, 'PER')} />
+                                        </div>
+
+                                        <div style={{ marginTop: "2em" }}>
+                                            <title>Skills</title>
+                                            {
+                                                skills.map((skill, i) => {
+                                                    return (
+                                                        <div className="field spread" key={i}>
+                                                            <span>{skill.title}</span>
+                                                            <span style={{ marginRight: "1cm" }}>
+                                                                <input type="number" value={eq[skill.title] || 0} onChange={this.changeValue(eq, skill.title)} />
+                                                            </span>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
                                         </div>
                                     </div>
 

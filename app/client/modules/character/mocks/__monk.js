@@ -6,8 +6,8 @@ export default {
 	"APName": "Chi",
 
 	"stats": {
-		"STR": 4,
-		"AGI": 10,
+		"STR": 8,
+		"AGI": 14,
 		"INU": 3,
 		"PER": 4
 	},

@@ -6,7 +6,7 @@ export default {
     "professionPoints": 1,
     "stats": {
         "STR": 0,
-        "AGI": 10,
+        "AGI": 21,
         "INU": 0,
         "PER": 4
     },

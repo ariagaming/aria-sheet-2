@@ -118,7 +118,7 @@ class EditEquipment extends Component {
     render() {
 
         const { selectTemplate, newCharacter, data } = this.props;
-        const { weapons, feats } = newCharacter;
+        const { weapons, feats, skills } = newCharacter;
         const { weapon } = this.state;
         const __selectTemplate = (event) => {
             const title = event.target.value;
@@ -155,58 +155,63 @@ class EditEquipment extends Component {
                         weapon ?
                             <div>
                                 <title>Information</title>
-                                <div className="field">
-                                    <label>Template</label>
-                                    <select onChange={__selectTemplate}>
-                                        <option></option>
-                                        {
-                                            data.weapons.map((w, i) => {
-                                                return <option key={i}>{w.title}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
-                                <div className="field">
-                                    <label>Title</label>
-                                    <input value={weapon.title || ""} onChange={this.changeValue(weapon, 'title')} />
-                                </div>
-                                <div className="field">
-                                    <label>Description</label>
-                                    <span>{weapon.description}</span>
-                                </div>
-                                <div className="field">
-                                    <span>Active:</span>
-                                    <input type="checkbox" checked={weapon.isActive || false} onChange={this.changeIsActive} />
-                                </div>
-                                <div className="field spread--evenly">
-                                    <span>Damage:</span>
-                                    <input type="number" value={weapon.numberOfDice || 0} onChange={this.changeValue(weapon, 'numberOfDice')} />
-                                    <span>d</span>
-                                    <input type="number" value={weapon.diceSides || 0} onChange={this.changeValue(weapon, 'diceSides')} />
-                                    <span>+</span>
-                                    <input type="number" value={weapon.constant || 0} onChange={this.changeValue(weapon, 'constant')} />
-                                </div>
-                                <div className="field">
-                                    <label>Initiative</label>
-                                    <input value={weapon.initiative || 10} onChange={this.changeValue(weapon, 'initiative')} />
-                                </div>
-                                <hr />
-                                <div className="field">
-                                    <span>Is ranged:</span>
-                                    <input type="checkbox" checked={weapon.isRanged || false} onChange={this.changeValue(weapon, 'isRanged')} />
-                                </div>
-                                <div className="field">
-                                    <span>Is twohanded:</span>
-                                    <input type="checkbox" checked={weapon.isTwohanded || false} onChange={this.changeValue(weapon, 'isTwohanded')} />
-                                </div>
-                                <div className="field">
-                                    <span>Is shield:</span>
-                                    <input type="checkbox" checked={weapon.isShield || false} onChange={this.changeValue(weapon, 'isShield')} />
-                                </div>
-                                <div className="field">
-                                    <label>Information</label>
-                                    <textarea value={weapon.information || ""} onChange={this.changeValue(weapon, 'information')}></textarea>
-                                </div>
+                                <table className="table-edit-weapons">
+                                    <tbody>
+                                        <tr>
+                                            <td>Template</td>
+                                            <td><select onChange={__selectTemplate}>
+                                                <option></option>
+                                                {
+                                                    data.weapons.map((w, i) => {
+                                                        return <option key={i}>{w.title}</option>
+                                                    })
+                                                }
+                                            </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Title</td>
+                                            <td><input value={weapon.title || ""} onChange={this.changeValue(weapon, 'title')} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Description</td>
+                                            <td>{weapon.description}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Active</td>
+                                            <td><input type="checkbox" checked={weapon.isActive || false} onChange={this.changeIsActive} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Damage</td>
+                                            <td>
+                                                <input type="number" value={weapon.numberOfDice || 0} onChange={this.changeValue(weapon, 'numberOfDice')} />
+                                                <span>d</span>
+                                                <input type="number" value={weapon.diceSides || 0} onChange={this.changeValue(weapon, 'diceSides')} />
+                                                <span>+</span>
+                                                <input type="number" value={weapon.constant || 0} onChange={this.changeValue(weapon, 'constant')} />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Initiative</td>
+                                            <td><input value={weapon.initiative || 10} onChange={this.changeValue(weapon, 'initiative')} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Is ranged</td>
+                                            <td><input type="checkbox" checked={weapon.isRanged || false} onChange={this.changeValue(weapon, 'isRanged')} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Is twohanded</td>
+                                            <td><input type="checkbox" checked={weapon.isTwohanded || false} onChange={this.changeValue(weapon, 'isTwohanded')} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Is shield</td>
+                                            <td><input type="checkbox" checked={weapon.isShield || false} onChange={this.changeValue(weapon, 'isShield')} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Information</td>
+                                            <td><textarea value={weapon.information || ""} onChange={this.changeValue(weapon, 'information')}></textarea></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
 
                                 <div className="grid">
@@ -227,6 +232,23 @@ class EditEquipment extends Component {
                                         <div className="field stacked">
                                             <label>PER</label>
                                             <input type="number" value={weapon.PER || 0} onChange={this.changeStatistic(weapon, 'PER')} />
+                                        </div>
+
+
+                                        <div>
+                                            <title>Skills</title>
+                                            {
+                                                skills.map((skill, i) => {
+                                                    return (
+                                                        <div className="field spread" key={i}>
+                                                            <span>{skill.title}</span>
+                                                            <span style={{ marginRight: "1cm" }}>
+                                                                <input type="number" value={weapon[skill.title] || 0} onChange={this.changeValue(weapon, skill.title)} />
+                                                            </span>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
                                         </div>
                                     </div>
 

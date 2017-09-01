@@ -6,10 +6,10 @@ export default {
     "skillPoints": 2,
     "professionPoints": 0,
     "stats": {
-        "STR": 7,
-        "AGI": 0,
-        "INU": 7,
-        "PER": 0
+        "STR": 14,
+        "AGI": 4,
+        "INU": 8,
+        "PER": 4
     },
     "skills": [
         "Weapon Skill",

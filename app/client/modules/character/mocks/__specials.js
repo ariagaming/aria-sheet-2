@@ -1,10 +1,12 @@
 export default [
     {
         "title": "Mighty Blow",
+        "level": 1,
         "description": "You can take a -10 to skill to do +10 DMG."
     },
     {
         "title": "Mage",
+        "level": 1,
         "description": "You can cast a small selection of general spells.",
         "spells": [
             {
@@ -65,17 +67,20 @@ export default [
     },
     {
         "title": "Specialized Offense",
+        "level": 1,
         "description": "Lowers the cost of an offensive action with 1 AP.",
         "AP Offense": -1
     },
     {
         "title": "Specialized Defense",
+        "level": 1,
         "description": "Lowers the cost of an defense action with 1 AP.",
         "AP Defense": -1
     },
     {
         "title": "Lightning Reflexes",
-        "description": "Increase armor by 5% and increase resistances by 1 also increase AGI with +10.",
+        "level": 1,
+        "description": "Increase armor by 5% and increase resistances by +1 also increase AGI with +10.",
         "Toughness": 2,
         "AGI": 10,
         "Fire & Heat": 1,
@@ -88,24 +93,39 @@ export default [
     },
     {
         "title": "Bane to Magic",
-        "description": "10% chance to dispell a spell which targets you (even positive spells). +10% Aura and +5 to Investigate.",
+        "level": 1,
+        "description": "10% chance to dispell a spell which targets you (even positive spells). +10% Aura and +3 to all resistances.",
         "Aura": 2,
-        "Investigate": 5
+        "Fire & Heat": 3,
+        "Cold & Ice": 3,
+        "Holy": 3,
+        "Mental": 3,
+        "Poison & Disease": 3,
+        "Demonic": 3,
+        "Necromantic": 3
     },
     {
         "title": "Lucky",
+        "level": 1,
         "description": "At the start of a combat you can roll 2 d20 dice and these rolls can be used to replace a roll on the table."
     },
     {
         "title": "Bloodbath",
+        "level": 1,
         "description": "+2 DMG and +10 STR",
         "DMG adjstm": 2,
         "STR": 10
     },
     {
         "title": "Bulwark",
-        "description": "+5% Armor and +10 STR",
-        "Toughness": 2,
+        "level": 1,
+        "description": "+10% Armor and +10 STR",
+        "Toughness": 4,
         "STR": 10
+    },
+    {
+        "title": "Blinking Strikes",
+        "level": 1,
+        "description": "On each 'Extra Attack' you can, right before your attack, can blink to your next target with a max of <%= movement %>m."
     }
 ]

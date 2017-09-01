@@ -114,6 +114,7 @@ class PageThree extends Component {
                         <thead>
                             <tr>
                                 <th>stat</th>
+                                <th>lvl</th>
                                 <th>base</th>
                                 <th>race</th>
                                 <th>prof</th>
@@ -126,6 +127,7 @@ class PageThree extends Component {
                         <tbody>
                             <tr className="row">
                                 <td className="title">STR:</td>
+                                <td>{character.statistics.STR.level}</td>
                                 <td>{character.statistics.STR.base}</td>
                                 <td>{character.statistics.STR.race}</td>
                                 <td>{character.statistics.STR.profession}</td>
@@ -136,6 +138,7 @@ class PageThree extends Component {
                             </tr>
                             <tr className="row">
                                 <td className="title">AGI:</td>
+                                <td>{character.statistics.AGI.level}</td>
                                 <td>{character.statistics.AGI.base}</td>
                                 <td>{character.statistics.AGI.race}</td>
                                 <td>{character.statistics.AGI.profession}</td>
@@ -146,6 +149,7 @@ class PageThree extends Component {
                             </tr>
                             <tr className="row">
                                 <td className="title">INU:</td>
+                                <td>{character.statistics.INU.level}</td>
                                 <td>{character.statistics.INU.base}</td>
                                 <td>{character.statistics.INU.race}</td>
                                 <td>{character.statistics.INU.profession}</td>
@@ -156,6 +160,7 @@ class PageThree extends Component {
                             </tr>
                             <tr className="row">
                                 <td className="title">PER:</td>
+                                <td>{character.statistics.PER.level}</td>
                                 <td>{character.statistics.PER.base}</td>
                                 <td>{character.statistics.PER.race}</td>
                                 <td>{character.statistics.PER.profession}</td>

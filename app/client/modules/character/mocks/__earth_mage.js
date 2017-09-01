@@ -8,10 +8,10 @@ export default {
 
     "skillPoints": 2,
     "stats": {
-        "STR": 4,
+        "STR": 10,
         "AGI": 0,
-        "INU": 10,
-        "PER": 0
+        "INU": 14,
+        "PER": 8
     },
     "skills": [
         "Magic"
