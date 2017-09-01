@@ -134,7 +134,7 @@ export default [
     {
         "title": "Indir",
         "value": "Indir",
-        "skillPoints": 2,
+        "skillPoints": 3,
         "professionPoints": 0,
         "XP": 10,
         "stats": {
@@ -151,13 +151,12 @@ export default [
             }
         ],
         "resistances": [
-            "Strength"
+            "Cold & Ice"
         ],
         "skills": [
-            "Weapon skill",
-            "Pilot"
+            "Weapon Skill"
         ],
-        "professions": [],
+        "professions": ["Sailor"],
         "specials": [
             "Packing mule"
         ],

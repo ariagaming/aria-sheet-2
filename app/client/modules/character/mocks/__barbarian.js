@@ -2,7 +2,7 @@ export default {
     "title": "Barbarian",
     "name": "Barbarian",
     "description": "A powerful dmg dealer .",
-    "skillPoints": 1,
+    "skillPoints": 4,
     "HPFactor": 2,
     "professionPoints": 0,
     "stats": {
@@ -21,9 +21,9 @@ export default {
     "feats": [],
     "specials": [
         {
-            "title": "Charger",
             "level": 1,
-            "description": "When moving faster than 20ft per 10 INI you can take a -10 to skill to gain +10 DMG, must run at least 10 INI."
+            "title": "Barbaric Strikes",
+            "description": "Every time you crit your next two attacks roll one extra DMG die."
         },
         {
             "title": "Rolling Crits",
@@ -76,6 +76,25 @@ export default {
             "description": "When you Crit your Crit DMG is is also a bleed which does it's DMG again on recuperate."
         },
         {
+            "level": 2,
+            "type": "choice",
+            "title": "Cochise",
+            "choices": [
+                {
+                    "title": "Charger",
+                    "description": "You can take a -10 to skill to get a +10 DMG when you charge faster than 20ft."
+                },
+                {
+                    "title": "Scarred",
+                    "description": "Rage grants a +2 per 5 DMG instead of a +2."
+                },
+                {
+                    "title": "Berserker",
+                    "description": "Attack friend of foe within 5 ft. Your attacks roll double dice when you do not crit. You have one physical trigger to get you out of berserk."
+                }
+            ]
+        },
+        {
             "level": 3,
             "type": "level",
             "title": "Revenge",
@@ -94,10 +113,36 @@ export default {
             "description": "You are allowed to push +3 AP to DMG when you hit. (in normal circumstances this means that you can push <%= lvl + 3 %> AP as DMG."
         },
         {
+            "level": 5,
+            "type": "choice",
+            "title": "Path",
+            "choices": [
+                {
+                    "title": "Ancient",
+                    "description": "You can call on the power of the Ancients once a day to have your spirit ancestors protect you can take all DMG for 30 INI. The DMG they take does count towards your rage. Every attack you do while the ancients help you counts as a taunt."
+                },
+                {
+                    "title": "Elemental",
+                    "description": "You can choose one Elemental source to guide your path. Your weapons will always do 1d4 extra DMG as that elemental type. You also gain +2 to all resistances.",
+                    "Fire & Heat": 2,
+                    "Cold & Ice": 2,
+                    "Holy": 2,
+                    "Mental": 2,
+                    "Poison & Disease": 2,
+                    "Demonic": 2,
+                    "Necromantic": 2
+                },
+                {
+                    "title": "Warmonger",
+                    "description": "You have fully embraced War and Death. You can now enter rage by hurting yourself or getting hurt by your party members before combat. Healing does not lower your Rage. People tend to stand clear of a Warmonger."
+                }
+            ]
+        },
+        {
             "level": 6,
             "type": "level",
-            "title": "Berserk",
-            "description": "Attack friend of foe within 5 ft. Your attacks roll double dice when you do not crit. You have one physical trigger to get you out of berserk."
+            "title": "?",
+            "description": "?"
         },
         {
             "level": 7,

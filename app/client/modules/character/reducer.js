@@ -549,6 +549,7 @@ const characterReducer = (state = {}, action) => {
                     }
                 };
                 newState.newCharacter.skills = helpers.calculatePropertyList(newState.newCharacter, "skills");
+                newState.newCharacter.professions = helpers.calculatePropertyList(newState.newCharacter, "professions");
                 return newState;
             })();
 
@@ -565,6 +566,7 @@ const characterReducer = (state = {}, action) => {
                         ...state.newCharacter.hp,
                         STRFactor: (action.payload.HPFactor || 1)
                     },
+                    weapons: state.newCharacter.weapons.concat(action.payload.weapons || []),
                     classes: newClasses,
                     buyables: {
                         ...state.newCharacter.buyables,
@@ -654,6 +656,14 @@ const characterReducer = (state = {}, action) => {
                         spells: [generalSpells],
                         specials: [...state.newCharacter.specials, action.payload]
                     }
+                }
+            }
+        case "CHANGE_CHARACTER_INFORMATION":
+            return {
+                ...state,
+                newCharacter: {
+                    ...state.newCharacter,
+                    information: action.payload
                 }
             }
 
@@ -816,16 +826,16 @@ const characterReducer = (state = {}, action) => {
 
                 // set feats level for some skills
                 if (s.title === "Weapon Skill") {
-                    s.feats = c.expertise.wsExpertise;
+                    s.feats = c.expertise.wsExpertise || 0;
                 }
                 else if (s.title === "Ballistic Skill") {
-                    s.feats = c.expertise.bsExpertise;
+                    s.feats = c.expertise.bsExpertise || 0;
                 }
                 else if (s.title === "Defense") {
-                    s.feats = c.expertise.defenseExpertise;
+                    s.feats = c.expertise.defenseExpertise || 0;
                 }
                 else if (s.title === "Magic") {
-                    s.feats = c.expertise.magicExpertise;
+                    s.feats = c.expertise.magicExpertise || 0;
                 }
                 else {
                     s.feats = 0;
@@ -841,8 +851,12 @@ const characterReducer = (state = {}, action) => {
                 }
 
                 // set things
-                if (s.title === "Weapon Skill") weaponSkill = s.total;
-                else if (s.title === "Ballistic Skill") ballisticSkill = s.total;
+                if (s.title === "Weapon Skill") {
+                    weaponSkill = s.total;
+                }
+                else if (s.title === "Ballistic Skill") {
+                    ballisticSkill = s.total
+                };
                 return s;
             })
 
@@ -884,7 +898,18 @@ const characterReducer = (state = {}, action) => {
 
             c.resistances = helpers.calculatePropertyList(c, "resistances").map(resistance => {
                 resistance.specials = __specials.reduce((acc, special) => acc + (special[resistance.title] || 0), 0);
-                resistance.total = resistance.specials;
+
+                const ___spells = __spells.reduce((a, s) => a.concat(s.spells), []);
+                resistance.spells = ___spells.reduce((acc, spell) => {
+                    if (spell.type === "choice") {
+                        return spell.choices.filter(choice => choice.selected).reduce((acc, choice) => acc + (choice[resistance.title] || 0), acc);
+                    }
+                    else {
+                        return acc + (spell[resistance.title] || 0);
+                    }
+                }, 0);
+
+                resistance.total = resistance.specials + resistance.spells;
                 resistance.total += resistance.bought ? 5 : 0;
                 resistance.total += resistance.expertise ? 10 : 0;
                 return resistance;

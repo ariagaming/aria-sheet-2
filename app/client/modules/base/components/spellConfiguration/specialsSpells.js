@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { getSpells } from './../../../character/helpers';
 import FlatButton from 'material-ui/FlatButton';
 
-export default class NormalSpells extends Component {
+export default class SpecialsSpells extends Component {
 
 
     render() {
         const { categories } = this.props;
+
+        console.log(categories)
 
         if (!categories) return null;
 
@@ -22,7 +24,7 @@ export default class NormalSpells extends Component {
                     categories.map((category, j) => {
                         if (category.spells.length === 0) return null;
                         return (
-                            <div key={j}>
+                            <div key={j} style={{ marginTop: "1cm" }}>
                                 <h2>{category.title} {this.props.title || ""}</h2>
 
                                 <table className="table">

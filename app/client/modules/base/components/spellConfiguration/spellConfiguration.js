@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getSpells } from './../../../character/helpers';
 
 import NormalSpells from "./normalSpell";
+import SpecialsSpells from "./specialsSpells";
 import ChoiceSpells from "./choiceSpell";
 import RankedSpell from "./rankedSpell";
 import PowerWords from "./powerWords";
@@ -56,6 +57,10 @@ class SpellConfiguration extends Component {
                         <PowerWords categories={powerWords} />
                     }
 
+                    {
+                        <SpecialsSpells categories={specials} title="Specials" />
+                    }
+
                 </div>
             )
         }
@@ -70,55 +75,3 @@ const __SpellConfiguration = connect(mapStateToProps, mapDispatcherToProps)(Spel
 
 export default __SpellConfiguration;
 
-
-
-
-
-
-// <div className="spell-configuration">
-                //     {
-                //         specials.map((category, i) => {
-                //             return (
-                //                 category.specials.length > 0 ?
-                //                     <div key={i}>
-                //                         <h2>{category.title} Specials</h2>
-                //                         {
-                //                             category.specials.map((special, j) => {
-                //                                 return (
-                //                                     <div className="row" key={j}>
-                //                                         <span className="title">{special.title}:</span>
-                //                                         <span>{special.description}</span>
-                //                                     </div>
-                //                                 )
-                //                             })
-                //                         }
-                //                     </div> :
-                //                     null
-                //             )
-                //         })
-                //     }
-
-                //     {
-                //         choices.map((category, i) => {
-                //             return (
-                //                 category.choices.length > 0 ?
-                //                     <div key={i}>
-                //                         <h2>{category.title} Choices</h2>
-                //                         {
-                //                             category.choices.map((choice, j) => this.renderChoice(choice, j, category))
-                //                         }
-                //                     </div> :
-                //                     null
-                //             )
-                //         })
-                //     }
-
-                //     {
-                //         other.map((category, i) => {
-                //             return this.renderNormalSpell(category, i)
-                //         })
-                //     }
-
-
-
-                // </div>

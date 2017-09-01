@@ -5,6 +5,7 @@ import Page from './../page/page';
 import { connect } from 'react-redux';
 import Container from './../container/container';
 import _ from 'lodash';
+import InformationPage from './informationPage';
 
 /**
  * This is the basic description of the PageThree component. This will be shown in the
@@ -183,10 +184,10 @@ class PageThree extends Component {
                                 <th>bought</th>
                                 <th>eq</th>
                                 <th>weap</th>
-                                <th>factor</th>
+                                <th>fact.</th>
                                 <th>spec</th>
-                                <th>total</th>
-                                <th>Roll</th>
+                                <th>spell</th>
+                                <th>tot.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -204,8 +205,8 @@ class PageThree extends Component {
                                             <td>{feat.weapon}</td>
                                             <td>{feat.sign}{feat.factor || 1}{unit}</td>
                                             <td>{feat.specials}</td>
+                                            <td>{feat.spells}</td>
                                             <td>{feat.sign}{feat.total}{unit}</td>
-                                            <td>{feat.title === "Crit" ? Math.floor((20 / 100) * (feat.total || 0)) : "-"}</td>
                                         </tr>
                                     )
                                 })
@@ -218,7 +219,7 @@ class PageThree extends Component {
                     <p>
                         Each skill has three "modes". 'Not Proficient', 'Proficient' and 'Expertise'. When you are 'Not Proficient' in a skill you can roll for this skill with a 1d10.
                         You can not roll a critical. The following examples revolve around the made up skill 'Fishing'. With zero bubbles filled you are 'Not Proficient', with one
-                        bubble filled you are 'Proficient' and can roll for this skill with 1d20. With two bubbles filled you can roll with 1d20 + Expertise.
+                        bubble filled you are 'Proficient' and can roll for this skill with 1d20 and roll a critical. With two bubbles filled you can roll with 1d20 + Expertise.
                     </p>
                     <div className="container">
                         <div className="row">
@@ -236,11 +237,9 @@ class PageThree extends Component {
                             <span>Fishing</span>
                         </div>
                     </div>
-                    <p>
-                        Extertise is calculated in the "Extertise Breakdown" section of this page.
-                    </p>
 
-                    <title>How rolls work</title>
+
+                    <title>How skill rolls work</title>
                 </div>
 
                 <div className="container xp-level">
@@ -258,6 +257,40 @@ class PageThree extends Component {
                     }
                     <title>AP per Level</title>
                 </div>
+
+
+                <div className="container skills-breakdown">
+                    <table className="table--skills-breakdown">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Stat</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {
+                                character.skills.map((skill, i) => {
+                                    return (
+                                        <tr className="row" key={i}>
+                                            <td>{skill.title}</td>
+                                            <td>({skill.stat})</td>
+                                            <td>{skill.description}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                    <title>Skills breakdown</title>
+                </div>
+
+
+                <Container className="character-information" title="Extra Character Information" pages={[{ content: <InformationPage /> }]}>
+                    {character.information || "No information"}
+                </Container>
+
 
             </Page>
         );

@@ -4,6 +4,7 @@ export default {
 	"title": "Monk",
 
 	"APName": "Chi",
+	"skillPoints": 3,
 
 	"stats": {
 		"STR": 8,
@@ -16,12 +17,31 @@ export default {
 		{
 			"title": "Fists",
 			"numberOfDice": 1,
-			"diceSides": 6,
-			"constant": 1
+			"diceSides": 4,
+			"constant": 1,
+			"initiative": 8,
+			"isActive": true
 		}
 	],
 
 	"skills": ["Weapon Skill", "Religion"],
+	"specials": [
+		{
+			"title": "Skilled Combat",
+			"description": "Offensive and Defenseive actions cost no AP. Cannot benefit from other AP reducing things.",
+			"AP Offense": -3,
+			"AP Defense": -3
+		},
+		{
+			"title": "Recovery",
+			"description": "When you do nothing, are not in combat, are not the target of an attack and are meditating; you regenerate 10 AP per 10 INI."
+		},
+		{
+			"level": 5,
+			"title": "",
+			"description": ""
+		}
+	],
 	"spells": [
 		{
 			"level": 1,
@@ -88,19 +108,41 @@ export default {
 			"type": "choice",
 			"choices": [
 				{
-					"title": "Superior Healing",
-					"description": "Healing costs 1 less Chi."
+					"title": "Way of Water",
+					"description": "Healing costs 1 less Chi and you get a +20% Extra Attack.",
+					"Extra Attack": 1
 				},
 				{
-					"title": "Bust a Move",
-					"description": "+5 Weapon Skill and a +1 DMG.",
-					"WS Expertise": 2.5,
-					"DMG adjstm": 1
+					"title": "Way of the Iron Fist",
+					"description": "+5 Weapon Skill and a +1 DMG. Your attacks with fists do 1d6 instead of 1d4."
 				},
 				{
-					"title": "Can't touch this",
-					"description": "Increase your Defense permanently by +5.",
-					"Defense": 2.5
+					"title": "Way of Stone",
+					"description": "Increase your Defense permanently by +5, Armor +10% and Aura +10%.",
+					"Defense": 5,
+					"Toughness": 4,
+					"Aura": 2
+				}
+			]
+		},
+		{
+			"level": 5,
+			"type": "choice",
+			"choices": [
+				{
+					"title": "Way of Water",
+					"description": "Your attacks heal you and only for the same amount as your DMG."
+				},
+				{
+					"title": "Way of the Iron Fist",
+					"description": "+5 Weapon Skill and a +1 DMG. Your attacks with fists do 1d6 instead of 1d4."
+				},
+				{
+					"title": "Way of Stone",
+					"description": "Increase your Defense permanently by +5, Armor +10% and Aura +10%.",
+					"Defense": 5,
+					"Toughness": 4,
+					"Aura": 2
 				}
 			]
 		}

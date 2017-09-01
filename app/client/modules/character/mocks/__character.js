@@ -236,127 +236,141 @@ const character = {
             "bought": false,
             "expertise": false,
             "stat": "AGI",
-            "title": "Acrobatics"
+            "title": "Acrobatics",
+            "description": "Acrobatics is used to do moves which require training, like a handstand or jumping over larger distances."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "PER",
-            "title": "Animal Handler"
+            "title": "Animal Handler",
+            "description": "Your skill at training and handling animals."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Arcane Lore"
+            "title": "Arcane Lore",
+            "description": "You arcane knowledge, used to understand spells and magical constructs."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "AGI",
-            "title": "Concoct Poison"
+            "title": "Concoct Poison",
+            "description": "Create poisons."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "History"
+            "title": "History",
+            "description": "Your knowledge of history."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Politics"
+            "title": "Politics",
+            "description": "Your skill at navigating political situations and understanding political intrigue."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Law"
+            "title": "Law",
+            "description": "You skill at understanding the Law in cultures."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Math & Science"
+            "title": "Math & Science",
+            "description": "Math and Science."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "PER",
-            "title": "Medicine"
+            "title": "Medicine",
+            "description": "You can diagnose and heal people."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "AGI",
-            "title": "Stealth"
+            "title": "Stealth",
+            "description": "You can hide and sneak around. Attack will reveal your location. Investigation checkes and see Stealthed people."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Investigate"
+            "title": "Investigate",
+            "description": "You can find clues, solve misteries or find hidden things."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Interrogate"
+            "title": "Interrogate",
+            "description": "You can get information from other people."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "PER",
-            "title": "Persuasion"
+            "title": "Persuasion",
+            "description": "You can get people to do what you want."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "PER",
-            "title": "Winderness Surv."
-        },
-        {
-            "bought": false,
-            "expertise": false,
-            "stat": "PER",
-            "title": "Direction Sense"
+            "title": "Winderness Surv.",
+            "description": "You can find food and shelter in the wilderness."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "STR",
-            "title": "Rope use"
+            "title": "Rope use",
+            "description": "You can use a rope to tie knots or to climb."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "AGI",
-            "title": "Defense"
+            "title": "Defense",
+            "description": "You can Parry and Dodge."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "STR",
-            "title": "Weapon Skill"
+            "title": "Weapon Skill",
+            "description": "You can attack with melee weapons."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "AGI",
-            "title": "Ballistic Skill"
+            "title": "Ballistic Skill",
+            "description": "You can shoot ranged weapons."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Magic"
+            "title": "Magic",
+            "description": "You can use Magic to cast spells if you have a casting special ability."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "INU",
-            "title": "Religiion"
+            "title": "Religion",
+            "description": "You understand a religion and religions in general."
         }
     ],
     "resistances": [

@@ -118,7 +118,7 @@ class EditEquipment extends Component {
     render() {
 
         const { selectTemplate, newCharacter, data } = this.props;
-        const { weapons, feats, skills } = newCharacter;
+        const { weapons, feats, skills, resistances, professions } = newCharacter;
         const { weapon } = this.state;
         const __selectTemplate = (event) => {
             const title = event.target.value;
@@ -244,6 +244,38 @@ class EditEquipment extends Component {
                                                             <span>{skill.title}</span>
                                                             <span style={{ marginRight: "1cm" }}>
                                                                 <input type="number" value={weapon[skill.title] || 0} onChange={this.changeValue(weapon, skill.title)} />
+                                                            </span>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+
+                                        <div>
+                                            <title>Resistances</title>
+                                            {
+                                                resistances.map((resistance, i) => {
+                                                    return (
+                                                        <div className="field spread" key={i}>
+                                                            <span>{resistance.title}</span>
+                                                            <span style={{ marginRight: "1cm" }}>
+                                                                <input type="number" value={weapon[resistance.title] || 0} onChange={this.changeValue(weapon, resistance.title)} />
+                                                            </span>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+
+                                        <div>
+                                            <title>Professions</title>
+                                            {
+                                                professions.map((profession, i) => {
+                                                    return (
+                                                        <div className="field spread" key={i}>
+                                                            <span>{profession.title}</span>
+                                                            <span style={{ marginRight: "1cm" }}>
+                                                                <input type="number" value={weapon[profession.title] || 0} onChange={this.changeValue(weapon, profession.title)} />
                                                             </span>
                                                         </div>
                                                     )

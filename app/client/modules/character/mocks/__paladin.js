@@ -3,7 +3,7 @@ export default {
     "name": "Paladin",
     "HPFactor": 2,
     "description": "Paladins are holy warriors. They are specialized in the eradication of evil like demons and undead. There are three paths a paladin can follow and every level they gain they should choose one spell from that level of any path. Level 5 is a big step in the paladin's abilities. At level 5 you select a specialization. Choosing this specialization unlocks perks you can choose from within the tree of perks.",
-    "skillPoints": 2,
+    "skillPoints": 4,
     "professionPoints": 0,
     "stats": {
         "STR": 14,
@@ -22,6 +22,13 @@ export default {
         { "title": "Destroy Evil", "level": 1, "DMG adjstm": 1, "description": "+1 DMG against everything." }
     ],
     "spells": [
+
+        {
+            "level": 1,
+            "type": "special",
+            "title": "Riposte",
+            "description": "On every attack received, either defended or not you deal 1d4 + <%= AGI %> DMG."
+        },
         {
             "level": 1,
             "type": "choice",

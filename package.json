@@ -63,7 +63,8 @@
     "styleguide": "styleguidist server --config ./config/style-guide/styleguide.config.js",
     "styleguide:build": "styleguidist build",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "deploy": "git add . && git commit -m \"deploying\" && git push origin v01 && npm run build && firebase deploy "
   },
   "license": "ISC"
 }

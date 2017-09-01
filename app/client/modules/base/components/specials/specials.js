@@ -40,7 +40,7 @@ class Specials extends Component {
                     specials.map((special, i) => {
                         return (
                             <div key={i} className="row">
-                                <span>({special.level})</span>
+                                <span>({special.level || 1})</span>
                                 <span className="title">{special.title}</span>
                                 <span>{getDescription(special.description)}</span>
                             </div>
