@@ -229,6 +229,12 @@ const character = {
             "expertise": false,
             "title": "Miner",
             "description": "knows caves and mines, can find minerals and recognises precious gems."
+        },
+        {
+            "bought": false,
+            "expertise": false,
+            "title": "Researcher",
+            "description": "You know how to use libraries to find information. You can remember useful little tidbits."
         }
     ],
     "skills": [
@@ -251,14 +257,14 @@ const character = {
             "expertise": false,
             "stat": "INU",
             "title": "Arcane Lore",
-            "description": "You arcane knowledge, used to understand spells and magical constructs."
+            "description": "You arcane knowledge, used to understand magical constructs."
         },
         {
             "bought": false,
             "expertise": false,
             "stat": "AGI",
-            "title": "Concoct Poison",
-            "description": "Create poisons."
+            "title": "Herbalism",
+            "description": "Create salves and ointments, can also create poisons."
         },
         {
             "bought": false,
@@ -272,7 +278,7 @@ const character = {
             "expertise": false,
             "stat": "INU",
             "title": "Politics",
-            "description": "Your skill at navigating political situations and understanding political intrigue."
+            "description": "Your can understand political situations and intrigue."
         },
         {
             "bought": false,
@@ -363,7 +369,7 @@ const character = {
             "expertise": false,
             "stat": "INU",
             "title": "Magic",
-            "description": "You can use Magic to cast spells if you have a casting special ability."
+            "description": "Your skill at casting magic."
         },
         {
             "bought": false,

@@ -557,8 +557,8 @@ const characterReducer = (state = {}, action) => {
 
             return (() => {
 
-                const filteredClasses = state.newCharacter.classes.filter(c => c.title !== action.payload.title);
-                const newClasses = [...filteredClasses, action.payload].filter(c => c.title !== "Unknown");
+                //const filteredClasses = state.newCharacter.classes.filter(c => c.title !== action.payload.title);
+                //const newClasses = [...filteredClasses, action.payload].filter(c => c.title !== "Unknown");
 
                 newCharacter = {
                     ...state.newCharacter,
@@ -567,7 +567,7 @@ const characterReducer = (state = {}, action) => {
                         STRFactor: (action.payload.HPFactor || 1)
                     },
                     weapons: state.newCharacter.weapons.concat(action.payload.weapons || []),
-                    classes: newClasses,
+                    classes: [action.payload],
                     buyables: {
                         ...state.newCharacter.buyables,
                         skills: {

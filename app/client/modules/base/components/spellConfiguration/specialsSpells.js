@@ -10,9 +10,6 @@ export default class SpecialsSpells extends Component {
 
     render() {
         const { categories } = this.props;
-
-        console.log(categories)
-
         if (!categories) return null;
 
         const numberOfSpells = categories.reduce((acc, cat) => acc + cat.spells.length, 0);

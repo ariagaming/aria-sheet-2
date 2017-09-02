@@ -63,11 +63,18 @@ class PageTwo extends Component {
         }
 
         const RenderSpellTable = (props) => {
-            const { category, level } = props;
+            const { category, level, type = "level" } = props;
+            const spells = category
+                .spells
+                .filter(spell => spell.level ? (spell.level <= level) : true)
+                .filter(spell => spell.rank ? (spell.rank > 0) : true)
+                .filter(spell => spell.type === type);
+            if (spells.length === 0) return null;
+
             return (
                 <table className="table">
                     <thead>
-                        <tr><th className="spells-category" colSpan="3">{category.title}</th></tr>
+                        <tr><th className="spells-category" colSpan="3">{category.title} {type} spells</th></tr>
                         <tr>
                             <th>level/rank</th>
                             <th>Name</th>
@@ -76,32 +83,28 @@ class PageTwo extends Component {
                     </thead>
                     <tbody>
                         {
-                            category
-                                .spells
-                                .filter(spell => spell.level ? (spell.level <= level) : true)
-                                .filter(spell => spell.rank ? (spell.rank > 0) : true)
-                                .filter(spell => spell.type !== "powerWord")
-                                .map((spell, i) => {
 
-                                    const s = spell.choices ? spell.choices.filter(c => c.selected)[0] : spell;
-                                    if (!s) {
-                                        return (
-                                            <tr key={i}>
-                                                <td>{spell.level || spell.rank}</td>
-                                                <td colSpan="2">No choice selected</td>
-                                            </tr>
-                                        )
-                                    }
-                                    else {
-                                        return (
-                                            <tr key={i} >
-                                                <td>{spell.level || spell.rank}</td>
-                                                <td>{s.title}</td>
-                                                <td>{getDescription(s.description, spell.rank)}</td>
-                                            </tr>
-                                        )
-                                    }
-                                })
+                            spells.map((spell, i) => {
+
+                                const s = spell.choices ? spell.choices.filter(c => c.selected)[0] : spell;
+                                if (!s) {
+                                    return (
+                                        <tr key={i}>
+                                            <td>{spell.level || spell.rank}</td>
+                                            <td colSpan="2">No choice selected</td>
+                                        </tr>
+                                    )
+                                }
+                                else {
+                                    return (
+                                        <tr key={i} >
+                                            <td>{spell.level || spell.rank}</td>
+                                            <td>{s.title}</td>
+                                            <td>{getDescription(s.description, spell.rank)}</td>
+                                        </tr>
+                                    )
+                                }
+                            })
                         }
                     </tbody>
                 </table>
@@ -113,12 +116,9 @@ class PageTwo extends Component {
             if (category.spells.filter(s => s.type === "powerWord").length < 1) return null;
             return (
                 <div style={{ marginTop: "2em" }}>
-                    <h2>Power Words</h2>
-                    <p>
-                        Power Words have a 20 INI CD and are off the Global Cooldown which means that you can cast them even when your weapon is on Cool Down.
-                    </p>
                     <table className="table">
                         <thead>
+                            <tr><th className="spells-category" colSpan="3">{category.title} Power Words</th></tr>
                             <tr>
                                 <th>level/rank</th>
                                 <th>Name</th>
@@ -141,6 +141,16 @@ class PageTwo extends Component {
                                     ))
                             }
                         </tbody>
+
+                        <tbody>
+                            <tr>
+                                <th colSpan="3">
+                                    <p style={{ fontWeight: "normal" }}>
+                                        Power Words have a 20 INI CD and are off the Global Cooldown which means that you can cast them even when your weapon is on Cool Down.
+                                    </p>
+                                </th>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             )
@@ -154,10 +164,21 @@ class PageTwo extends Component {
                             .filter(s => s.spells && s.spells.length > 0)
                             .map((s, i) => {
                                 return (
-                                    <RenderSpellTable key={i} category={s} level={character.level} />
+                                    <RenderSpellTable key={i} category={s} level={character.level} type="ranked" />
                                 )
                             })
                     }
+
+                    {
+                        spells
+                            .filter(s => s.spells && s.spells.length > 0)
+                            .map((s, i) => {
+                                return (
+                                    <RenderSpellTable key={i} category={s} level={character.level} type="choice" />
+                                )
+                            })
+                    }
+
 
                     {
                         spells

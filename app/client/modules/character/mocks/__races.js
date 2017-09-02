@@ -165,7 +165,7 @@ export default [
     {
         "title": "Etilan",
         "value": "Etilan",
-        "skillPoints": 2,
+        "skillPoints": 3,
         "professionPoints": 1,
         "XP": 10,
         "stats": {
@@ -198,13 +198,13 @@ export default [
         ],
         "resistances": [
             "Demonic",
-            "Mental"
+            "Necromantic"
         ],
         "skills": [
             "Arcane Lore",
             "Investigate"
         ],
-        "professions": ["Medic", "Lawyer"],
+        "professions": ["Medic"],
         "specials": [
             {
                 "title": "Cast Magic",

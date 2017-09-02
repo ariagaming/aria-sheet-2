@@ -24,10 +24,12 @@ export default {
     "spells": [
 
         {
-            "level": 1,
-            "type": "special",
+            //"level": 1,
+            "rank": 1,
+            "baseRank": 1,
+            "type": "ranked",
             "title": "Riposte",
-            "description": "On every attack received, either defended or not you deal 1d4 + <%= AGI %> DMG."
+            "description": "On every parried attack (Defense), you deal <%= rank %>d4 + <%= AGI %> DMG."
         },
         {
             "level": 1,
