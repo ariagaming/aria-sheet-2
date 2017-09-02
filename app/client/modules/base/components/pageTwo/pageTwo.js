@@ -23,6 +23,7 @@ class PageTwo extends Component {
             INU: character.statistics.INU.bonus,
             PER: character.statistics.PER.bonus,
             INI: character.initiative.total,
+            stamina: character.feats.filter(f => f.title === "Stamina").reduce((acc, f) => acc + f.total, 0),
             movement: character.movement.total,
             rank: 0
         };

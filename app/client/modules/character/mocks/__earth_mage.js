@@ -34,7 +34,7 @@ export default {
             "type": "ranked",
             "rank": 1,
             "baseRank": 1,
-            "description": "Increase your Strength Bonus by <%= rank %> which increases your DMG with +<%= rank %> and your HP with your Stamina * <%= rank %>."
+            "description": "Increase your Strength Bonus by <%= rank %> which increases your DMG with +<%= rank %> and your HP with <%= stamina * rank %>."
         },
         {
             "title": "Heavy handed",
@@ -53,25 +53,25 @@ export default {
             "title": "Weight of the earth",
             "type": "ranked",
             "rank": 0,
-            "description": ""
+            "description": "Increase the INI of the target by <%= rank * 10 %>%."
         },
         {
             "title": "Sink",
             "type": "ranked",
             "rank": 0,
-            "description": ""
+            "description": "Reduce the target's movement speed by <%= rank * 5 %>."
         },
         {
             "title": "Summon Earth Elemental",
             "type": "ranked",
             "rank": 0,
-            "description": ""
+            "description": "Summon an earth elemental with <%= rank * 10 %> HP and <%= rank * 10 %> armor which taunts random targets and attacks for 1d4 per 20 INI."
         },
         {
             "title": "Listen to the earth",
             "type": "ranked",
             "rank": 0,
-            "description": ""
+            "description": "Listen carefully for footsteps or other things which make minute waves int he earth. You can listen for <%= (rank + PER) * 100 %>ft."
         }
     ],
     "specials": [
