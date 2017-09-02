@@ -58,7 +58,7 @@ export default {
         {
             "title": "Sink",
             "type": "ranked",
-            "rank": 0,
+            "rank": 1,
             "description": "Reduce the target's movement speed by <%= rank * 5 %>."
         },
         {
@@ -72,6 +72,24 @@ export default {
             "type": "ranked",
             "rank": 0,
             "description": "Listen carefully for footsteps or other things which make minute waves int he earth. You can listen for <%= (rank + PER) * 100 %>ft."
+        },
+        {
+            "title": "Earth Shock",
+            "type": "ranked",
+            "rank": 0,
+            "description": "<%= rank %>d4 dmg to everyone in <%= rank * 10 %>ft radius centered around the caster."
+        },
+        {
+            "title": "Eruption",
+            "type": "ranked",
+            "rank": 0,
+            "description": "<%= rank %>d6 dmg to everyone in <%= rank * 10 %>ft radius centered around the caster every recuperation."
+        },
+        {
+            "title": "Destroy Armor",
+            "type": "ranked",
+            "rank": 1,
+            "description": "Destroy <%= rank %>d4% of the target's armor."
         }
     ],
     "specials": [
