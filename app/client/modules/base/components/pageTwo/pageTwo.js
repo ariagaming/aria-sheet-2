@@ -160,6 +160,17 @@ class PageTwo extends Component {
         return (
             <Page className="page-two">
                 <Container className="spells" title="" pages={pages}>
+
+                    {
+                        spells
+                            .filter(s => s.spells && s.spells.length > 0)
+                            .map((s, i) => {
+                                return (
+                                    <RenderSpellTable key={i} category={s} level={character.level} type="level" />
+                                )
+                            })
+                    }
+
                     {
                         spells
                             .filter(s => s.spells && s.spells.length > 0)

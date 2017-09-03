@@ -16,7 +16,7 @@ class PowerWords extends Component {
                 increaseSpellRank(spell, category);
             }
         };
-        const __decreaseSpellRank = (spell) => {
+        const __decreaseSpellRank = (spell, category) => {
             return () => {
                 decreaseSpellRank(spell, category);
             }

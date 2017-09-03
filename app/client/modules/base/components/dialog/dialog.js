@@ -71,7 +71,14 @@ class Dialog extends Component {
                         return acc + __xp2[boughtRanks];
                     }, 0);
                 }, 0);
-                return _xp;
+                const _spellsXP = c.spells.reduce((acc, spell) => {
+                    return acc + (spell.spells || []).reduce((acc, _spell) => {
+                        if (_spell.rank === undefined) return acc;
+                        const boughtRanks = _spell.rank - (_spell.baseRank || 0);
+                        return acc + __xp2[boughtRanks];
+                    }, 0);
+                }, 0);
+                return _xp + _spellsXP;
             })();
             $xp = skillXP + featsXP + professionsXP + classesXP + spellsXP;
         }

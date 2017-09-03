@@ -670,6 +670,7 @@ const characterReducer = (state = {}, action) => {
         case 'UPDATE_CHARACTER':
 
             const c = JSON.parse(JSON.stringify(state.newCharacter));
+            if (!c) return state;
             const __spells = helpers.getSpells(c) || [];
             const __specials = helpers.getSpecials(c) || [];
 
@@ -809,7 +810,7 @@ const characterReducer = (state = {}, action) => {
                 s.statModifier = c.statistics[s.stat].bonus;
 
                 s.spells = __spells.reduce((acc, category) => {
-                    return acc + category.spells.reduce((acc, spell) => {
+                    category.spells.reduce((acc, spell) => {
                         if (spell.type === "choice") {
                             const choice = spell.choices.filter(choice => choice.selected)[0];
                             return choice ? acc + (choice[s.title] || 0) : acc;
@@ -945,14 +946,23 @@ const characterReducer = (state = {}, action) => {
                     return 100;
                 })() +
                 (() => {
+
                     const _xp = c.classes.reduce((acc, _class) => {
                         return acc + (_class.spells || []).reduce((acc, _spell) => {
-                            if (!_spell.rank) return acc;
+                            if (_spell.rank === undefined) return acc;
                             const boughtRanks = _spell.rank - (_spell.baseRank || 0);
                             return acc + __xp2[boughtRanks];
                         }, 0);
                     }, 0);
-                    return _xp;
+                    const _spellsXP = c.spells.reduce((acc, spell) => {
+                        return acc + (spell.spells || []).reduce((acc, _spell) => {
+                            if (_spell.rank === undefined) return acc;
+                            const boughtRanks = _spell.rank - (_spell.baseRank || 0);
+                            return acc + __xp2[boughtRanks];
+                        }, 0);
+                    }, 0);
+                    return _xp + _spellsXP;
+
                 })();
 
             c.XP = {
@@ -988,7 +998,7 @@ const characterReducer = (state = {}, action) => {
                             }
                         });
                     }
-                })
+                });
             })
             c.ap.offense = startAPOffense;
             c.ap.defense = startAPDefense;
