@@ -59,13 +59,20 @@ export default {
             "title": "Sink",
             "type": "ranked",
             "rank": 1,
+            "baseRank": 1,
             "description": "Reduce the target's movement speed by <%= rank * 5 %>."
         },
         {
             "title": "Summon Earth Elemental",
             "type": "ranked",
             "rank": 0,
-            "description": "Summon an earth elemental with <%= rank * 10 %> HP and <%= rank * 10 %> armor which taunts random targets and attacks for 1d4 per 20 INI."
+            "description": "Summon an earth elemental with <%= rank * 10 %> HP and <%= rank * 10 %> armor which taunts or 50 INI random targets and attacks for 1d4 per 20 INI."
+        },
+        {
+            "title": "Slow to Anger",
+            "type": "ranked",
+            "rank": 0,
+            "description": "When your Earth Elemental taunts a target this taunt continues onto you after the elemental dies."
         },
         {
             "title": "Listen to the earth",
@@ -89,13 +96,27 @@ export default {
             "title": "Destroy Armor",
             "type": "ranked",
             "rank": 1,
+            "baseRank": 1,
             "description": "Destroy <%= rank %>d4% of the target's armor."
+        },
+        {
+            "title": "Stable Earth",
+            "type": "ranked",
+            "rank": 1,
+            "baseRank": 1,
+            "description": "In a cicle of <%= rank * 10 %>ft radius centered around the caster friendly characters can't be knocked down."
         }
     ],
     "specials": [
         {
             "title": "Cast Magic",
             "description": "You can cast earth magic and choose from the list of general spells."
+        },
+        {
+            "title": "Fortified",
+            "description": "+1 Stamina and +3 Toughness",
+            "Toughness": 3,
+            "Stamina": 1
         }
     ]
 }

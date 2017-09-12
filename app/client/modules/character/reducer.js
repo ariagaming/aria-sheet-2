@@ -810,7 +810,7 @@ const characterReducer = (state = {}, action) => {
                 s.statModifier = c.statistics[s.stat].bonus;
 
                 s.spells = __spells.reduce((acc, category) => {
-                    category.spells.reduce((acc, spell) => {
+                    return acc + category.spells.reduce((acc, spell) => {
                         if (spell.type === "choice") {
                             const choice = spell.choices.filter(choice => choice.selected)[0];
                             return choice ? acc + (choice[s.title] || 0) : acc;
@@ -827,6 +827,7 @@ const characterReducer = (state = {}, action) => {
 
                 // set feats level for some skills
                 if (s.title === "Weapon Skill") {
+                    //debugger;
                     s.feats = c.expertise.wsExpertise || 0;
                 }
                 else if (s.title === "Ballistic Skill") {

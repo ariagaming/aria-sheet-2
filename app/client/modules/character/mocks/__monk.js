@@ -38,7 +38,7 @@ export default {
 		},
 		{
 			"level": 5,
-			"title": "",
+			"title": "Charged",
 			"description": ""
 		}
 	],
@@ -114,28 +114,9 @@ export default {
 				},
 				{
 					"title": "Way of the Iron Fist",
-					"description": "+5 Weapon Skill and a +1 DMG. Your attacks with fists do 1d6 instead of 1d4."
-				},
-				{
-					"title": "Way of Stone",
-					"description": "Increase your Defense permanently by +5, Armor +10% and Aura +10%.",
-					"Defense": 5,
-					"Toughness": 4,
-					"Aura": 2
-				}
-			]
-		},
-		{
-			"level": 5,
-			"type": "choice",
-			"choices": [
-				{
-					"title": "Way of Water",
-					"description": "Your attacks heal you and only for the same amount as your DMG."
-				},
-				{
-					"title": "Way of the Iron Fist",
-					"description": "+5 Weapon Skill and a +1 DMG. Your attacks with fists do 1d6 instead of 1d4."
+					"description": "+5 Weapon Skill and a +1 DMG. Your attacks with fists do 1d6 instead of 1d4.",
+					"Weapon Skill": 5,
+					"DMG adjstm": 1
 				},
 				{
 					"title": "Way of Stone",
