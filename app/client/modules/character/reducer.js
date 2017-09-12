@@ -819,7 +819,7 @@ const characterReducer = (state = {}, action) => {
                             return spell ? acc + (spell[s.title] || 0) : acc;
                         }
                     }, 0);
-                }, 0);
+                }, 0) || 0;
 
                 s.weapons = c.weapons.reduce((acc, weapon) => acc + (weapon[s.title] || 0), 0);
                 s.equipment = c.equipment.reduce((acc, eq) => acc + +(eq[s.title] || 0), 0);
@@ -876,6 +876,8 @@ const characterReducer = (state = {}, action) => {
                 weapon.initiativeTotal = Math.ceil(weapon.initiative - (weapon.initiative / 100 * c.initiative.total));
                 return weapon;
             });
+
+            console.log(c.weapons);
 
             /*
             Setting the hitpoints of the character.

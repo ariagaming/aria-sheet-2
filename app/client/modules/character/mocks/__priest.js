@@ -51,7 +51,7 @@ export default {
             "type": "ranked",
             "baseRank": 0,
             "title": "Bane",
-            "description": "Weapons do +<%= rank %> DMG and +<%= rank * 2 %> DMG against deamons and undead. Duration 30 INI. 1 target and 2 targets per extra AP spend."
+            "description": "Weapons do +<%= rank %> DMG and an extra +<%= rank * 2 %> DMG against deamons and undead. Duration 60 INI. <%= rank %> targets with the caster always as a target."
         },
         {
             "rank": 0,
